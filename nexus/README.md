@@ -1,5 +1,4 @@
 # Nexus
-The Jenkins Continuous Integration and Delivery server available on [Docker Hub](https://hub.docker.com/r/jenkins/jenkins).
 
 ---
 
