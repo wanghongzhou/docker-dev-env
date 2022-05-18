@@ -1,0 +1,14 @@
+# https://hub.docker.com/r/jenkins/jenkins
+
+services:
+  jenkins:
+    image: ${JENKINS_IMAGE}
+    container_name: jenkins
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${JENKINS_HOME}/:/var/jenkins_home
+    ports:
+      - ${JENKINS_PORT_8080}:8080
+      - ${JENKINS_PORT_50000}:50000
