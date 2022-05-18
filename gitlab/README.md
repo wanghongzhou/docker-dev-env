@@ -33,7 +33,7 @@ $ sudo docker-compose down
 $ sudo docker-compose up -d
 ```
 
-5. Visit the GitLab URL, and log in with username root and the password from the following command:
+5. Visit the GitLab URL, and log in with username `root` and the password from the following command:
 ```shell 
 $ sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```

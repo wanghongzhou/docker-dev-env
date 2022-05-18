@@ -18,7 +18,7 @@ JENKINS_PORT_8080=8080   # Jenkins http port.
 JENKINS_PORT_50000=50000 # Jenkins agent port.
 ```
 
-3. Make sure you are in the same directory as docker-compose.yml and start GitLab:
+3. Make sure you are in the same directory as docker-compose.yml and start Jenkins:
 ```shell 
 $ sudo docker-compose up -d
 ```

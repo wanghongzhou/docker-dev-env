@@ -1,0 +1,14 @@
+# https://hub.docker.com/r/sonatype/nexus3
+
+services:
+  nexus:
+    image: ${NEXUS_IMAGE}
+    container_name: nexus
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - INSTALL4J_ADD_VM_PARAMS=${NEXUS_INSTALL4J_ADD_VM_PARAMS}
+    volumes:
+      - ${NEXUS_HOME}/:/nexus-data
+    ports:
+      - ${NEXUS_PORT_8081}:8081
