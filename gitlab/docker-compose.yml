@@ -1,0 +1,19 @@
+# https://hub.docker.com/r/gitlab/gitlab-ce
+
+services:
+  gitlab:
+    image: ${GITLAB_IMAGE}
+    container_name: gitlab
+    restart: always
+    hostname: ${GITLAB_HOSTNAME}
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${GITLAB_HOME}/config:/etc/gitlab
+      - ${GITLAB_HOME}/logs:/var/log/gitlab
+      - ${GITLAB_HOME}/data:/var/opt/gitlab
+    ports:
+      - ${GITLAB_PORT_80}:80
+      - ${GITLAB_PORT_22}:22
+      - ${GITLAB_PORT_443}:443
+    shm_size: ${GITLAB_SHM_SIZE}
