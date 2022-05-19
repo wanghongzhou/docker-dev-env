@@ -28,7 +28,7 @@ JENKINS_PORT_50000=50000 # Jenkins agent port.
 
 3. Make sure you are in the same directory as docker-compose.yml and start Jenkins:
 ```shell 
-$ sudo docker-compose up -d
+$ docker-compose up -d
 ```
 
 4. Visit the Jenkins URL, Please use the following password to proceed to installation:

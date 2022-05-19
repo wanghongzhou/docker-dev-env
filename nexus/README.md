@@ -26,7 +26,7 @@ NEXUS_INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m
 
 3. Make sure you are in the same directory as docker-compose.yml and start Nexus:
 ```shell 
-$ sudo docker-compose up -d
+$ docker-compose up -d
 ```
 
 4. Visit the Nexus URL,  and log in with username `admin` and the password from the following command:

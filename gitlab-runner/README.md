@@ -18,7 +18,7 @@ GITLAB_RUNNER_IMAGE=gitlab/gitlab-runner:v14.10.1
 
 3. Make sure you are in the same directory as docker-compose.yml and start GitLab:
 ```shell 
-$ sudo docker-compose up -d
+$ docker-compose up -d
 ```
 
 4. If something else goes wrong, for more detailed tutorial can be found on the [GitLab Runner Website](https://docs.gitlab.com/runner/install/docker.html)

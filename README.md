@@ -1,9 +1,13 @@
 # docker-dev-env
 Docker script for building the development environment.
 
-1. [Nexus installation](./nexus/README.md)
-2. [Gitlab installation](./gitlab/README.md)
-3. [Jenkins installation](./jenkins/README.md)
+1. [Redis installation](./redis/README.md)
+2. [MySQL installation](./mysql/README.md)
+3. [Nexus installation](./nexus/README.md)
+4. [Jenkins installation](./jenkins/README.md)
+5. [Gitlab installation](./gitlab/README.md)
+6. [Gitlab Runner installation](./gitlab-runner/README.md)
+
 ---
 
 ## Install docker in CentOS8

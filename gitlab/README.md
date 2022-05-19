@@ -30,7 +30,7 @@ GITLAB_SHM_SIZE=256m
 
 3. Make sure you are in the same directory as docker-compose.yml and start GitLab:
 ```shell 
-$ sudo docker-compose up -d
+$ docker-compose up -d
 ```
 
 4. Modify the `${GITLAB_HOME}/config/gitlab.rb` file according to your requirements.
@@ -41,13 +41,13 @@ gitlab_rails['gitlab_shell_ssh_port'] = 22
 ```
 
 5. Reboot gitlab container
-```shell
-$ sudo docker-compose restart
+```shell 
+$ docker-compose restart
 ```
 
 6. Visit the GitLab URL, and log in with username `root` and the password from the following command:
 ```shell 
-$ sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
+$ docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
 
 > ***The password file will be automatically deleted in the first reconfigure run after 24 hours.***
