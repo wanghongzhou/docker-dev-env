@@ -36,4 +36,4 @@ $ sudo docker-compose up -d
 $ cat /root/docker/jenkins/secrets/initialAdminPassword 
 ```
 
-5. A more detailed tutorial can be found on the [Jenkins](https://github.com/jenkinsci/docker)
+5. If something else goes wrong, for more detailed tutorial can be found on the [Jenkins](https://github.com/jenkinsci/docker)
