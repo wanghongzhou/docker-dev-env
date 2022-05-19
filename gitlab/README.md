@@ -1,11 +1,12 @@
 # Gitlab 
-Before you install GitLab, be sure to review the [system requirements](https://docs.gitlab.com/ee/install/requirements.html). 
-The system requirements include details about the **minimum hardware** to support GitLab.
+GitLab is a management platform for Git repositories that provides integrated features like continuous integration, issue tracking, team support, and wiki documentation.
 
 ---
 
 ## Install GitLab using Docker Compose
 - The GitLab Docker images are monolithic images of GitLab running all the necessary services in a single container.
+- Before you install GitLab, be sure to review the [system requirements](https://docs.gitlab.com/ee/install/requirements.html). 
+The system requirements include details about the **minimum hardware** to support GitLab.
 
 1. Before setting everything else, create a directory where the configuration, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.
 ```shell
@@ -35,10 +36,9 @@ gitlab_rails['gitlab_ssh_host'] = 'gitlab.example.com'
 gitlab_rails['gitlab_shell_ssh_port'] = 22
 ```
 
-5. Reboot gitlab
+5. Reboot gitlab container
 ```shell
-$ sudo docker-compose down
-$ sudo docker-compose up -d
+$ sudo docker-compose restart
 ```
 
 6. Visit the GitLab URL, and log in with username `root` and the password from the following command:
