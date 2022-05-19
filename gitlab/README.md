@@ -7,6 +7,9 @@ GitLab is a management platform for Git repositories that provides integrated fe
 - The GitLab Docker images are monolithic images of GitLab running all the necessary services in a single container.
 - Before you install GitLab, be sure to review the [system requirements](https://docs.gitlab.com/ee/install/requirements.html). 
 The system requirements include details about the **minimum hardware** to support GitLab.
+- Minimum hardware requirements:
+    - 4 GB of RAM
+    - 4 cores of CPU
 
 1. Before setting everything else, create a directory where the configuration, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.
 ```shell
