@@ -15,7 +15,7 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS1_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE1_PORT_6379}:6379
   redis-cluster-node-2:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-2
@@ -31,8 +31,7 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS2_PORT_6379}:6379
-      - 1${REDIS_CLUSTER_REDIS2_PORT_6379}:16379
+      - ${REDIS_CLUSTER_NODE2_PORT_6379}:6379
   redis-cluster-node-3:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-3
@@ -48,8 +47,7 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS3_PORT_6379}:6379
-      - 1${REDIS_CLUSTER_REDIS3_PORT_6379}:16379
+      - ${REDIS_CLUSTER_NODE3_PORT_6379}:6379
   redis-cluster-node-4:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-4
@@ -65,8 +63,7 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS4_PORT_6379}:6379
-      - 1${REDIS_CLUSTER_REDIS4_PORT_6379}:16379
+      - ${REDIS_CLUSTER_NODE4_PORT_6379}:6379
   redis-cluster-node-5:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-5
@@ -82,7 +79,7 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS5_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE5_PORT_6379}:6379
   redis-cluster-node-6:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-6
@@ -107,6 +104,6 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_REDIS6_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE6_PORT_6379}:6379
 networks:
   redis_cluster:
