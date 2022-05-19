@@ -1,0 +1,22 @@
+# https://hub.docker.com/r/bitnami/redis
+
+services:
+  redis:
+    image: ${REDIS_IMAGE}
+    container_name: redis
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+    volumes:
+      - ${REDIS_HOME}/data:/bitnami/redis/data
+      - ${REDIS_HOME}/certs:/opt/bitnami/redis/certs
+      - ${REDIS_HOME}/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis
+    ports:
+      - ${REDIS_PORT_6379}:6379
+networks:
+  redis:
+    driver: bridge

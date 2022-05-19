@@ -19,15 +19,13 @@ issue tracking, team support, and wiki documentation.
    that the directory exists and appropriate permission have been granted.
 
 ```shell 
-mkdir -p ~/docker/gitlab/{data,logs,config}
-$ mkdir 
+$ mkdir -vp ~/docker/gitlab/{data,logs,config}
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-GITLAB_HOME=/root/docker/gitlab  # Gitlab mount path, the GitLab container uses host mounted volumes to store persistent data.
-GITLAB_IMAGE=gitlab/gitlab-ce:14.10.2-ce.0
+GITLAB_HOME=~/docker/gitlab  # Gitlab mount path, the GitLab container uses host mounted volumes to store persistent data.
 GITLAB_HOSTNAME=gitlab.example.com  # Domain name or public IP address.
 GITLAB_PORT_22=22   # SSH port, port 22 cannot be used because it conflicts with the host.
 GITLAB_PORT_80=80   # Nginx http port.

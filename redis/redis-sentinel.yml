@@ -1,0 +1,138 @@
+# https://hub.docker.com/r/bitnami/redis-sentinel
+services:
+  redis-sentinel-master:
+    image: ${REDIS_IMAGE}
+    container_name: redis-sentinel-master
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_REPLICA_IP=${REDIS_SENTINEL_IP}
+      - REDIS_REPLICA_PORT=${REDIS_SENTINEL_MASTER_PORT_6379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/master/data:/bitnami/redis/data
+      - ${REDIS_SENTINEL_HOME}/master/certs:/opt/bitnami/redis/certs
+      - ${REDIS_SENTINEL_HOME}/master/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_MASTER_PORT_6379}:6379
+  redis-sentinel-slave-1:
+    image: ${REDIS_IMAGE}
+    container_name: redis-sentinel-slave-1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_REPLICA_IP=${REDIS_SENTINEL_IP}
+      - REDIS_REPLICA_PORT=${REDIS_SENTINEL_SLAVE1_PORT_6379}
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=${REDIS_SENTINEL_IP}
+      - REDIS_MASTER_PORT_NUMBER=${REDIS_SENTINEL_MASTER_PORT_6379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/slave-1/data:/bitnami/redis/data
+      - ${REDIS_SENTINEL_HOME}/slave-1/certs:/opt/bitnami/redis/certs
+      - ${REDIS_SENTINEL_HOME}/slave-1/conf:/opt/bitnami/redis/mounted-etc
+    depends_on:
+      - redis-sentinel-master
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_SLAVE1_PORT_6379}:6379
+  redis-sentinel-slave-2:
+    image: ${REDIS_IMAGE}
+    container_name: redis-sentinel-slave-2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_REPLICA_IP=${REDIS_SENTINEL_IP}
+      - REDIS_REPLICA_PORT=${REDIS_SENTINEL_SLAVE2_PORT_6379}
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=${REDIS_SENTINEL_IP}
+      - REDIS_MASTER_PORT_NUMBER=${REDIS_SENTINEL_MASTER_PORT_6379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/slave-2/data:/bitnami/redis/data
+      - ${REDIS_SENTINEL_HOME}/slave-2/certs:/opt/bitnami/redis/certs
+      - ${REDIS_SENTINEL_HOME}/slave-2/conf:/opt/bitnami/redis/mounted-etc
+    depends_on:
+      - redis-sentinel-master
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_SLAVE2_PORT_6379}:6379
+  redis-sentinel-sentinel-1:
+    image: ${REDIS_SENTINEL_IMAGE}
+    container_name: redis-sentinel-sentinel-1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=${REDIS_SENTINEL_IP}
+      - REDIS_MASTER_PORT_NUMBER=${REDIS_SENTINEL_MASTER_PORT_6379}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_SENTINEL_ANNOUNCE_IP=${REDIS_SENTINEL_IP}
+      - REDIS_SENTINEL_ANNOUNCE_PORT=${REDIS_SENTINEL_SENTINEL1_PORT_26379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/sentinel-1/conf:/bitnami/conf
+    depends_on:
+      - redis-sentinel-master
+      - redis-sentinel-slave-1
+      - redis-sentinel-slave-2
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_SENTINEL1_PORT_26379}:26379
+  redis-sentinel-sentinel-2:
+    image: ${REDIS_SENTINEL_IMAGE}
+    container_name: redis-sentinel-sentinel-2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=${REDIS_SENTINEL_IP}
+      - REDIS_MASTER_PORT_NUMBER=${REDIS_SENTINEL_MASTER_PORT_6379}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_SENTINEL_ANNOUNCE_IP=${REDIS_SENTINEL_IP}
+      - REDIS_SENTINEL_ANNOUNCE_PORT=${REDIS_SENTINEL_SENTINEL2_PORT_26379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/sentinel-2/conf:/bitnami/conf
+    depends_on:
+      - redis-sentinel-master
+      - redis-sentinel-slave-1
+      - redis-sentinel-slave-2
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_SENTINEL2_PORT_26379}:26379
+  redis-sentinel-sentinel-3:
+    image: ${REDIS_SENTINEL_IMAGE}
+    container_name: redis-sentinel-sentinel-3
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=${REDIS_SENTINEL_IP}
+      - REDIS_MASTER_PORT_NUMBER=${REDIS_SENTINEL_MASTER_PORT_6379}
+      - REDIS_SENTINEL_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_SENTINEL_ANNOUNCE_IP=${REDIS_SENTINEL_IP}
+      - REDIS_SENTINEL_ANNOUNCE_PORT=${REDIS_SENTINEL_SENTINEL3_PORT_26379}
+    volumes:
+      - ${REDIS_SENTINEL_HOME}/sentinel-3/conf:/bitnami/conf
+    depends_on:
+      - redis-sentinel-master
+      - redis-sentinel-slave-1
+      - redis-sentinel-slave-2
+    networks:
+      - redis_sentinel
+    ports:
+      - ${REDIS_SENTINEL_SENTINEL3_PORT_26379}:26379
+networks:
+  redis_sentinel:
+    driver: bridge

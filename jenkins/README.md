@@ -19,15 +19,14 @@ building, testing, and delivering or deploying software.
    appropriate permission have been granted.
 
 ```shell 
-$ mkdir ~/docker/jenkins
+$ mkdir -vp ~/docker/jenkins
 $ chown -R 1000:root ~/docker/jenkins
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-JENKINS_HOME=/root/docker/jenkins # Jenkins home path 
-JENKINS_IMAGE=jenkins/jenkins:lts-jdk11
+JENKINS_HOME=~/docker/jenkins # Jenkins home path 
 JENKINS_PORT_8080=8080   # Jenkins http port.
 JENKINS_PORT_50000=50000 # Jenkins agent port.
 ```
@@ -41,8 +40,8 @@ $ docker-compose up -d
 4. Visit the Jenkins URL, Please use the following password to proceed to installation:
 
 ```shell 
-$ cat /root/docker/jenkins/secrets/initialAdminPassword 
+$ cat ~/docker/jenkins/secrets/initialAdminPassword 
 ```
 
 5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Jenkins](https://github.com/jenkinsci/docker)
+   the [Jenkins Website](https://github.com/jenkinsci/docker)

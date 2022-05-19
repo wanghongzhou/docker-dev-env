@@ -19,15 +19,14 @@ location, making it easier to distribute software.
    appropriate permission have been granted.
 
 ```shell 
-$ mkdir ~/docker/nexus 
+$ mkdir -vp ~/docker/nexus 
 $ chown -R 200 ~/docker/nexus
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-NEXUS_HOME=/root/docker/nexus
-NEXUS_IMAGE=sonatype/nexus3:3.38.1
+NEXUS_HOME=~/docker/nexus
 NEXUS_PORT_8081=8081  # Nexus http port 
 NEXUS_INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m" # Jvm Options
 ```
@@ -41,7 +40,7 @@ $ docker-compose up -d
 4. Visit the Nexus URL, and log in with username `admin` and the password from the following command:
 
 ```shell 
-$ cat /root/docker/nexus/admin.password
+$ cat ~/docker/nexus/admin.password
 ```
 
 5. If something else goes wrong, for more detailed tutorial can be found on

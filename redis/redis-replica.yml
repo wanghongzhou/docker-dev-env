@@ -1,0 +1,44 @@
+# https://hub.docker.com/r/bitnami/redis
+
+services:
+  redis-replica-master:
+    image: ${REDIS_IMAGE}
+    container_name: redis-replica-master
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+      - REDIS_REPLICATION_MODE=master
+    volumes:
+      - ${REDIS_REPLICA_HOME}/master/data:/bitnami/redis/data
+      - ${REDIS_REPLICA_HOME}/master/certs:/opt/bitnami/redis/certs
+      - ${REDIS_REPLICA_HOME}/master/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_replica
+    ports:
+      - ${REDIS_REPLICA_MASTER_PORT_6379}:6379
+  redis-replica-slave:
+    image: ${REDIS_IMAGE}
+    container_name: redis-replica-slave
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${REDIS_ALLOW_EMPTY_PASSWORD}
+      - REDIS_REPLICATION_MODE=slave
+      - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_MASTER_HOST=redis-replica-master
+    volumes:
+      - ${REDIS_REPLICA_HOME}/slave/data:/bitnami/redis/data
+      - ${REDIS_REPLICA_HOME}/slave/certs:/opt/bitnami/redis/certs
+      - ${REDIS_REPLICA_HOME}/slave/conf:/opt/bitnami/redis/mounted-etc
+    depends_on:
+      - redis-replica-master
+    networks:
+      - redis_replica
+    ports:
+      - ${REDIS_REPLICA_SLAVE_PORT_6379}:6379
+networks:
+  redis_replica:
+    driver: bridge

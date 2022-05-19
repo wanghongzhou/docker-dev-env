@@ -10,17 +10,16 @@ GitLab Runner is an application that works with GitLab CI/CD to run jobs in a pi
    directory exists and appropriate permission have been granted.
 
 ```shell 
-$ mkdir ~/docker/gitlab-runner
+$ mkdir -vp ~/docker/gitlab-runner
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-GITLAB_RUNNER_HOME=/root/docker/gitlab-runner
-GITLAB_RUNNER_IMAGE=gitlab/gitlab-runner:v14.10.1
+GITLAB_RUNNER_HOME=~/docker/gitlab-runner
 ```
 
-3. Make sure you are in the same directory as docker-compose.yml and start GitLab:
+3. Make sure you are in the same directory as docker-compose.yml and start GitLab Runner:
 
 ```shell 
 $ docker-compose up -d

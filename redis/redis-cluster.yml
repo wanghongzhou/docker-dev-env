@@ -1,0 +1,112 @@
+# https://hub.docker.com/r/bitnami/redis-cluster
+services:
+  redis-cluster-node-1:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-1/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-1/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-1/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS1_PORT_6379}:6379
+  redis-cluster-node-2:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-2/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-2/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-2/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS2_PORT_6379}:6379
+      - 1${REDIS_CLUSTER_REDIS2_PORT_6379}:16379
+  redis-cluster-node-3:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-3
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-3/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-3/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-3/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS3_PORT_6379}:6379
+      - 1${REDIS_CLUSTER_REDIS3_PORT_6379}:16379
+  redis-cluster-node-4:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-4
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-4/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-4/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-4/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS4_PORT_6379}:6379
+      - 1${REDIS_CLUSTER_REDIS4_PORT_6379}:16379
+  redis-cluster-node-5:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-5
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-5/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-5/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-5/conf:/opt/bitnami/redis/mounted-etc
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS5_PORT_6379}:6379
+  redis-cluster-node-6:
+    image: ${REDIS_CLUSTER_IMAGE}
+    container_name: redis-cluster-node-6
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_REPLICAS=1
+    volumes:
+      - ${REDIS_CLUSTER_HOME}/node-6/data:/bitnami/redis/data
+      - ${REDIS_CLUSTER_HOME}/node-6/certs:/opt/bitnami/redis/certs
+      - ${REDIS_CLUSTER_HOME}/node-6/conf:/opt/bitnami/redis/mounted-etc
+    depends_on:
+      - redis-cluster-node-1
+      - redis-cluster-node-2
+      - redis-cluster-node-3
+      - redis-cluster-node-4
+      - redis-cluster-node-5
+    networks:
+      - redis_cluster
+    ports:
+      - ${REDIS_CLUSTER_REDIS6_PORT_6379}:6379
+networks:
+  redis_cluster:
