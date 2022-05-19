@@ -1,0 +1,97 @@
+# https://hub.docker.com/r/bitnami/mysql
+
+services:
+  mysql-replica-master:
+    image: ${MYSQL_IMAGE}
+    container_name: mysql-replica-master
+    restart: always
+    environment:
+      - BITNAMI_DEBUG=true
+      - TZ=Asia/Shanghai
+      - MYSQL_CHARACTER_SET
+      - MYSQL_COLLATE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_AUTHENTICATION_PLUGIN
+      - MYSQL_REPLICATION_MODE=master
+      - MYSQL_REPLICATION_USER=root
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_REPLICA_HOME}/master/data:/bitnami/mysql/data
+      - ${MYSQL_REPLICA_HOME}/master/initdb.d:/docker-entrypoint-initdb.d
+      - ${MYSQL_REPLICA_HOME}/master/conf/my_custom.cnf:/opt/bitnami/mysql/conf/my_custom.cnf:ro
+    networks:
+      - mysql_replica
+    ports:
+      - ${MYSQL_REPLICA_MASTER_PORT_3306}:3306
+  mysql-replica-slave-1:
+    image: ${MYSQL_IMAGE}
+    container_name: mysql-replica-slave-1
+    restart: always
+    environment:
+      - BITNAMI_DEBUG=true
+      - TZ=Asia/Shanghai
+      - MYSQL_CHARACTER_SET
+      - MYSQL_COLLATE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_AUTHENTICATION_PLUGIN
+      - MYSQL_REPLICATION_MODE=slave
+      - MYSQL_REPLICATION_USER=root
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_MASTER_HOST=mysql-replica-master
+      - MYSQL_MASTER_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_REPLICA_HOME}/slave-1/data:/bitnami/mysql/data
+      - ${MYSQL_REPLICA_HOME}/slave-1/conf/my_custom.cnf:/opt/bitnami/mysql/conf/my_custom.cnf:ro
+    networks:
+      - mysql_replica
+    ports:
+      - ${MYSQL_REPLICA_SLAVE1_PORT_3306}:3306
+  mysql-replica-slave-2:
+    image: ${MYSQL_IMAGE}
+    container_name: mysql-replica-slave-2
+    restart: always
+    environment:
+      - BITNAMI_DEBUG=true
+      - TZ=Asia/Shanghai
+      - MYSQL_CHARACTER_SET
+      - MYSQL_COLLATE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_AUTHENTICATION_PLUGIN
+      - MYSQL_REPLICATION_MODE=slave
+      - MYSQL_REPLICATION_USER=root
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_MASTER_HOST=mysql-replica-master
+      - MYSQL_MASTER_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_REPLICA_HOME}/slave-2/data:/bitnami/mysql/data
+      - ${MYSQL_REPLICA_HOME}/slave-2/conf/my_custom.cnf:/opt/bitnami/mysql/conf/my_custom.cnf:ro
+    networks:
+      - mysql_replica
+    ports:
+      - ${MYSQL_REPLICA_SLAVE2_PORT_3306}:3306
+  mysql-replica-slave-3:
+    image: ${MYSQL_IMAGE}
+    container_name: mysql-replica-slave-3
+    restart: always
+    environment:
+      - BITNAMI_DEBUG=true
+      - TZ=Asia/Shanghai
+      - MYSQL_CHARACTER_SET
+      - MYSQL_COLLATE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_AUTHENTICATION_PLUGIN
+      - MYSQL_REPLICATION_MODE=slave
+      - MYSQL_REPLICATION_USER=root
+      - MYSQL_REPLICATION_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_MASTER_HOST=mysql-replica-master
+      - MYSQL_MASTER_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_REPLICA_HOME}/slave-3/data:/bitnami/mysql/data
+      - ${MYSQL_REPLICA_HOME}/slave-3/conf/my_custom.cnf:/opt/bitnami/mysql/conf/my_custom.cnf:ro
+    networks:
+      - mysql_replica
+    ports:
+      - ${MYSQL_REPLICA_SLAVE3_PORT_3306}:3306
+networks:
+  mysql_replica:
+    driver: bridge

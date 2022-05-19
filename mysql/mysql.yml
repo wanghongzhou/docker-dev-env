@@ -1,0 +1,24 @@
+# https://hub.docker.com/r/bitnami/mysql
+
+services:
+  mysql:
+    image: ${MYSQL_IMAGE}
+    container_name: mysql
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_CHARACTER_SET
+      - MYSQL_COLLATE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_AUTHENTICATION_PLUGIN
+    volumes:
+      - ${MYSQL_HOME}/data:/bitnami/mysql/data
+      - ${MYSQL_HOME}/initdb.d:/docker-entrypoint-initdb.d
+      - ${MYSQL_HOME}/conf/my_custom.cnf:/opt/bitnami/mysql/conf/my_custom.cnf:ro
+    networks:
+      - mysql
+    ports:
+      - ${MYSQL_PORT_3306}:3306
+networks:
+  mysql:
+    driver: bridge
