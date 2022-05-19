@@ -27,7 +27,7 @@ $ chown -R 200 ~/docker/nexus
 
 ```properties 
 NEXUS_HOME=~/docker/nexus
-NEXUS_PORT_8081=8081  # Nexus http port 
+NEXUS_PORT_8081=8081        # Nexus http port 
 NEXUS_INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m" # Jvm Options
 ```
 

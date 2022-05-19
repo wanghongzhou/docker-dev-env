@@ -18,7 +18,7 @@ $ chown -R 1001:root ~/docker/redis
 
 ```properties 
 REDIS_PASSWORD=123456
-REDIS_ALLOW_EMPTY_PASSWORD=no # If a password is set, set it to no
+REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
 REDIS_HOME=~/docker/redis
 REDIS_PORT_6379=6379
 ```
@@ -46,7 +46,7 @@ $ chown -R 1001:root ~/docker/redis-replica
 
 ```properties 
 REDIS_PASSWORD=123456
-REDIS_ALLOW_EMPTY_PASSWORD=no # If a password is set, set it to no
+REDIS_ALLOW_EMPTY_PASSWORD=no       # If a password is set, set it to no
 REDIS_REPLICA_HOME=~/docker/redis-replica
 REDIS_REPLICA_MASTER_PORT_6379=6381
 REDIS_REPLICA_SLAVE_PORT_6379=6382
@@ -75,9 +75,9 @@ $ chown -R 1001:root ~/docker/redis-sentinel
 
 ```properties 
 REDIS_PASSWORD=123456
-REDIS_ALLOW_EMPTY_PASSWORD=no # If a password is set, set it to no
+REDIS_ALLOW_EMPTY_PASSWORD=no                   # If a password is set, set it to no
 REDIS_SENTINEL_HOME=~/docker/redis-sentinel
-REDIS_SENTINEL_IP=redis.example.com  # your host ip or domain name or public IP address
+REDIS_SENTINEL_IP=redis.example.com             # your host ip or domain name or public IP address
 REDIS_SENTINEL_MASTER_PORT_6379=7001
 REDIS_SENTINEL_SLAVE1_PORT_6379=7002
 REDIS_SENTINEL_SLAVE2_PORT_6379=7003
@@ -109,7 +109,7 @@ $ chown -R 1001:root ~/docker/redis-cluster
    your requirements.
 
 ```properties 
-REDIS_PASSWORD="123456"   # The password must be set in cluster mode
+REDIS_PASSWORD="123456"       # The password must be set in cluster mode
 REDIS_CLUSTER_HOME=~/docker/redis-cluster
 REDIS_CLUSTER_REDIS1_PORT_6379=6391
 REDIS_CLUSTER_REDIS2_PORT_6379=6392

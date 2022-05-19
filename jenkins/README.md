@@ -26,9 +26,9 @@ $ chown -R 1000:root ~/docker/jenkins
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-JENKINS_HOME=~/docker/jenkins # Jenkins home path 
-JENKINS_PORT_8080=8080   # Jenkins http port.
-JENKINS_PORT_50000=50000 # Jenkins agent port.
+JENKINS_HOME=~/docker/jenkins   # Jenkins home path 
+JENKINS_PORT_8080=8080          # Jenkins http port.
+JENKINS_PORT_50000=50000        # Jenkins agent port.
 ```
 
 3. Make sure you are in the same directory as docker-compose.yml and start Jenkins:
