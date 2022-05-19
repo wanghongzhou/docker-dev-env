@@ -13,7 +13,8 @@ The system requirements include details about the **minimum hardware** to suppor
 
 1. Before setting everything else, create a directory where the configuration, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.
 ```shell
-$ mkdir ~/docker/gitlab
+mkdir -p ~/docker/gitlab/{data,logs,config}
+$ mkdir 
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
