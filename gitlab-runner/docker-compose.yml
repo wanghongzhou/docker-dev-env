@@ -1,0 +1,12 @@
+# https://hub.docker.com/r/gitlab/gitlab-runner
+
+services:
+  gitlab-runner:
+    image: ${GITLAB_RUNNER_IMAGE}
+    container_name: gitlab-runner
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${GITLAB_RUNNER_HOME}/config:/etc/gitlab-runner
