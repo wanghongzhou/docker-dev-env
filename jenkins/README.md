@@ -1,16 +1,24 @@
 # Jenkins
-The Jenkins Continuous Integration and Delivery server available on [Docker Hub](https://hub.docker.com/r/jenkins/jenkins).
+Jenkins is a self-contained, open source automation server which can be used to automate all sorts of tasks related to building, testing, and delivering or deploying software.
 
 ---
 
 ## Install Jenkins using Docker Compose
-1. Create a directory for Jenkins home mount
+- Minimum hardware requirements:
+  - 256 MB of RAM
+  - 1 GB of drive space (although 10 GB is a recommended minimum if running Jenkins as a Docker container)
+
+- Recommended hardware configuration for a small team:
+  - 4 GB+ of RAM
+  - 50 GB+ of drive space
+
+1. Before setting everything else, create a directory for Jenkins home mount. Ensure that the directory exists and appropriate permission have been granted.
 ```shell
 $ mkdir ~/docker/jenkins
-$ chown 1000:root ~/docker/jenkins
+$ chown -R 1000:root ~/docker/jenkins
 ``` 
 
-2. Modify the `.env` file according to your requirements.
+2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 ```properties 
 JENKINS_HOME=/root/docker/jenkins # Jenkins home path 
 JENKINS_IMAGE=jenkins/jenkins:lts-jdk11
@@ -28,4 +36,4 @@ $ sudo docker-compose up -d
 $ cat /root/docker/jenkins/secrets/initialAdminPassword 
 ```
 
-5. A more detailed tutorial can be found on the [Jenkins](https://github.com/jenkinsci/docker/blob/master/README.md)
+5. A more detailed tutorial can be found on the [Jenkins](https://github.com/jenkinsci/docker)
