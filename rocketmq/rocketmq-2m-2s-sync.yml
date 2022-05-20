@@ -14,7 +14,7 @@ services:
     volumes:
       - ${ROCKETMQ_2M_2S_SYNC_HOME}/namesrv/logs:/home/rocketmq/logs
     networks:
-      - rocketmq_2m_0s
+      - rocketmq_2m_2s_sync
     ports:
       - ${ROCKETMQ_2M_2S_SYNC_NAMESRV_PORT_9876}:9876
   rocketmq-2m-2s-sync-broker1:
@@ -31,7 +31,7 @@ services:
     depends_on:
       - rocketmq-2m-2s-sync-namesrv
     networks:
-      - rocketmq_2m_0s
+      - rocketmq_2m_2s_sync
     ports:
       - ${ROCKETMQ_2M_2S_SYNC_BROKER1_PORT_10909}:10909
       - ${ROCKETMQ_2M_2S_SYNC_BROKER1_PORT_10911}:10911
@@ -50,7 +50,7 @@ services:
     depends_on:
       - rocketmq-2m-2s-sync-namesrv
     networks:
-      - rocketmq_2m_0s
+      - rocketmq_2m_2s_sync
     ports:
       - ${ROCKETMQ_2M_2S_SYNC_BROKER2_PORT_10909}:10909
       - ${ROCKETMQ_2M_2S_SYNC_BROKER2_PORT_10911}:10911
