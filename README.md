@@ -4,10 +4,12 @@ Docker script for building the development environment.
 
 1. [Redis installation](./redis/README.md)
 2. [MySQL installation](./mysql/README.md)
-3. [Nexus installation](./nexus/README.md)
-4. [Jenkins installation](./jenkins/README.md)
-5. [Gitlab installation](./gitlab/README.md)
-6. [Gitlab Runner installation](./gitlab-runner/README.md)
+3. [Nacos installation](./nacos/README.md)
+4. [RocketMQ installation](./rocketmq/README.md)
+5. [Nexus installation](./nexus/README.md)
+6. [Jenkins installation](./jenkins/README.md)
+7. [Gitlab installation](./gitlab/README.md)
+8. [Gitlab Runner installation](./gitlab-runner/README.md)
 
 ---
 

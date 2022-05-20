@@ -1,0 +1,57 @@
+# https://github.com/apache/rocketmq-docker
+# https://hub.docker.com/r/apache/rocketmq
+# https://hub.docker.com/r/apacherocketmq/rocketmq-dashboard
+
+services:
+  rocketmq-namesrv:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-namesrv
+    restart: always
+    command: sh mqnamesrv
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_HOME}/namesrv/logs:/home/rocketmq/logs
+    networks:
+      - rocketmq
+    ports:
+      - ${ROCKETMQ_NAMESRV_PORT_9876}:9876
+  rocketmq-broker:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-broker
+    restart: always
+    command: sh mqbroker -n rocketmq-namesrv:${9876} -c ../conf/broker.conf
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_HOME}/broker/logs:/home/rocketmq/logs
+      - ${ROCKETMQ_HOME}/broker/store:/home/rocketmq/store
+    depends_on:
+      - rocketmq-namesrv
+    networks:
+      - rocketmq
+    ports:
+      - ${ROCKETMQ_BROKER_PORT_10909}:10909
+      - ${ROCKETMQ_BROKER_PORT_10911}:10911
+      - ${ROCKETMQ_BROKER_PORT_10912}:10912
+  rocketmq-dashboard:
+    image: ${ROCKETMQ_DASHBOARD_IMAGE}
+    container_name: rocketmq-dashboard
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-namesrv:${9876} -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    volumes:
+      - ${ROCKETMQ_HOME}/dashboard/logs:/root/logs
+    depends_on:
+      - rocketmq-namesrv
+      - rocketmq-broker
+    networks:
+      - rocketmq
+    ports:
+      - ${ROCKETMQ_DASHBOARD_PORT_8080}:8080
+networks:
+  rocketmq:
+    driver: bridge

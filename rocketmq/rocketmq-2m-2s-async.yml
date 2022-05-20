@@ -1,0 +1,117 @@
+# https://github.com/apache/rocketmq-docker
+# https://hub.docker.com/r/apache/rocketmq
+# https://hub.docker.com/r/apacherocketmq/rocketmq-dashboard
+
+services:
+  rocketmq-2m-2s-async-namesrv:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-2m-2s-async-namesrv
+    restart: always
+    command: sh mqnamesrv
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/namesrv/logs:/home/rocketmq/logs
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_NAMESRV_PORT_9876}:9876
+  rocketmq-2m-2s-async-broker1:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-2m-2s-async-broker1
+    restart: always
+    command: sh mqbroker -n rocketmq-2m-2s-async-namesrv:9876 -c ../conf/2m-2s-async/broker-a.properties
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker1/logs:/home/rocketmq/logs
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker1/store:/home/rocketmq/store
+    depends_on:
+      - rocketmq-2m-2s-async-namesrv
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER1_PORT_10909}:10909
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER1_PORT_10911}:10911
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER1_PORT_10912}:10912
+  rocketmq-2m-2s-async-broker2:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-2m-2s-async-broker2
+    restart: always
+    command: sh mqbroker -n rocketmq-2m-2s-async-namesrv:9876 -c ../conf/2m-2s-async/broker-b.properties
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker2/logs:/home/rocketmq/logs
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker2/store:/home/rocketmq/store
+    depends_on:
+      - rocketmq-2m-2s-async-namesrv
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER2_PORT_10909}:10909
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER2_PORT_10911}:10911
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER2_PORT_10912}:10912
+  rocketmq-2m-2s-async-broker3:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-2m-2s-async-broker3
+    restart: always
+    command: sh mqbroker -n rocketmq-2m-2s-async-namesrv:9876 -c ../conf/2m-2s-async/broker-a-s.properties
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker3/logs:/home/rocketmq/logs
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker3/store:/home/rocketmq/store
+    depends_on:
+      - rocketmq-2m-2s-async-namesrv
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER3_PORT_10909}:10909
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER3_PORT_10911}:10911
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER3_PORT_10912}:10912
+  rocketmq-2m-2s-async-broker4:
+    image: ${ROCKETMQ_IMAGE}
+    container_name: rocketmq-2m-2s-async-broker4
+    restart: always
+    command: sh mqbroker -n rocketmq-2m-2s-async-namesrv:9876 -c ../conf/2m-2s-async/broker-b-s.properties
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPT_EXT=${ROCKETMQ_JAVA_OPT_EXT}
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker4/logs:/home/rocketmq/logs
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/broker4/store:/home/rocketmq/store
+    depends_on:
+      - rocketmq-2m-2s-async-namesrv
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER4_PORT_10909}:10909
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER4_PORT_10911}:10911
+      - ${ROCKETMQ_2M_2S_ASYNC_BROKER4_PORT_10912}:10912
+  rocketmq-2m-2s-async-dashboard:
+    image: ${ROCKETMQ_DASHBOARD_IMAGE}
+    container_name: rocketmq-2m-2s-async-dashboard
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-2m-2s-async-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    volumes:
+      - ${ROCKETMQ_2M_2S_ASYNC_HOME}/dashboard/logs:/root/logs
+    depends_on:
+      - rocketmq-2m-2s-async-namesrv
+      - rocketmq-2m-2s-async-broker1
+      - rocketmq-2m-2s-async-broker2
+      - rocketmq-2m-2s-async-broker3
+      - rocketmq-2m-2s-async-broker4
+    networks:
+      - rocketmq_2m_2s_async
+    ports:
+      - ${ROCKETMQ_2M_2S_ASYNC_DASHBOARD_PORT_8080}:8080
+networks:
+  rocketmq_2m_2s_async:
+    driver: bridge
