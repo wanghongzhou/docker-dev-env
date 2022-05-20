@@ -67,7 +67,6 @@ $ docker-compose -f nacos.yml up -d
 ```shell 
 $ mkdir -vp ~/docker/nacos-cluster/{node1/{logs,init.d},node2/{logs,init.d},node3/{logs,init.d}}
 $ touch ~/docker/nacos-cluster/{node1/init.d/custom.properties,node2/init.d/custom.properties,node3/init.d/custom.properties}
-$ chown -R 1001:root ~/docker/nacos-cluster
 ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
