@@ -1,0 +1,82 @@
+# https://hub.docker.com/r/bitnami/minio
+
+services:
+  minio-cluster-node1:
+    image: ${MINIO_IMAGE}
+    container_name: minio-cluster-node1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-cluster-node1,minio-cluster-node2,minio-cluster-node3,minio-cluster-node4
+    volumes:
+      - ${MINIO_CLUSTER_HOME}/node1/data:/data
+      - ${MINIO_CLUSTER_HOME}/node1/certs:/certs
+    networks:
+      - minio_cluster
+    ports:
+      - ${MINIO_CLUSTER_NODE1_PORT_9000}:9000
+      - ${MINIO_CLUSTER_NODE1_PORT_9001}:9001
+  minio-cluster-node2:
+    image: ${MINIO_IMAGE}
+    container_name: minio-cluster-node2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-cluster-node1,minio-cluster-node2,minio-cluster-node3,minio-cluster-node4
+    volumes:
+      - ${MINIO_CLUSTER_HOME}/node2/data:/data
+      - ${MINIO_CLUSTER_HOME}/node2/certs:/certs
+    networks:
+      - minio_cluster
+    ports:
+      - ${MINIO_CLUSTER_NODE2_PORT_9000}:9000
+      - ${MINIO_CLUSTER_NODE2_PORT_9001}:9001
+  minio-cluster-node3:
+    image: ${MINIO_IMAGE}
+    container_name: minio-cluster-node3
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-cluster-node1,minio-cluster-node2,minio-cluster-node3,minio-cluster-node4
+    volumes:
+      - ${MINIO_CLUSTER_HOME}/node3/data:/data
+      - ${MINIO_CLUSTER_HOME}/node3/certs:/certs
+    networks:
+      - minio_cluster
+    ports:
+      - ${MINIO_CLUSTER_NODE3_PORT_9000}:9000
+      - ${MINIO_CLUSTER_NODE3_PORT_9001}:9001
+  minio-cluster-node4:
+    image: ${MINIO_IMAGE}
+    container_name: minio-cluster-node4
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-cluster-node1,minio-cluster-node2,minio-cluster-node3,minio-cluster-node4
+    volumes:
+      - ${MINIO_CLUSTER_HOME}/node4/data:/data
+      - ${MINIO_CLUSTER_HOME}/node4/certs:/certs
+    networks:
+      - minio_cluster
+    ports:
+      - ${MINIO_CLUSTER_NODE4_PORT_9000}:9000
+      - ${MINIO_CLUSTER_NODE4_PORT_9001}:9001
+networks:
+  minio_cluster:
+    driver: bridge

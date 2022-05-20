@@ -37,7 +37,7 @@ MySQL is an open source SQL relational database management system that’s devel
    port=3306
    ```
 
-4. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
+3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
    # common

@@ -1,0 +1,22 @@
+# https://hub.docker.com/r/bitnami/minio
+
+services:
+  minio:
+    image: ${MINIO_IMAGE}
+    container_name: minio
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ${MINIO_HOME}/minio/data:/data
+      - ${MINIO_HOME}/minio/certs:/certs
+    networks:
+      - seata
+    ports:
+      - ${MINIO_PORT_9000}:9000
+      - ${MINIO_PORT_9001}:9001
+networks:
+  seata:
+    driver: bridge

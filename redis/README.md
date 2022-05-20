@@ -105,7 +105,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    $ docker-compose -f redis-sentinel.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
+4. If something else goes wrong, for more detailed tutorial can be found on
    the [Bitnami Redis Sentinel](https://hub.docker.com/r/bitnami/redis-sentinel)
 
 ## Install Redis cluster mode using Docker Compose
