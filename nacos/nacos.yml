@@ -1,0 +1,37 @@
+# https://hub.docker.com/r/nacos/nacos-server
+
+services:
+  nacos:
+    image: ${NACOS_IMAGE}
+    container_name: nacos
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MODE=standalone
+      - JVM_XMS=${NACOS_JVM_XMS}
+      - JVM_XMX=${NACOS_JVM_XMX}
+      - NACOS_AUTH_ENABLE=${NACOS_AUTH_ENABLE}
+      - PREFER_HOST_MODE=${NACOS_PREFER_HOST_MODE}
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=${NACOS_MYSQL_SERVICE_HOST}
+      - MYSQL_SERVICE_PORT=${NACOS_MYSQL_SERVICE_PORT}
+      - MYSQL_SERVICE_USER=${NACOS_MYSQL_SERVICE_USER}
+      - MYSQL_SERVICE_PASSWORD=${NACOS_MYSQL_SERVICE_PASSWORD}
+      - MYSQL_SERVICE_DB_NAME=${NACOS_MYSQL_SERVICE_DB_NAME}
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    volumes:
+      - ${NACOS_HOME}/logs:/home/nacos/logs
+      - ${NACOS_HOME}/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    networks:
+      - mysql
+      - nacos
+    ports:
+      - ${NACOS_PORT_8848}:8848
+      - ${NACOS_PORT_9848}:9848
+      - ${NACOS_PORT_9555}:9555
+networks:
+  nacos:
+    driver: bridge
+  mysql:
+    external:
+      name: ${NACOS_MYSQL_SERVICE_NETWORK}
