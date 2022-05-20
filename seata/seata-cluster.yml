@@ -1,0 +1,60 @@
+# https://hub.docker.com/r/seataio/seata-server
+
+services:
+  seata-cluster-node1:
+    image: ${SEATA_IMAGE}
+    container_name: seata-cluster-node1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SEATA_IP=${SEATA_CLUSTER_NODE1_HOST}
+      - SEATA_PORT=${SEATA_CLUSTER_NODE1_PORT_8091}
+    volumes:
+      - ${SEATA_CLUSTER_HOME}/node1/registry.conf:/seata-server/resources/registry.conf
+    networks:
+      - mysql
+      - nacos
+      - seata
+    ports:
+      - ${SEATA_CLUSTER_NODE1_PORT_8091}:8091
+  seata-cluster-node2:
+    image: ${SEATA_IMAGE}
+    container_name: seata-cluster-node2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SEATA_IP=${SEATA_CLUSTER_NODE2_HOST}
+      - SEATA_PORT=${SEATA_CLUSTER_NODE2_PORT_8091}
+    volumes:
+      - ${SEATA_CLUSTER_HOME}/node2/registry.conf:/seata-server/resources/registry.conf
+    networks:
+      - mysql
+      - nacos
+      - seata
+    ports:
+      - ${SEATA_CLUSTER_NODE2_PORT_8091}:8091
+  seata-cluster-node3:
+    image: ${SEATA_IMAGE}
+    container_name: seata-cluster-node3
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SEATA_IP=${SEATA_CLUSTER_NODE3_HOST}
+      - SEATA_PORT=${SEATA_CLUSTER_NODE3_PORT_8091}
+    volumes:
+      - ${SEATA_CLUSTER_HOME}/node3/registry.conf:/seata-server/resources/registry.conf
+    networks:
+      - mysql
+      - nacos
+      - seata
+    ports:
+      - ${SEATA_CLUSTER_NODE3_PORT_8091}:8091
+networks:
+  seata:
+    driver: bridge
+  nacos:
+    external:
+      name: ${SEATA_NACOS_SERVICE_NETWORK}
+  mysql:
+    external:
+      name: ${SEATA_MYSQL_SERVICE_NETWORK}

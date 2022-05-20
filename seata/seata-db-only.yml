@@ -1,0 +1,23 @@
+# https://hub.docker.com/r/seataio/seata-server
+
+services:
+  seata:
+    image: ${SEATA_IMAGE}
+    container_name: seata
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SEATA_PORT=${SEATA_DB_ONLY_PORT_8091}
+    volumes:
+      - ${SEATA_HOME}/file.conf:/seata-server/resources/file.conf
+    networks:
+      - mysql
+      - seata_db_only
+    ports:
+      - ${SEATA_DB_ONLY_PORT_8091}:8091
+networks:
+  seata_db_only:
+    driver: bridge
+  mysql:
+    external:
+      name: ${SEATA_MYSQL_SERVICE_NETWORK}
