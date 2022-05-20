@@ -39,12 +39,16 @@ port=3306
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-MYSQL_HOME=~/docker/mysql
-MYSQL_PORT_3306=3306
+# common
+MYSQL_IMAGE=bitnami/mysql:8.0.29
 MYSQL_CHARACTER_SET=utf8mb4
 MYSQL_COLLATE=utf8mb4_general_ci
 MYSQL_ROOT_PASSWORD=123456
 MYSQL_AUTHENTICATION_PLUGIN=mysql_native_password
+
+# mysql standalone mode
+MYSQL_HOME=~/docker/mysql
+MYSQL_PORT_3306=3306
 ```
 
 4. Make sure you are in the same directory as mysql.yml and start MySQL:
@@ -70,13 +74,15 @@ $ chown -R 1001:root ~/docker/mysql-replica
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-MYSQL_PORT_3306=3306
+# common
+MYSQL_IMAGE=bitnami/mysql:8.0.29
 MYSQL_CHARACTER_SET=utf8mb4
 MYSQL_COLLATE=utf8mb4_general_ci
 MYSQL_ROOT_PASSWORD=123456
 MYSQL_AUTHENTICATION_PLUGIN=mysql_native_password
 
-MYSQL_REPLICA_HOME=~/docker/mysql-cluster
+# mysql cluster mode
+MYSQL_REPLICA_HOME=~/docker/mysql-replica
 MYSQL_REPLICA_MASTER_PORT_3306=3307
 MYSQL_REPLICA_SLAVE1_PORT_3306=3308
 MYSQL_REPLICA_SLAVE2_PORT_3306=3309
