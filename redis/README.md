@@ -17,8 +17,12 @@ $ chown -R 1001:root ~/docker/redis
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+REDIS_IMAGE=bitnami/redis:6.2.7
 REDIS_PASSWORD=123456
 REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
+
+# Redis standalone mode
 REDIS_HOME=~/docker/redis
 REDIS_PORT_6379=6379
 ```
@@ -45,8 +49,12 @@ $ chown -R 1001:root ~/docker/redis-replica
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+REDIS_IMAGE=bitnami/redis:6.2.7
 REDIS_PASSWORD=123456
-REDIS_ALLOW_EMPTY_PASSWORD=no       # If a password is set, set it to no
+REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
+
+# Redis replica mode
 REDIS_REPLICA_HOME=~/docker/redis-replica
 REDIS_REPLICA_MASTER_PORT_6379=6381
 REDIS_REPLICA_SLAVE_PORT_6379=6382
@@ -74,8 +82,13 @@ $ chown -R 1001:root ~/docker/redis-sentinel
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+REDIS_IMAGE=bitnami/redis:6.2.7
 REDIS_PASSWORD=123456
-REDIS_ALLOW_EMPTY_PASSWORD=no                   # If a password is set, set it to no
+REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
+
+# redis sentinel mode
+REDIS_SENTINEL_IMAGE=bitnami/redis-sentinel:6.2.7
 REDIS_SENTINEL_HOME=~/docker/redis-sentinel
 REDIS_SENTINEL_IP=redis.example.com             # your host ip or domain name or public IP address
 REDIS_SENTINEL_MASTER_PORT_6379=7001
@@ -109,14 +122,20 @@ $ chown -R 1001:root ~/docker/redis-cluster
    your requirements.
 
 ```properties 
-REDIS_PASSWORD="123456"       # The password must be set in cluster mode
+# common
+REDIS_IMAGE=bitnami/redis:6.2.7
+REDIS_PASSWORD=123456            # The password must be set in cluster mode
+REDIS_ALLOW_EMPTY_PASSWORD=no    # The allow must be set to no in cluster mode
+
+# redis cluster mode
+REDIS_CLUSTER_IMAGE=bitnami/redis-cluster:6.2.7
 REDIS_CLUSTER_HOME=~/docker/redis-cluster
-REDIS_CLUSTER_REDIS1_PORT_6379=6391
-REDIS_CLUSTER_REDIS2_PORT_6379=6392
-REDIS_CLUSTER_REDIS3_PORT_6379=6393
-REDIS_CLUSTER_REDIS4_PORT_6379=6394
-REDIS_CLUSTER_REDIS5_PORT_6379=6395
-REDIS_CLUSTER_REDIS6_PORT_6379=6396
+REDIS_CLUSTER_NODE1_PORT_6379=6391
+REDIS_CLUSTER_NODE2_PORT_6379=6392
+REDIS_CLUSTER_NODE3_PORT_6379=6393
+REDIS_CLUSTER_NODE4_PORT_6379=6394
+REDIS_CLUSTER_NODE5_PORT_6379=6395
+REDIS_CLUSTER_NODE6_PORT_6379=6396
 ```
 
 3. Make sure you are in the same directory as redis.yml and start Redis:
