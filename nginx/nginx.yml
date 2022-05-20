@@ -1,0 +1,18 @@
+# https://hub.docker.com/r/bitnami/nginx
+
+services:
+  nginx:
+    image: ${NGINX_IMAGE}
+    container_name: nginx
+    restart: always
+    volumes:
+      - ${NGINX_HOME}/data:/app
+      - ${NGINX_HOME}/certs:/certs
+      - ${NGINX_HOME}/server_blocks:/opt/bitnami/nginx/conf/server_blocks
+    networks:
+      - nginx
+    ports:
+      - ${NGINX_PORT_8080}:8080
+networks:
+  nginx:
+    driver: bridge

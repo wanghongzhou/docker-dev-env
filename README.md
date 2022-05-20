@@ -7,11 +7,12 @@ Docker script for building the development environment.
 3. [Nacos installation](./nacos/README.md)
 4. [Seata installation](./seata/README.md)
 5. [Minio installation](./minio/README.md)
-6. [RocketMQ installation](./rocketmq/README.md)
-7. [Nexus installation](./nexus/README.md)
-8. [Jenkins installation](./jenkins/README.md)
-9. [Gitlab installation](./gitlab/README.md)
-10. [Gitlab Runner installation](./gitlab-runner/README.md)
+6. [Nginx installation](./nginx/README.md)
+7. [RocketMQ installation](./rocketmq/README.md)
+8. [Nexus installation](./nexus/README.md)
+9. [Jenkins installation](./jenkins/README.md)
+10. [Gitlab installation](./gitlab/README.md)
+11. [Gitlab Runner installation](./gitlab-runner/README.md)
 
 ---
 

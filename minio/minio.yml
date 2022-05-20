@@ -13,10 +13,10 @@ services:
       - ${MINIO_HOME}/minio/data:/data
       - ${MINIO_HOME}/minio/certs:/certs
     networks:
-      - seata
+      - minio
     ports:
       - ${MINIO_PORT_9000}:9000
       - ${MINIO_PORT_9001}:9001
 networks:
-  seata:
+  minio:
     driver: bridge
