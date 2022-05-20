@@ -18,6 +18,12 @@ $ chown -R 3000 ~/docker/rocketmq
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
+ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
+
+# RocketMQ Single Master mode
 ROCKETMQ_HOME=~/docker/rocketmq
 ROCKETMQ_NAMESRV_PORT_9876=9876
 ROCKETMQ_BROKER_PORT_10909=10909
@@ -48,14 +54,21 @@ $ chown -R 3000 ~/docker/rocketmq-2m-0s
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
-ROCKETMQ_2m_0s_HOME=~/docker/rocketmq-2m-0s
-ROCKETMQ_2m_0s_NAMESRV_PORT_9876=19876
-ROCKETMQ_2m_0s_BROKER1_PORT_10909=21909
-ROCKETMQ_2m_0s_BROKER1_PORT_10911=21911
-ROCKETMQ_2m_0s_BROKER1_PORT_10912=21912
-ROCKETMQ_2m_0s_BROKER2_PORT_10909=22909
-ROCKETMQ_2m_0s_BROKER2_PORT_10911=22911
-ROCKETMQ_2m_0s_BROKER2_PORT_10912=22912
+# common
+ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
+ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
+
+# RocketMQ Multi Master mode
+ROCKETMQ_2M_0S_HOME=~/docker/rocketmq-2m-0s
+ROCKETMQ_2M_0S_NAMESRV_PORT_9876=19876
+ROCKETMQ_2M_0S_BROKER1_PORT_10909=21909
+ROCKETMQ_2M_0S_BROKER1_PORT_10911=21911
+ROCKETMQ_2M_0S_BROKER1_PORT_10912=21912
+ROCKETMQ_2M_0S_BROKER2_PORT_10909=22909
+ROCKETMQ_2M_0S_BROKER2_PORT_10911=22911
+ROCKETMQ_2M_0S_BROKER2_PORT_10912=22912
+ROCKETMQ_2M_0S_DASHBOARD_PORT_8080=8080
 ```
 
 3. Make sure you are in the same directory as rocketmq-2m-noslave.yml and start RocketMQ:
@@ -80,6 +93,12 @@ $ chown -R 3000 ~/docker/rocketmq-2m-2s-sync
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
+ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
+
+# RocketMQ Multi Master Multi Slave mode - sync replication
 ROCKETMQ_2M_2S_SYNC_HOME=~/docker/rocketmq-2m-2s-sync
 ROCKETMQ_2M_2S_SYNC_NAMESRV_PORT_9876=19876
 ROCKETMQ_2M_2S_SYNC_BROKER1_PORT_10909=31909
@@ -119,6 +138,12 @@ $ chown -R 3000 ~/docker/rocketmq-2m-2s-async
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
 ```properties 
+# common
+ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
+ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
+
+# RocketMQ Multi Master Multi Slave mode - async replication
 ROCKETMQ_2M_2S_ASYNC_HOME=~/docker/rocketmq-2m-2s-async
 ROCKETMQ_2M_2S_ASYNC_NAMESRV_PORT_9876=39876
 ROCKETMQ_2M_2S_ASYNC_BROKER1_PORT_10909=41909
