@@ -1,0 +1,22 @@
+# https://hub.docker.com/r/bitnami/solr
+
+services:
+  solr:
+    image: ${SOLR_IMAGE}
+    container_name: solr
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - SOLR_OPTS
+      - SOLR_ADMIN_USERNAME
+      - SOLR_ADMIN_PASSWORD
+      - SOLR_ENABLE_AUTHENTICATION
+    volumes:
+      - ${SOLR_HOME}/:/bitnami/solr
+    networks:
+      - solr
+    ports:
+      - ${SOLR_PORT_8983}:8983
+networks:
+  solr:
+    driver: bridge
