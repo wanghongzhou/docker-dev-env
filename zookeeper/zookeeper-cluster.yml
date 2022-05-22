@@ -1,0 +1,78 @@
+# https://hub.docker.com/r/bitnami/zookeeper
+
+services:
+  zookeeper-cluster-node1:
+    image: ${ZOO_IMAGE}
+    container_name: zookeeper-cluster-node1
+    restart: always
+    environment:
+      - ZOO_HEAP_SIZE
+      - ZOO_ENABLE_AUTH
+      - ZOO_ENABLE_ADMIN_SERVER
+      - ZOO_SERVER_USERS
+      - ZOO_SERVER_PASSWORDS
+      - ZOO_CLIENT_USER
+      - ZOO_CLIENT_PASSWORD
+      - ALLOW_ANONYMOUS_LOGIN=${ZOO_ALLOW_ANONYMOUS_LOGIN}
+      - ZOO_SERVER_ID=1
+      - ZOO_SERVERS=0.0.0.0:2888:3888::1,zookeeper-cluster-node2:2888:3888::2,zookeeper-cluster-node3:2888:3888::3
+    volumes:
+      - ${ZOO_CLUSTER_HOME}/node1:/bitnami/zookeeper
+    networks:
+      - zookeeper_cluster
+    ports:
+      - '2888'
+      - '3888'
+      - ${ZOO_CLUSTER_NODE1_2181}:2181
+      - ${ZOO_CLUSTER_NODE1_8080}:8080
+  zookeeper-cluster-node2:
+    image: ${ZOO_IMAGE}
+    container_name: zookeeper-cluster-node2
+    restart: always
+    environment:
+      - ZOO_HEAP_SIZE
+      - ZOO_ENABLE_AUTH
+      - ZOO_ENABLE_ADMIN_SERVER
+      - ZOO_SERVER_USERS
+      - ZOO_SERVER_PASSWORDS
+      - ZOO_CLIENT_USER
+      - ZOO_CLIENT_PASSWORD
+      - ALLOW_ANONYMOUS_LOGIN=${ZOO_ALLOW_ANONYMOUS_LOGIN}
+      - ZOO_SERVER_ID=2
+      - ZOO_SERVERS=zookeeper-cluster-node1:2888:3888::1,0.0.0.0:2888:3888::2,zookeeper-cluster-node3:2888:3888::3
+    volumes:
+      - ${ZOO_CLUSTER_HOME}/node2:/bitnami/zookeeper
+    networks:
+      - zookeeper_cluster
+    ports:
+      - '2888'
+      - '3888'
+      - ${ZOO_CLUSTER_NODE2_2181}:2181
+      - ${ZOO_CLUSTER_NODE2_8080}:8080
+  zookeeper-cluster-node3:
+    image: ${ZOO_IMAGE}
+    container_name: zookeeper-cluster-node3
+    restart: always
+    environment:
+      - ZOO_HEAP_SIZE
+      - ZOO_ENABLE_AUTH
+      - ZOO_ENABLE_ADMIN_SERVER
+      - ZOO_SERVER_USERS
+      - ZOO_SERVER_PASSWORDS
+      - ZOO_CLIENT_USER
+      - ZOO_CLIENT_PASSWORD
+      - ALLOW_ANONYMOUS_LOGIN=${ZOO_ALLOW_ANONYMOUS_LOGIN}
+      - ZOO_SERVER_ID=3
+      - ZOO_SERVERS=zookeeper-cluster-node1:2888:3888::1,zookeeper-cluster-node2:2888:3888::2,0.0.0.0:2888:3888::3
+    volumes:
+      - ${ZOO_CLUSTER_HOME}/node3:/bitnami/zookeeper
+    networks:
+      - zookeeper_cluster
+    ports:
+      - '2888'
+      - '3888'
+      - ${ZOO_CLUSTER_NODE3_2181}:2181
+      - ${ZOO_CLUSTER_NODE3_8080}:8080
+networks:
+  zookeeper_cluster:
+    driver: bridge

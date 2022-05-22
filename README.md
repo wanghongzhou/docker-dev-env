@@ -2,17 +2,24 @@
 
 Docker script for building the development environment.
 
-1. [Redis installation](./redis/README.md)
-2. [MySQL installation](./mysql/README.md)
-3. [Nacos installation](./nacos/README.md)
-4. [Seata installation](./seata/README.md)
-5. [Minio installation](./minio/README.md)
-6. [Nginx installation](./nginx/README.md)
-7. [RocketMQ installation](./rocketmq/README.md)
-8. [Nexus installation](./nexus/README.md)
-9. [Jenkins installation](./jenkins/README.md)
-10. [Gitlab installation](./gitlab/README.md)
-11. [Gitlab Runner installation](./gitlab-runner/README.md)
+1. [Solr installation](./solr/README.md)
+2. [Redis installation](./redis/README.md)
+3. [MySQL installation](./mysql/README.md)
+4. [Nacos installation](./nacos/README.md)
+5. [Canal installation](./canal/README.md)
+6. [Seata installation](./seata/README.md)
+7. [Minio installation](./minio/README.md)
+8. [Nginx installation](./nginx/README.md)
+9. [RocketMQ installation](./rocketmq/README.md)
+10. [RabbitMQ installation](./rabbitmq/README.md)
+11. [Zookeeper installation](./zookeeper/README.md)
+12. [Kibana installation](./kibana/README.md)
+13. [Logstash installation](./logstash/README.md)
+14. [Elasticsearch installation](./elasticsearch/README.md)
+15. [Nexus installation](./nexus/README.md)
+16. [Jenkins installation](./jenkins/README.md)
+17. [Gitlab installation](./gitlab/README.md)
+18. [Gitlab Runner installation](./gitlab-runner/README.md)
 
 ---
 

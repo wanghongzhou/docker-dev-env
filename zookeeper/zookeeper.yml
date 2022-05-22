@@ -1,0 +1,26 @@
+# https://hub.docker.com/r/bitnami/zookeeper
+
+services:
+  zookeeper:
+    image: ${ZOO_IMAGE}
+    container_name: zookeeper
+    restart: always
+    environment:
+      - ZOO_HEAP_SIZE
+      - ZOO_ENABLE_AUTH
+      - ZOO_ENABLE_ADMIN_SERVER
+      - ZOO_SERVER_USERS
+      - ZOO_SERVER_PASSWORDS
+      - ZOO_CLIENT_USER
+      - ZOO_CLIENT_PASSWORD
+      - ALLOW_ANONYMOUS_LOGIN=${ZOO_ALLOW_ANONYMOUS_LOGIN}
+    volumes:
+      - ${ZOO_HOME}:/bitnami/zookeeper
+    networks:
+      - zookeeper
+    ports:
+      - ${ZOO_PORT_2181}:2181
+      - ${ZOO_PORT_8080}:8080
+networks:
+  zookeeper:
+    driver: bridge
