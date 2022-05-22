@@ -6,7 +6,9 @@ services:
     container_name: zookeeper-cluster-node1
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE
+      - ZOO_4LW_COMMANDS_WHITELIST
       - ZOO_ENABLE_AUTH
       - ZOO_ENABLE_ADMIN_SERVER
       - ZOO_SERVER_USERS
@@ -30,7 +32,9 @@ services:
     container_name: zookeeper-cluster-node2
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE
+      - ZOO_4LW_COMMANDS_WHITELIST
       - ZOO_ENABLE_AUTH
       - ZOO_ENABLE_ADMIN_SERVER
       - ZOO_SERVER_USERS
@@ -54,7 +58,9 @@ services:
     container_name: zookeeper-cluster-node3
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE
+      - ZOO_4LW_COMMANDS_WHITELIST
       - ZOO_ENABLE_AUTH
       - ZOO_ENABLE_ADMIN_SERVER
       - ZOO_SERVER_USERS

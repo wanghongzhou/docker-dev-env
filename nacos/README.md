@@ -35,8 +35,8 @@ management.
     NACOS_JVM_XMX=512m
     NACOS_AUTH_ENABLE=false
     NACOS_PREFER_HOST_MODE=hostname
-    NACOS_MYSQL_SERVICE_NETWORK=dev_mysql
-    NACOS_MYSQL_SERVICE_HOST=mysql
+    NACOS_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
+    NACOS_MYSQL_SERVICE_HOST=mysql          # In MySQL replica mode, mysql-replica-master
     NACOS_MYSQL_SERVICE_PORT=3306
     NACOS_MYSQL_SERVICE_USER=root
     NACOS_MYSQL_SERVICE_PASSWORD=123456
@@ -78,8 +78,8 @@ management.
     NACOS_JVM_XMX=512m
     NACOS_AUTH_ENABLE=false
     NACOS_PREFER_HOST_MODE=hostname
-    NACOS_MYSQL_SERVICE_NETWORK=dev_mysql
-    NACOS_MYSQL_SERVICE_HOST=mysql
+    NACOS_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
+    NACOS_MYSQL_SERVICE_HOST=mysql          # In MySQL replica mode, mysql-replica-master
     NACOS_MYSQL_SERVICE_PORT=3306
     NACOS_MYSQL_SERVICE_USER=root
     NACOS_MYSQL_SERVICE_PASSWORD=123456

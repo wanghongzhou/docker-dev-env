@@ -57,18 +57,19 @@ features of many of the world's largest internet sites.
 
    ```properties
    # common
-   SOLR_IMAGE=bitnami/solr:8.0.29
-   SOLR_CHARACTER_SET=utf8mb4
-   SOLR_COLLATE=utf8mb4_general_ci
-   SOLR_ROOT_PASSWORD=123456
-   SOLR_AUTHENTICATION_PLUGIN=solr_native_password
+   SOLR_IMAGE=bitnami/solr:9.0.0
+   SOLR_OPTS=-Xms512m -Xmx512m -XX:+AggressiveOpts -XX:G1HeapRegionSize=8m
+   SOLR_ENABLE_AUTHENTICATION=yes
+   SOLR_ADMIN_USERNAME=admin
+   SOLR_ADMIN_PASSWORD=admin
    
    # solr cluster mode
-   SOLR_REPLICA_HOME=~/docker/solr-replica
-   SOLR_REPLICA_MASTER_PORT_3306=3307
-   SOLR_REPLICA_SLAVE1_PORT_3306=3308
-   SOLR_REPLICA_SLAVE2_PORT_3306=3309
-   SOLR_REPLICA_SLAVE3_PORT_3306=3310
+   SOLR_CLUSTER_HOME=~/docker/solr-cluster
+   SOLR_CLUSTER_NODE1_PORT_8983=18983
+   SOLR_CLUSTER_NODE2_PORT_8983=28983
+   SOLR_CLUSTER_NODE3_PORT_8983=38983
+   SOLR_CLUSTER_ZOO_SERVICE_NETWORK=dev_zookeeper   # In Zookeeper cluster mode, set it to dev_zookeeper_cluster
+   SOLR_CLUSTER_ZOO_SERVICE_HOSTS=zookeeper:2181    # In Zookeeper cluster mode, set it to zookeeper-cluster-node1:2181,zookeeper-cluster-node2:2181,zookeeper-cluster-node3:2181
    ```
 
 3. Make sure you are in the same directory as solr-replica.yml and start Solr:
