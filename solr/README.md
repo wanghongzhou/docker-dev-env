@@ -41,9 +41,8 @@ features of many of the world's largest internet sites.
 
 ## Install Solr cluster mode using Docker Compose
 
-- **Before installing Solr cluster, you must [install the Zookeeper](../zookeeper/README.md).**
-- **You have to make sure that the attributes `ZOO_ALLOW_ANONYMOUS_LOGIN=yes`
-  and `ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok`**
+- **Before installing Solr cluster, you must [install the Zookeeper](../zookeeper/README.md), you have to make sure that
+  the attributes `ZOO_ALLOW_ANONYMOUS_LOGIN=yes` and `ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok`**
 
 1. Before setting everything else, create a directory for Solr home mount. Ensure that the directory exists and
    appropriate permission have been granted.
@@ -72,10 +71,10 @@ features of many of the world's largest internet sites.
    SOLR_CLUSTER_ZOO_SERVICE_HOSTS=zookeeper:2181    # In Zookeeper cluster mode, set it to zookeeper-cluster-node1:2181,zookeeper-cluster-node2:2181,zookeeper-cluster-node3:2181
    ```
 
-3. Make sure you are in the same directory as solr-replica.yml and start Solr:
+3. Make sure you are in the same directory as solr-cluster.yml and start Solr:
 
    ```shell
-   $ docker-compose -f solr-replica.yml up -d
+   $ docker-compose -f solr-cluster.yml up -d
    ```
 
 4. If something else goes wrong, for more detailed tutorial can be found on
