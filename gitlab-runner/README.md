@@ -24,6 +24,12 @@ GitLab Runner is an application that works with GitLab CI/CD to run jobs in a pi
    ```shell
    $ docker-compose up -d
    ```
+4. The final step is to register a new runner. The GitLab Runner container doesn’t pick up any jobs until it’s
+   registered
 
-4. If something else goes wrong, for more detailed tutorial can be found on
+   ```shell
+   $ docker exec -it gitlab-runner gitlab-runner register   
+   ```
+
+5. If something else goes wrong, for more detailed tutorial can be found on
    the [GitLab Runner Website](https://docs.gitlab.com/runner/install/docker.html)
