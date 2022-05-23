@@ -6,9 +6,10 @@ management.
 
 ---
 
-- ## Prerequisite
-    - **Before installing Nacos, you must [install the MySQL](../mysql/README.md).**
-    - **You must create a database and import the [Nacos SQL script](https://github.com/alibaba/nacos/releases).**
+## Prerequisite
+
+- **Before installing Nacos, you must [install the MySQL](../mysql).**
+- **You must create a database and import the [Nacos SQL script](https://github.com/alibaba/nacos/releases).**
 
 ## Install Nacos standalone mode using Docker Compose
 
@@ -98,8 +99,8 @@ management.
     NACOS_CLUSTER_NODE3_PORT_9555=39555
     ```
 
-3. Make sure you are in the same directory as nacos-cluster.yml and start Nacos, Visit the Nacos URL `http://host:8848/nacos`,
-   and log in with username `nacos` and the password `nacos`:
+3. Make sure you are in the same directory as nacos-cluster.yml and start Nacos, Visit the Nacos
+   URL `http://host:8848/nacos`, and log in with username `nacos` and the password `nacos`:
 
     ```shell
     $ docker-compose -f nacos-cluster.yml up -d
