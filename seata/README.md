@@ -38,9 +38,10 @@ one-stop distributed solution for users.
 
 ### No registry and db store mode
 
-- **Before installing Seata, you must [install the MySQL](../mysql/README.md).**
-- **You must create a database and import
-  the [Seata SQL script](https://github.com/seata/seata/tree/develop/script/server/db).**
+- #### Prerequisite
+    - **Before installing Seata, you must [install the MySQL](../mysql).**
+    - **You must create a database and import
+      the [Seata SQL script](https://github.com/seata/seata/tree/develop/script/server/db).**
 
 1. Write the following configuration to the `~/docker/seata/file.conf` file and modify it as required:
 
@@ -98,7 +99,8 @@ one-stop distributed solution for users.
 
 ### Using the Registry and db store mode
 
-- **Before installing Seata, you must [install the Nacos](../nacos/README.md) and make sure it is started.**
+- #### Prerequisite
+    - **Before installing Seata, you must [install the Nacos](../nacos/README.md) and make sure it is started.**
 
 1. Log in to your Nacos and add the following configuration, the Data ID is `seataServer.properties`, See here
    for [more configurations](https://github.com/seata/seata/blob/develop/script/config-center/config.txt):
@@ -184,7 +186,8 @@ one-stop distributed solution for users.
 
 ## Install Seata cluster mode using Docker Compose
 
-- This cluster model is based on Nacos and mysql, please know how to [Using the Registry and db store mode](#jump1)
+- #### Prerequisite
+    - This cluster model is based on Nacos and mysql, please know how to [Using the Registry and db store mode](#jump1)
 
 1. Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and
    appropriate permission have been granted.
@@ -194,7 +197,8 @@ one-stop distributed solution for users.
    $ touch ~/docker/seata-cluster/{node1/registry.conf,node2/registry.conf,node3/registry.conf}
    ```
 2. **Write the configuration to
-   the ` ~/docker/seata-cluster/{node1/registry.conf,node2/registry.conf,node3/registry.conf}` file， See [Using the Registry and db store mode](#jump1)**
+   the ` ~/docker/seata-cluster/{node1/registry.conf,node2/registry.conf,node3/registry.conf}` file，
+   See [Using the Registry and db store mode](#jump1)**
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties 

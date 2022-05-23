@@ -7,8 +7,8 @@ default-time-zone = '+8:00'
 max_connections=2048
 skip-host-cache
 skip-name-resolve
-log-bin=mysql-binlog
-binlog_format = mixed
+log-bin=mysql-bin
+binlog_format=mixed
 
 [mysql]
 default-character-set=utf8mb4
