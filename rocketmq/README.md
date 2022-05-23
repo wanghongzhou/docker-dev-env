@@ -38,7 +38,14 @@ trillion-level capacity and flexible scalability.
    $ docker-compose -f rocketmq.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
+4. Configure the broker IP address. By default, the network adapter address is read, namesrv publishes the container
+   address. Of course, you can skip this step if your program is also in the same container network.
+
+   ```shell
+   $ docker exec -it rocketmq-broker sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   ```
+   
+5. If something else goes wrong, for more detailed tutorial can be found on
    the [RocketMQ](https://rocketmq.apache.org/)
 
 ## Install RocketMQ Multi Master mode using Docker Compose
@@ -77,7 +84,15 @@ trillion-level capacity and flexible scalability.
    $ docker-compose -f rocketmq-2m-noslave.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
+4. Configure the broker IP address. By default, the network adapter address is read, namesrv publishes the container
+   address. Of course, you can skip this step if your program is also in the same container network.
+
+   ```shell
+   $ docker exec -it rocketmq-2m-0s-broker1 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-0s-broker2 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   ```
+
+5. If something else goes wrong, for more detailed tutorial can be found on
    the [RocketMQ](https://rocketmq.apache.org/)
 
 ## Install RocketMQ Multi Master Multi Slave mode using Docker Compose - sync replication
@@ -122,7 +137,17 @@ trillion-level capacity and flexible scalability.
    $ docker-compose -f rocketmq-2m-2s-sync.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
+4. Configure the broker IP address. By default, the network adapter address is read, namesrv publishes the container
+   address. Of course, you can skip this step if your program is also in the same container network.
+
+   ```shell
+   $ docker exec -it rocketmq-2m-2s-sync-broker1 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-sync-broker2 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-sync-broker3 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-sync-broker4 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   ```
+   
+5. If something else goes wrong, for more detailed tutorial can be found on
    the [RocketMQ](https://rocketmq.apache.org/)
 
 ## Install RocketMQ Multi Master Multi Slave mode using Docker Compose - async replication
@@ -167,5 +192,15 @@ trillion-level capacity and flexible scalability.
    $ docker-compose -f rocketmq-2m-2s-async.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
+4. Configure the broker IP address. By default, the network adapter address is read, namesrv publishes the container
+   address. Of course, you can skip this step if your program is also in the same container network.
+
+   ```shell
+   $ docker exec -it rocketmq-2m-2s-async-broker1 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-async-broker2 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-async-broker3 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   $ docker exec -it rocketmq-2m-2s-async-broker4 sed -i '$abrokerIP1=your ip' ../conf/broker.conf
+   ```
+   
+5. If something else goes wrong, for more detailed tutorial can be found on
    the [RocketMQ](https://rocketmq.apache.org/)
