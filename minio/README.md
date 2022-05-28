@@ -20,7 +20,7 @@ container images with (currently) the maximum supported object size of 5TB.
 
    ```properties
    # common
-   MINIO_IMAGE=bitnami/minio:2022.5.8
+   MINIO_IMAGE=bitnami/minio:2022
    MINIO_ROOT_USER=minio
    MINIO_ROOT_PASSWORD=minio123   # The password must be at least eight characters long
 
@@ -53,7 +53,7 @@ container images with (currently) the maximum supported object size of 5TB.
 
    ```properties
    # common
-   MINIO_IMAGE=bitnami/minio:2022.5.8
+   MINIO_IMAGE=bitnami/minio:2022
    MINIO_ROOT_USER=minio
    MINIO_ROOT_PASSWORD=minio123
    

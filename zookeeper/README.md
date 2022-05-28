@@ -19,7 +19,7 @@ synchronization, and providing group services.
 
    ```properties
    # common
-   ZOO_IMAGE=bitnami/zookeeper:3.8.0
+   ZOO_IMAGE=bitnami/zookeeper:3.8
    ZOO_HEAP_SIZE=256
    ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok
    ZOO_ALLOW_ANONYMOUS_LOGIN=yes        # Set to yes, the user Settings are invalid
@@ -59,7 +59,7 @@ synchronization, and providing group services.
 
    ```properties
    # common
-   ZOO_IMAGE=bitnami/zookeeper:3.8.0
+   ZOO_IMAGE=bitnami/zookeeper:3.8
    ZOO_HEAP_SIZE=256
    ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok
    ZOO_ALLOW_ANONYMOUS_LOGIN=yes        # Set to yes, the user Settings are invalid

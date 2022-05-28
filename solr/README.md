@@ -19,7 +19,7 @@ features of many of the world's largest internet sites.
 
    ```properties
    # common
-   SOLR_IMAGE=bitnami/solr:9.0.0
+   SOLR_IMAGE=bitnami/solr:9
    SOLR_OPTS=-Xms512m -Xmx512m -XX:+AggressiveOpts -XX:G1HeapRegionSize=8m
    SOLR_ENABLE_AUTHENTICATION=yes
    SOLR_ADMIN_USERNAME=admin
@@ -57,7 +57,7 @@ features of many of the world's largest internet sites.
 
    ```properties
    # common
-   SOLR_IMAGE=bitnami/solr:9.0.0
+   SOLR_IMAGE=bitnami/solr:9
    SOLR_OPTS=-Xms512m -Xmx512m -XX:+AggressiveOpts -XX:G1HeapRegionSize=8m
    SOLR_ENABLE_AUTHENTICATION=yes
    SOLR_ADMIN_USERNAME=admin

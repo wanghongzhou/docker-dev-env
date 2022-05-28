@@ -18,7 +18,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2.7
+   REDIS_IMAGE=bitnami/redis:6.2
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
@@ -50,7 +50,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2.7
+   REDIS_IMAGE=bitnami/redis:6.2
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
@@ -83,12 +83,12 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2.7
+   REDIS_IMAGE=bitnami/redis:6.2
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
    # redis sentinel mode
-   REDIS_SENTINEL_IMAGE=bitnami/redis-sentinel:6.2.7
+   REDIS_SENTINEL_IMAGE=bitnami/redis-sentinel:6.2
    REDIS_SENTINEL_HOME=~/docker/redis-sentinel
    REDIS_SENTINEL_IP=redis.example.com             # your host ip or domain name or public IP address
    REDIS_SENTINEL_MASTER_PORT_6379=7001
@@ -123,12 +123,12 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2.7
+   REDIS_IMAGE=bitnami/redis:6.2
    REDIS_PASSWORD=123456            # The password must be set in cluster mode
    REDIS_ALLOW_EMPTY_PASSWORD=no    # The allow must be set to no in cluster mode
    
    # redis cluster mode
-   REDIS_CLUSTER_IMAGE=bitnami/redis-cluster:6.2.7
+   REDIS_CLUSTER_IMAGE=bitnami/redis-cluster:6.2
    REDIS_CLUSTER_HOME=~/docker/redis-cluster
    REDIS_CLUSTER_NODE1_PORT_6379=6391
    REDIS_CLUSTER_NODE2_PORT_6379=6392

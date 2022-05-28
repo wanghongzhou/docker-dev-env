@@ -1,0 +1,28 @@
+# https://hub.docker.com/r/canal/canal-admin
+
+services:
+  canal-admin:
+    image: ${CANAL_ADMIN_IMAGE}
+    container_name: canal-admin
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - canal.adminUser=${CANAL_ADMIN_CANAL_ADMINUSER}
+      - canal.adminPasswd=${CANAL_ADMIN_CANAL_ADMINPASSWD}
+      - spring.datasource.address=${CANAL_ADMIN_DATASOURCE_ADDRESS}
+      - spring.datasource.database=${CANAL_ADMIN_DATASOURCE_DATABASE}
+      - spring.datasource.username=${CANAL_ADMIN_DATASOURCE_USERNAME}
+      - spring.datasource.password=${CANAL_ADMIN_DATASOURCE_PASSWORD}
+    volumes:
+      - ${CANAL_ADMIN_HOME}/logs:/home/admin/canal-admin/logs
+    networks:
+      - mysql
+      - canal_admin
+    ports:
+      - ${CANAL_ADMIN_PORT_8089}:8089
+networks:
+  canal_admin:
+    driver: bridge
+  mysql:
+    external:
+      name: ${CANAL_ADMIN_MYSQL_SERVICE_NETWORK}

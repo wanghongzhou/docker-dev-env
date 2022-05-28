@@ -1,0 +1,27 @@
+# https://hub.docker.com/r/canal/canal-server
+
+services:
+  canal:
+    image: ${CANAL_IMAGE}
+    container_name: canal
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - canal.register.ip=${CANAL_REGISTER_IP}
+      - canal.port=${CANAL_PORT_11111}
+      - canal.metrics.pull.port=${CANAL_PORT_11112}
+      - canal.admin.port=${CANAL_PORT_11110}
+      - canal.admin.manager=${CANAL_ADMIN_MANAGER}
+      - canal.admin.user=${CANAL_ADMIN_USER}
+      - canal.admin.passwd=${CANAL_ADMIN_PASSWD}
+    volumes:
+      - ${CANAL_HOME}/logs:/home/admin/canal-server/logs
+    networks:
+      - canal
+    ports:
+      - ${CANAL_PORT_11110}:${CANAL_PORT_11110}
+      - ${CANAL_PORT_11111}:${CANAL_PORT_11111}
+      - ${CANAL_PORT_11112}:${CANAL_PORT_11112}
+networks:
+  canal:
+    driver: bridge

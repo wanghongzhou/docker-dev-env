@@ -22,7 +22,7 @@ one-stop distributed solution for users.
 
     ```properties 
     # common
-    SEATA_IMAGE=seataio/seata-server:1.4.2
+    SEATA_IMAGE=seataio/seata-server:1.5.1
     
     # Seata standalone mode
     SEATA_HOME=~/docker/seata
@@ -79,7 +79,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.4.2
+   SEATA_IMAGE=seataio/seata-server:1.5.1
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
        
    # Seata standalone mode
@@ -166,7 +166,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.4.2
+   SEATA_IMAGE=seataio/seata-server:1.5.1
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
    SEATA_NACOS_SERVICE_NETWORK=dev_nacos   # In Nacos cluster mode, set it to dev_nacos_cluster
        
@@ -203,7 +203,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.4.2
+   SEATA_IMAGE=seataio/seata-server:1.5.1
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
    SEATA_NACOS_SERVICE_NETWORK=dev_nacos   # The network for Nacos network
 

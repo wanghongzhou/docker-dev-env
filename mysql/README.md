@@ -27,7 +27,7 @@ MySQL is an open source SQL relational database management system that’s devel
    max_connections=2048
    skip-host-cache
    skip-name-resolve
-   log-bin=mysql-binlog
+   log-bin=mysql-bin
    binlog_format = mixed
    
    [mysql]
@@ -41,7 +41,7 @@ MySQL is an open source SQL relational database management system that’s devel
 
    ```properties
    # common
-   MYSQL_IMAGE=bitnami/mysql:8.0.29
+   MYSQL_IMAGE=bitnami/mysql:8.0
    MYSQL_CHARACTER_SET=utf8mb4
    MYSQL_COLLATE=utf8mb4_general_ci
    MYSQL_ROOT_PASSWORD=123456
@@ -76,7 +76,7 @@ MySQL is an open source SQL relational database management system that’s devel
 
    ```properties
    # common
-   MYSQL_IMAGE=bitnami/mysql:8.0.29
+   MYSQL_IMAGE=bitnami/mysql:8.0
    MYSQL_CHARACTER_SET=utf8mb4
    MYSQL_COLLATE=utf8mb4_general_ci
    MYSQL_ROOT_PASSWORD=123456
