@@ -6,7 +6,6 @@ services:
     container_name: mysql-replica-master
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
       - MYSQL_COLLATE
@@ -28,7 +27,6 @@ services:
     container_name: mysql-replica-slave-1
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
       - MYSQL_COLLATE
@@ -51,7 +49,6 @@ services:
     container_name: mysql-replica-slave-2
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
       - MYSQL_COLLATE
@@ -74,7 +71,6 @@ services:
     container_name: mysql-replica-slave-3
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
       - MYSQL_COLLATE

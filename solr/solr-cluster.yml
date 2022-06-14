@@ -6,7 +6,6 @@ services:
     container_name: solr-cluster-node1
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - SOLR_OPTS
       - SOLR_ADMIN_USERNAME
@@ -28,7 +27,6 @@ services:
     container_name: solr-cluster-node2
     restart: always
     environment:
-      - BITNAMI_DEBUG=true
       - TZ=Asia/Shanghai
       - SOLR_OPTS
       - SOLR_ADMIN_USERNAME

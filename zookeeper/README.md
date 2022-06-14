@@ -21,7 +21,7 @@ synchronization, and providing group services.
    # common
    ZOO_IMAGE=bitnami/zookeeper:3.8
    ZOO_HEAP_SIZE=256
-   ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok
+   ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf, ruok
    ZOO_ALLOW_ANONYMOUS_LOGIN=yes        # Set to yes, the user Settings are invalid
    ZOO_ENABLE_AUTH=false                # Set to false, ZOO_ALLOW_ANONYMOUS_LOGIN must is yes
    ZOO_ENABLE_ADMIN_SERVER=true         # Whether to start the admin server, http://ip:8080/commands
@@ -61,7 +61,7 @@ synchronization, and providing group services.
    # common
    ZOO_IMAGE=bitnami/zookeeper:3.8
    ZOO_HEAP_SIZE=256
-   ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok
+   ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf, ruok
    ZOO_ALLOW_ANONYMOUS_LOGIN=yes        # Set to yes, the user Settings are invalid
    ZOO_ENABLE_AUTH=false                # Set to false, ZOO_ALLOW_ANONYMOUS_LOGIN must is yes
    ZOO_ENABLE_ADMIN_SERVER=true         # Whether to start the admin server, http://ip:8080/commands

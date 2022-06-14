@@ -18,7 +18,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2
+   REDIS_IMAGE=bitnami/redis:7.0
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
@@ -50,7 +50,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2
+   REDIS_IMAGE=bitnami/redis:7.0
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
@@ -83,7 +83,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2
+   REDIS_IMAGE=bitnami/redis:7.0
    REDIS_PASSWORD=123456
    REDIS_ALLOW_EMPTY_PASSWORD=no    # If a password is set, set it to no
    
@@ -123,7 +123,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
    ```properties
    # common
-   REDIS_IMAGE=bitnami/redis:6.2
+   REDIS_IMAGE=bitnami/redis:7.0
    REDIS_PASSWORD=123456            # The password must be set in cluster mode
    REDIS_ALLOW_EMPTY_PASSWORD=no    # The allow must be set to no in cluster mode
    
