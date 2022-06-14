@@ -65,8 +65,11 @@ features of many of the world's largest internet sites.
    
    # solr cluster mode
    SOLR_CLUSTER_HOME=~/docker/solr-cluster
+   SOLR_CLUSTER_NODE1_HOST=solr-cluster-node1
    SOLR_CLUSTER_NODE1_PORT_8983=18983
+   SOLR_CLUSTER_NODE2_HOST=solr-cluster-node2
    SOLR_CLUSTER_NODE2_PORT_8983=28983
+   SOLR_CLUSTER_NODE3_HOST=solr-cluster-node3
    SOLR_CLUSTER_NODE3_PORT_8983=38983
    SOLR_CLUSTER_ZOO_SERVICE_NETWORK=dev_zookeeper   # In Zookeeper cluster mode, set it to dev_zookeeper_cluster
    SOLR_CLUSTER_ZOO_SERVICE_HOSTS=zookeeper:2181    # In Zookeeper cluster mode, set it to zookeeper-cluster-node1:2181,zookeeper-cluster-node2:2181,zookeeper-cluster-node3:2181

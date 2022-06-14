@@ -19,7 +19,7 @@ services:
       - MYSQL_SERVICE_USER=${NACOS_MYSQL_SERVICE_USER}
       - MYSQL_SERVICE_PASSWORD=${NACOS_MYSQL_SERVICE_PASSWORD}
       - MYSQL_SERVICE_DB_NAME=${NACOS_MYSQL_SERVICE_DB_NAME}
-      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node1/logs:/home/nacos/logs
       - ${NACOS_CLUSTER_HOME}/node1/init.d/custom.properties:/home/nacos/init.d/custom.properties
@@ -48,7 +48,7 @@ services:
       - MYSQL_SERVICE_USER=${NACOS_MYSQL_SERVICE_USER}
       - MYSQL_SERVICE_PASSWORD=${NACOS_MYSQL_SERVICE_PASSWORD}
       - MYSQL_SERVICE_DB_NAME=${NACOS_MYSQL_SERVICE_DB_NAME}
-      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node2/logs:/home/nacos/logs
       - ${NACOS_CLUSTER_HOME}/node2/init.d/custom.properties:/home/nacos/init.d/custom.properties
@@ -77,7 +77,7 @@ services:
       - MYSQL_SERVICE_USER=${NACOS_MYSQL_SERVICE_USER}
       - MYSQL_SERVICE_PASSWORD=${NACOS_MYSQL_SERVICE_PASSWORD}
       - MYSQL_SERVICE_DB_NAME=${NACOS_MYSQL_SERVICE_DB_NAME}
-      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node3/logs:/home/nacos/logs
       - ${NACOS_CLUSTER_HOME}/node3/init.d/custom.properties:/home/nacos/init.d/custom.properties

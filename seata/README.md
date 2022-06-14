@@ -175,7 +175,7 @@ one-stop distributed solution for users.
      
    # Seata standalone mode (Using the Registry and db store mode)
    SEATA_PORT_8091=8091
-   SEATA_HOST=example.seat.com
+   SEATA_HOST=seata
    ```
 
 4. Make sure you are in the same directory as seata.yml and start Seata:
@@ -210,11 +210,11 @@ one-stop distributed solution for users.
    # Seata cluster mode (Using the Registry and db store mode)
    SEATA_CLUSTER_HOME=~/docker/seata-cluster
    SEATA_CLUSTER_NODE1_PORT_8091=18091
-   SEATA_CLUSTER_NODE1_HOST=example.seat.com
+   SEATA_CLUSTER_NODE1_HOST=seata-cluster-node1
    SEATA_CLUSTER_NODE2_PORT_8091=28091
-   SEATA_CLUSTER_NODE2_HOST=example.seat.com
+   SEATA_CLUSTER_NODE2_HOST=seata-cluster-node2
    SEATA_CLUSTER_NODE3_PORT_8091=38091
-   SEATA_CLUSTER_NODE3_HOST=example.seat.com
+   SEATA_CLUSTER_NODE3_HOST=seata-cluster-node3
    ```
 
 4. Make sure you are in the same directory as seata-cluster.yml and start Seata:

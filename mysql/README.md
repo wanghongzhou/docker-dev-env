@@ -23,12 +23,12 @@ MySQL is an open source SQL relational database management system that’s devel
    collation-server=utf8mb4_general_ci
    default-storage-engine=INNODB
    sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
-   default-time-zone = '+8:00'
+   default-time-zone='+8:00'
    max_connections=2048
    skip-host-cache
    skip-name-resolve
    log-bin=mysql-bin
-   binlog_format = mixed
+   binlog_format=mixed
    
    [mysql]
    default-character-set=utf8mb4

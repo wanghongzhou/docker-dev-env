@@ -18,7 +18,7 @@ services:
       - MYSQL_SERVICE_USER=${NACOS_MYSQL_SERVICE_USER}
       - MYSQL_SERVICE_PASSWORD=${NACOS_MYSQL_SERVICE_PASSWORD}
       - MYSQL_SERVICE_DB_NAME=${NACOS_MYSQL_SERVICE_DB_NAME}
-      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_HOME}/logs:/home/nacos/logs
       - ${NACOS_HOME}/init.d/custom.properties:/home/nacos/init.d/custom.properties
