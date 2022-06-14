@@ -158,48 +158,48 @@ one-stop distributed solution for users.
 2. Write the following configuration to the `~/docker/seata/application.yml` file and modify it as required:
 
    ```yaml  
-    server:
-      port: 7091
+   server:
+     port: 7091
 
-    spring:
-      application:
-        name: seata-server
+   spring:
+     application:
+       name: seata-server
 
-    logging:
-      config: classpath:logback-spring.xml
-      file:
-        path: ${user.home}/logs/seata
+   logging:
+     config: classpath:logback-spring.xml
+     file:
+       path: ${user.home}/logs/seata
    
-    console:
-      user:
-        username: seata
-        password: seata
+   console:
+     user:
+       username: seata
+       password: seata
    
-    seata:
-      config:
-        type: nacos
-        nacos:
-          server-addr: nacos:8848
-          namespace:
-          group: SEATA_GROUP
-          username: nacos
-          password: nacos
-          data-id: seataServer.properties
-      registry:
-        type: nacos
-        nacos:
-          application: seata-server
-          server-addr: nacos:8848
-          group: SEATA_GROUP
-          namespace:
-          cluster: default
-          username: nacos
-          password: nacos
-      security:
-        secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
-        tokenValidityInMilliseconds: 1800000
-        ignore:
-          urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
+   seata:
+     config:
+       type: nacos
+       nacos:
+         server-addr: nacos:8848
+         namespace:
+         group: SEATA_GROUP
+         username: nacos
+         password: nacos
+         data-id: seataServer.properties
+     registry:
+       type: nacos
+       nacos:
+         application: seata-server
+         server-addr: nacos:8848
+         group: SEATA_GROUP
+         namespace:
+         cluster: default
+         username: nacos
+         password: nacos
+     security:
+       secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+       tokenValidityInMilliseconds: 1800000
+       ignore:
+         urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
    ```
 
 3. Modify the following attributes of the `.env` file:

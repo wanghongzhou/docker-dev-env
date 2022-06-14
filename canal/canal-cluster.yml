@@ -19,7 +19,9 @@ services:
     volumes:
       - ${CANAL_CLUSTER_HOME}/node1/logs:/home/admin/canal-server/logs
     networks:
-      - canal-cluster
+      - zookeeper
+      - canal_admin
+      - canal_cluster
     ports:
       - ${CANAL_CLUSTER_NODE1_PORT_11110}:${CANAL_CLUSTER_NODE1_PORT_11110}
       - ${CANAL_CLUSTER_NODE1_PORT_11111}:${CANAL_CLUSTER_NODE1_PORT_11111}
@@ -42,7 +44,9 @@ services:
     volumes:
       - ${CANAL_CLUSTER_HOME}/node2/logs:/home/admin/canal-server/logs
     networks:
-      - canal-cluster
+      - zookeeper
+      - canal_admin
+      - canal_cluster
     ports:
       - ${CANAL_CLUSTER_NODE2_PORT_11110}:${CANAL_CLUSTER_NODE2_PORT_11110}
       - ${CANAL_CLUSTER_NODE2_PORT_11111}:${CANAL_CLUSTER_NODE2_PORT_11111}
@@ -65,11 +69,19 @@ services:
     volumes:
       - ${CANAL_CLUSTER_HOME}/node3/logs:/home/admin/canal-server/logs
     networks:
-      - canal-cluster
+      - zookeeper
+      - canal_admin
+      - canal_cluster
     ports:
       - ${CANAL_CLUSTER_NODE3_PORT_11110}:${CANAL_CLUSTER_NODE3_PORT_11110}
       - ${CANAL_CLUSTER_NODE3_PORT_11111}:${CANAL_CLUSTER_NODE3_PORT_11111}
       - ${CANAL_CLUSTER_NODE3_PORT_11112}:${CANAL_CLUSTER_NODE3_PORT_11112}
 networks:
-  canal-cluster:
+  canal_cluster:
     driver: bridge
+  canal_admin:
+    external:
+      name: ${CANAL_ADMIN_SERVICE_NETWORK}
+  zookeeper:
+    external:
+      name: ${CANAL_CLUSTER_ZKSERVERS_NETWORK}

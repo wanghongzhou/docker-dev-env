@@ -15,7 +15,7 @@ services:
     networks:
       - mysql
       - nacos
-      - seata-cluster
+      - seata_cluster
     ports:
       - ${SEATA_CLUSTER_NODE1_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE1_PORT_8091}:${SEATA_CLUSTER_NODE1_PORT_8091}
@@ -33,7 +33,7 @@ services:
     networks:
       - mysql
       - nacos
-      - seata-cluster
+      - seata_cluster
     ports:
       - ${SEATA_CLUSTER_NODE2_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE2_PORT_8091}:${SEATA_CLUSTER_NODE2_PORT_8091}
@@ -51,12 +51,12 @@ services:
     networks:
       - mysql
       - nacos
-      - seata-cluster
+      - seata_cluster
     ports:
       - ${SEATA_CLUSTER_NODE3_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE3_PORT_8091}:${SEATA_CLUSTER_NODE3_PORT_8091}
 networks:
-  seata-cluster:
+  seata_cluster:
     driver: bridge
   nacos:
     external:
