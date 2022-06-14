@@ -13,7 +13,7 @@ services:
       - SOLR_ENABLE_AUTHENTICATION
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_NUMBER_OF_NODES=1
-      - SOLR_HOST=solr-cluster-node1
+      - SOLR_HOST=${SOLR_CLUSTER_NODE1_HOST}
       - SOLR_ZK_HOSTS=${SOLR_CLUSTER_ZOO_SERVICE_HOSTS}
     volumes:
       - ${SOLR_CLUSTER_HOME}/node1:/bitnami/solr
@@ -34,7 +34,7 @@ services:
       - SOLR_ENABLE_AUTHENTICATION
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_NUMBER_OF_NODES=2
-      - SOLR_HOST=solr-cluster-node2
+      - SOLR_HOST=${SOLR_CLUSTER_NODE2_HOST}
       - SOLR_ZK_HOSTS=${SOLR_CLUSTER_ZOO_SERVICE_HOSTS}
     volumes:
       - ${SOLR_CLUSTER_HOME}/node2:/bitnami/solr
@@ -56,7 +56,7 @@ services:
       - SOLR_ENABLE_AUTHENTICATION
       - SOLR_ENABLE_CLOUD_MODE=yes
       - SOLR_NUMBER_OF_NODES=3
-      - SOLR_HOST=solr-cluster-node3
+      - SOLR_HOST=${SOLR_CLUSTER_NODE3_HOST}
       - SOLR_ZK_HOSTS=${SOLR_CLUSTER_ZOO_SERVICE_HOSTS}
       - SOLR_CLOUD_BOOTSTRAP=yes
     volumes:
