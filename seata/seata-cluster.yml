@@ -10,13 +10,15 @@ services:
       - SEATA_IP=${SEATA_CLUSTER_NODE1_HOST}
       - SEATA_PORT=${SEATA_CLUSTER_NODE1_PORT_8091}
     volumes:
-      - ${SEATA_CLUSTER_HOME}/node1/registry.conf:/seata-server/resources/registry.conf
+      - ${SEATA_CLUSTER_HOME}/node1/logs:/root/logs
+      - ${SEATA_CLUSTER_HOME}/node1/application.yml:/seata-server/resources/application.yml
     networks:
       - mysql
       - nacos
-      - seata
+      - seata-cluster
     ports:
-      - ${SEATA_CLUSTER_NODE1_PORT_8091}:8091
+      - ${SEATA_CLUSTER_NODE1_PORT_7091}:7091
+      - ${SEATA_CLUSTER_NODE1_PORT_8091}:${SEATA_CLUSTER_NODE1_PORT_8091}
   seata-cluster-node2:
     image: ${SEATA_IMAGE}
     container_name: seata-cluster-node2
@@ -26,13 +28,15 @@ services:
       - SEATA_IP=${SEATA_CLUSTER_NODE2_HOST}
       - SEATA_PORT=${SEATA_CLUSTER_NODE2_PORT_8091}
     volumes:
-      - ${SEATA_CLUSTER_HOME}/node2/registry.conf:/seata-server/resources/registry.conf
+      - ${SEATA_CLUSTER_HOME}/node2/logs:/root/logs
+      - ${SEATA_CLUSTER_HOME}/node2/application.yml:/seata-server/resources/application.yml
     networks:
       - mysql
       - nacos
-      - seata
+      - seata-cluster
     ports:
-      - ${SEATA_CLUSTER_NODE2_PORT_8091}:8091
+      - ${SEATA_CLUSTER_NODE2_PORT_7091}:7091
+      - ${SEATA_CLUSTER_NODE2_PORT_8091}:${SEATA_CLUSTER_NODE2_PORT_8091}
   seata-cluster-node3:
     image: ${SEATA_IMAGE}
     container_name: seata-cluster-node3
@@ -42,15 +46,17 @@ services:
       - SEATA_IP=${SEATA_CLUSTER_NODE3_HOST}
       - SEATA_PORT=${SEATA_CLUSTER_NODE3_PORT_8091}
     volumes:
-      - ${SEATA_CLUSTER_HOME}/node3/registry.conf:/seata-server/resources/registry.conf
+      - ${SEATA_CLUSTER_HOME}/node3/logs:/root/logs
+      - ${SEATA_CLUSTER_HOME}/node3/application.yml:/seata-server/resources/application.yml
     networks:
       - mysql
       - nacos
-      - seata
+      - seata-cluster
     ports:
-      - ${SEATA_CLUSTER_NODE3_PORT_8091}:8091
+      - ${SEATA_CLUSTER_NODE3_PORT_7091}:7091
+      - ${SEATA_CLUSTER_NODE3_PORT_8091}:${SEATA_CLUSTER_NODE3_PORT_8091}
 networks:
-  seata:
+  seata-cluster:
     driver: bridge
   nacos:
     external:

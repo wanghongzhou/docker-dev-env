@@ -50,7 +50,6 @@ services:
     container_name: solr-cluster-node3
     restart: always
     environment:
-      - BITNAMI_DEBUG
       - TZ=Asia/Shanghai
       - SOLR_OPTS
       - SOLR_ADMIN_USERNAME

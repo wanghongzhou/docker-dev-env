@@ -7,10 +7,12 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
-      - SEATA_PORT=${SEATA_DEFAULT_PORT_8091}
+    volumes:
+      - ${SEATA_HOME}/logs:/root/logs
     networks:
       - seata_default
     ports:
+      - ${SEATA_DEFAULT_PORT_7091}:7091
       - ${SEATA_DEFAULT_PORT_8091}:8091
 networks:
   seata_default:

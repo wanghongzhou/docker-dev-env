@@ -12,8 +12,8 @@ one-stop distributed solution for users.
   appropriate permission have been granted.
 
     ```shell
-    $ mkdir -vp ~/docker/seata/
-    $ touch ~/docker/seata/{file.conf,registry.conf}
+    $ mkdir -vp ~/docker/seata/logs
+    $ touch ~/docker/seata/application.yml
     ```
 
 ### No registry and file store mode
@@ -28,6 +28,7 @@ one-stop distributed solution for users.
     SEATA_HOME=~/docker/seata
     
     # Seata standalone mode (No registry and file store)
+    SEATA_DEFAULT_PORT_7091=7091
     SEATA_DEFAULT_PORT_8091=8091
     ```
 2. Make sure you are in the same directory as seata-default.yml and start Seata:
@@ -40,39 +41,63 @@ one-stop distributed solution for users.
 
 - #### Prerequisite
     - **Before installing Seata, you must [install the MySQL](../mysql).**
-    - **You must create a database and import
-      the [Seata SQL script](https://github.com/seata/seata/tree/develop/script/server/db).**
+    - **You must create a database and import the corresponding version of
+      the [Seata Server SQL script](https://github.com/seata/seata/tree/develop/script/server/db)
+      and [Seata Client SQL script](https://github.com/seata/seata/tree/develop/script/client).**
 
-1. Write the following configuration to the `~/docker/seata/file.conf` file and modify it as required:
+1. Write the following configuration to the `~/docker/seata/application.yml` file and modify it as required:
 
-    ```properties  
-    ## transaction log store, only used in seata-server
-    store {
-      ## store mode: file、db、redis
-      mode = "db"
-      ## rsa decryption public key
-      publicKey = ""
-      ## file store property
-      db {
-        ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp)/HikariDataSource(hikari) etc.
-        datasource = "druid"
-        ## mysql/oracle/postgresql/h2/oceanbase etc.
-        dbType = "mysql"
-        ## MySQL5 user driver class name is "com.mysql.jdbc.Driver"
-        driverClassName = "com.mysql.cj.jdbc.Driver"
-        ## if using mysql to store the data, recommend add rewriteBatchedStatements=true in jdbc connection param
-        url = "jdbc:mysql://mysql:3306/seata?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai"
-        user = "mysql"
-        password = "mysql"
-        minConn = 5
-        maxConn = 100
-        globalTable = "global_table"
-        branchTable = "branch_table"
-        lockTable = "lock_table"
-        queryLimit = 100
-        maxWait = 5000
-      }
-    }
+    ```yaml  
+    server:
+      port: 7091
+
+    spring:
+      application:
+        name: seata-server
+
+    logging:
+      config: classpath:logback-spring.xml
+      file:
+        path: ${user.home}/logs/seata
+   
+    console:
+      user:
+        username: seata
+        password: seata
+   
+    seata:
+      config:
+        type: file
+      registry:
+        type: file
+      store:
+        mode: db
+        session:
+          mode: db
+        lock:
+          mode: db
+        db:
+          datasource: druid
+          db-type: mysql
+          ## MySQL5 user driver class name is "com.mysql.jdbc.Driver"
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          ## if using mysql to store the data, recommend add rewriteBatchedStatements=true in jdbc connection param
+          url: jdbc:mysql://mysql:3306/seata?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+          user: root
+          password: 123456
+          min-conn: 5
+          max-conn: 100
+          global-table: global_table
+          branch-table: branch_table
+          lock-table: lock_table
+          distributed-lock-table: distributed_lock
+          query-limit: 100
+          max-wait: 5000
+      security:
+        secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+        tokenValidityInMilliseconds: 1800000
+        ignore:
+          urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
     ```
 
 2. Modify the following attributes of the `.env` file:
@@ -85,8 +110,9 @@ one-stop distributed solution for users.
    # Seata standalone mode
    SEATA_HOME=~/docker/seata
      
-   # Seata standalone mode (No registry and file store)
-   SEATA_DEFAULT_PORT_8091=8091
+   # Seata standalone mode (No registry and db store mode)
+   SEATA_DB_ONLY_PORT_7091=7091
+   SEATA_DB_ONLY_PORT_8091=8091
    ```
 
 3. Make sure you are in the same directory as seata-db-only.yml and start Seata:
@@ -117,9 +143,9 @@ one-stop distributed solution for users.
    store.db.datasource=druid
    store.db.dbType=mysql
    store.db.driverClassName=com.mysql.cj.jdbc.Driver
-   store.db.url=jdbc:mysql://mysql:3306/seata?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+   store.db.url=jdbc:mysql://mysql:3306/seata?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
    store.db.user=mysql
-   store.db.password=mysql
+   store.db.password=123456
    store.db.minConn=5
    store.db.maxConn=30
    store.db.globalTable=global_table
@@ -129,37 +155,51 @@ one-stop distributed solution for users.
    store.db.lockTable=lock_table
    store.db.maxWait=5000
    ```
-2. Write the following configuration to the `~/docker/seata/registry.conf` file and modify it as required:
+2. Write the following configuration to the `~/docker/seata/application.yml` file and modify it as required:
 
-   ```properties  
-   registry {
-     # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
-     type = "nacos"
+   ```yaml  
+    server:
+      port: 7091
+
+    spring:
+      application:
+        name: seata-server
+
+    logging:
+      config: classpath:logback-spring.xml
+      file:
+        path: ${user.home}/logs/seata
    
-     nacos {
-       application = "seata-server"
-       serverAddr = "nacos:8848"
-       group = "SEATA_GROUP"
-       namespace = ""
-       cluster = "default"
-       username = "nacos"
-       password = "nacos"
-     }
-   }
+    console:
+      user:
+        username: seata
+        password: seata
    
-   config {
-     # file、nacos 、apollo、zk、consul、etcd3
-     type = "nacos"
-   
-     nacos {
-       serverAddr = "nacos:8848"
-       namespace = ""
-       group = "SEATA_GROUP"
-       username = "nacos"
-       password = "nacos"
-       dataId = "seataServer.properties"
-     }
-   }
+    seata:
+      config:
+        type: nacos
+        nacos:
+          server-addr: nacos:8848
+          namespace:
+          group: SEATA_GROUP
+          username: nacos
+          password: nacos
+          data-id: seataServer.properties
+      registry:
+        type: nacos
+        nacos:
+          application: seata-server
+          server-addr: nacos:8848
+          group: SEATA_GROUP
+          namespace:
+          cluster: default
+          username: nacos
+          password: nacos
+      security:
+        secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+        tokenValidityInMilliseconds: 1800000
+        ignore:
+          urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login
    ```
 
 3. Modify the following attributes of the `.env` file:
@@ -174,8 +214,9 @@ one-stop distributed solution for users.
    SEATA_HOME=~/docker/seata
      
    # Seata standalone mode (Using the Registry and db store mode)
-   SEATA_PORT_8091=8091
    SEATA_HOST=seata
+   SEATA_PORT_7091=7091
+   SEATA_PORT_8091=8091
    ```
 
 4. Make sure you are in the same directory as seata.yml and start Seata:
@@ -193,11 +234,11 @@ one-stop distributed solution for users.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/seata-cluster/{node1/,node2/,node3/}
-   $ touch ~/docker/seata-cluster/{node1/registry.conf,node2/registry.conf,node3/registry.conf}
+   $ mkdir -vp ~/docker/seata-cluster/{node1/logs,node2/logs,node3/logs}
+   $ touch ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}
    ```
 2. **Write the configuration to
-   the ` ~/docker/seata-cluster/{node1/registry.conf,node2/registry.conf,node3/registry.conf}` file，
+   the ` ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}` file，
    See [Using the Registry and db store mode](#jump1)**
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
@@ -209,10 +250,13 @@ one-stop distributed solution for users.
 
    # Seata cluster mode (Using the Registry and db store mode)
    SEATA_CLUSTER_HOME=~/docker/seata-cluster
+   SEATA_CLUSTER_NODE1_PORT_7091=17091
    SEATA_CLUSTER_NODE1_PORT_8091=18091
    SEATA_CLUSTER_NODE1_HOST=seata-cluster-node1
+   SEATA_CLUSTER_NODE2_PORT_7091=27091
    SEATA_CLUSTER_NODE2_PORT_8091=28091
    SEATA_CLUSTER_NODE2_HOST=seata-cluster-node2
+   SEATA_CLUSTER_NODE3_PORT_7091=37091
    SEATA_CLUSTER_NODE3_PORT_8091=38091
    SEATA_CLUSTER_NODE3_HOST=seata-cluster-node3
    ```
@@ -224,4 +268,4 @@ one-stop distributed solution for users.
    ```
 
 5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Seata](https://hub.docker.com/r/seata/seata-server)
+   the [Seata](https://hub.docker.com/r/seataio/seata-server)

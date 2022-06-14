@@ -6,6 +6,7 @@ services:
     container_name: nacos-cluster-node1
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - MODE=cluster
       - NACOS_SERVERS=nacos-cluster-node2 nacos-cluster-node3
       - TZ=Asia/Shanghai
@@ -35,6 +36,7 @@ services:
     container_name: nacos-cluster-node2
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - MODE=cluster
       - NACOS_SERVERS=nacos-cluster-node1 nacos-cluster-node3
       - TZ=Asia/Shanghai
@@ -64,6 +66,7 @@ services:
     container_name: nacos-cluster-node3
     restart: always
     environment:
+      - TZ=Asia/Shanghai
       - MODE=cluster
       - NACOS_SERVERS=nacos-cluster-node1 nacos-cluster-node2
       - TZ=Asia/Shanghai

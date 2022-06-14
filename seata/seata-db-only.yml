@@ -7,13 +7,14 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
-      - SEATA_PORT=${SEATA_DB_ONLY_PORT_8091}
     volumes:
-      - ${SEATA_HOME}/file.conf:/seata-server/resources/file.conf
+      - ${SEATA_HOME}/logs:/root/logs
+      - ${SEATA_HOME}/application.yml:/seata-server/resources/application.yml
     networks:
       - mysql
       - seata_db_only
     ports:
+      - ${SEATA_DB_ONLY_PORT_7091}:7091
       - ${SEATA_DB_ONLY_PORT_8091}:8091
 networks:
   seata_db_only:
