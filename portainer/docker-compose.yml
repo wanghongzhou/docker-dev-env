@@ -1,0 +1,15 @@
+# https://hub.docker.com/r/portainer/portainer-ce
+
+services:
+  portainer:
+    image: ${PORTAINER_IMAGE}
+    container_name: portainer
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PORTAINER_HOME}/data:/data
+    ports:
+      - ${PORTAINER_PORT_8000}:8000
+      - ${PORTAINER_PORT_9443}:9443

@@ -1,0 +1,20 @@
+# https://hub.docker.com/_/registry
+
+services:
+  docker-registry:
+    image: ${DOCKER_REGISTRY_IMAGE}
+    container_name: docker-registry
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - REGISTRY_AUTH=${DOCKER_REGISTRY_AUTH}
+      - REGISTRY_AUTH_HTPASSWD_PATH=${DOCKER_REGISTRY_AUTH_HTPASSWD_PATH}
+      - REGISTRY_AUTH_HTPASSWD_REALM=${DOCKER_REGISTRY_AUTH_HTPASSWD_REALM}
+      - REGISTRY_HTTP_TLS_KEY=${DOCKER_REGISTRY_HTTP_TLS_KEY}
+      - REGISTRY_HTTP_TLS_CERTIFICATE=${DOCKER_REGISTRY_HTTP_TLS_CERTIFICATE}
+    volumes:
+      - ${DOCKER_REGISTRY_HOME}/auth:/auth
+      - ${DOCKER_REGISTRY_HOME}/certs:/certs
+      - ${DOCKER_REGISTRY_HOME}/registry:/var/lib/registry
+    ports:
+      - ${DOCKER_REGISTRY_PORT_5000}:5000

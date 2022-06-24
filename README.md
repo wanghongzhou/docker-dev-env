@@ -20,6 +20,8 @@ Docker script for building the development environment.
 16. [Jenkins installation](./jenkins)
 17. [Gitlab installation](./gitlab)
 18. [Gitlab Runner installation](./gitlab-runner)
+19. [Portainer installation](./portainer)
+20. [Docker Registry installation](./docker-registry)
 
 ---
 
