@@ -10,8 +10,8 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     volumes:
-      - ${MINIO_HOME}/minio/data:/data
-      - ${MINIO_HOME}/minio/certs:/certs
+      - ${MINIO_HOME}/data:/data
+      - ${MINIO_HOME}/certs:/certs
     networks:
       - minio
     ports:
