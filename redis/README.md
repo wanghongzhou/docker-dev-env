@@ -130,6 +130,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    # redis cluster mode
    REDIS_CLUSTER_IMAGE=bitnami/redis-cluster:6.2
    REDIS_CLUSTER_HOME=~/docker/redis-cluster
+   REDIS_CLUSTER_IP=redis.example.com
    REDIS_CLUSTER_NODE1_PORT_6379=6391
    REDIS_CLUSTER_NODE2_PORT_6379=6392
    REDIS_CLUSTER_NODE3_PORT_6379=6393
