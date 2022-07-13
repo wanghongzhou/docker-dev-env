@@ -7,8 +7,11 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE1_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}
     volumes:
       - ${REDIS_CLUSTER_HOME}/node-1/data:/bitnami/redis/data
       - ${REDIS_CLUSTER_HOME}/node-1/certs:/opt/bitnami/redis/certs
@@ -16,15 +19,19 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE1_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE1_PORT_6379}:${REDIS_CLUSTER_NODE1_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE1_PORT_6379}:1${REDIS_CLUSTER_NODE1_PORT_6379}
   redis-cluster-node-2:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-2
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE2_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}_6379}
     volumes:
       - ${REDIS_CLUSTER_HOME}/node-2/data:/bitnami/redis/data
       - ${REDIS_CLUSTER_HOME}/node-2/certs:/opt/bitnami/redis/certs
@@ -32,15 +39,19 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE2_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE2_PORT_6379}:${REDIS_CLUSTER_NODE2_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE2_PORT_6379}:1${REDIS_CLUSTER_NODE2_PORT_6379}
   redis-cluster-node-3:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-3
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE3_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}
     volumes:
       - ${REDIS_CLUSTER_HOME}/node-3/data:/bitnami/redis/data
       - ${REDIS_CLUSTER_HOME}/node-3/certs:/opt/bitnami/redis/certs
@@ -48,15 +59,19 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE3_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE3_PORT_6379}:${REDIS_CLUSTER_NODE3_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE3_PORT_6379}:1${REDIS_CLUSTER_NODE3_PORT_6379}
   redis-cluster-node-4:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-4
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE4_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}
     volumes:
       - ${REDIS_CLUSTER_HOME}/node-4/data:/bitnami/redis/data
       - ${REDIS_CLUSTER_HOME}/node-4/certs:/opt/bitnami/redis/certs
@@ -64,15 +79,19 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE4_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE4_PORT_6379}:${REDIS_CLUSTER_NODE4_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE4_PORT_6379}:1${REDIS_CLUSTER_NODE4_PORT_6379}
   redis-cluster-node-5:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-5
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE5_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}
     volumes:
       - ${REDIS_CLUSTER_HOME}/node-5/data:/bitnami/redis/data
       - ${REDIS_CLUSTER_HOME}/node-5/certs:/opt/bitnami/redis/certs
@@ -80,15 +99,19 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE5_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE5_PORT_6379}:${REDIS_CLUSTER_NODE5_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE5_PORT_6379}:1${REDIS_CLUSTER_NODE5_PORT_6379}
   redis-cluster-node-6:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-6
     restart: always
     environment:
       - TZ=Asia/Shanghai
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_CLUSTER_ANNOUNCE_IP=${REDIS_CLUSTER_IP}
+      - REDIS_PORT_NUMBER=${REDIS_CLUSTER_NODE6_PORT_6379}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_NODES=redis-cluster-node-1 redis-cluster-node-2 redis-cluster-node-3 redis-cluster-node-4 redis-cluster-node-5 redis-cluster-node-6
+      - REDIS_NODES=${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE1_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE2_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE3_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE4_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE5_PORT_6379} ${REDIS_CLUSTER_IP}:${REDIS_CLUSTER_NODE6_PORT_6379}
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_CLUSTER_CREATOR=yes
       - REDIS_CLUSTER_REPLICAS=1
@@ -105,6 +128,8 @@ services:
     networks:
       - redis_cluster
     ports:
-      - ${REDIS_CLUSTER_NODE6_PORT_6379}:6379
+      - ${REDIS_CLUSTER_NODE6_PORT_6379}:${REDIS_CLUSTER_NODE6_PORT_6379}
+      - 1${REDIS_CLUSTER_NODE6_PORT_6379}:1${REDIS_CLUSTER_NODE6_PORT_6379}
 networks:
   redis_cluster:
+    driver: bridge
