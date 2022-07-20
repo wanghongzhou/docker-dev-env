@@ -26,6 +26,7 @@ building, testing, and delivering or deploying software.
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
     ```properties
+    JENKINS_IMAGE=jenkins/jenkins:lts-jdk17
     JENKINS_HOME=~/docker/jenkins   # Jenkins home path
     JENKINS_PORT_8080=8080          # Jenkins http port.
     JENKINS_PORT_50000=50000        # Jenkins agent port.

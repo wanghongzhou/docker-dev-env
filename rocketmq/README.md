@@ -19,7 +19,7 @@ trillion-level capacity and flexible scalability.
 
    ```properties
    # common
-   ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+   ROCKETMQ_IMAGE=apache/rocketmq:4.9.4
    ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
    ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
    
@@ -54,7 +54,7 @@ trillion-level capacity and flexible scalability.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/rocketmq-2m-0s/{namesrv,dashboard/logs,broker1/{logs,store},broker2/{logs,store}}
+   $ mkdir -vp ~/docker/rocketmq-2m-0s/{namesrv,dashboard/logs,{broker1,broker2}/{logs,store}}
    $ chown -R 3000 ~/docker/rocketmq-2m-0s
    ```
 
@@ -62,7 +62,7 @@ trillion-level capacity and flexible scalability.
 
    ```properties
    # common
-   ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+   ROCKETMQ_IMAGE=apache/rocketmq:4.9.4
    ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
    ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
    
@@ -101,7 +101,7 @@ trillion-level capacity and flexible scalability.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/rocketmq-2m-2s-sync/{namesrv,dashboard/logs,broker1/{logs,store},broker2/{logs,store},broker3/{logs,store},broker4/{logs,store}}
+   $ mkdir -vp ~/docker/rocketmq-2m-2s-sync/{namesrv,dashboard/logs,{broker1,broker2,broker3,broker4}/{logs,store}}
    $ chown -R 3000 ~/docker/rocketmq-2m-2s-sync
    ```
 
@@ -109,7 +109,7 @@ trillion-level capacity and flexible scalability.
 
    ```properties
    # common
-   ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+   ROCKETMQ_IMAGE=apache/rocketmq:4.9.4
    ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
    ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
    
@@ -156,7 +156,7 @@ trillion-level capacity and flexible scalability.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/rocketmq-2m-2s-async/{namesrv,dashboard/logs,broker1/{logs,store},broker2/{logs,store},broker3/{logs,store},broker4/{logs,store}}
+   $ mkdir -vp ~/docker/rocketmq-2m-2s-async/{namesrv,dashboard/logs,{broker1,broker2,broker3,broker4}/{logs,store}}
    $ chown -R 3000 ~/docker/rocketmq-2m-2s-async
    ```
 
@@ -164,7 +164,7 @@ trillion-level capacity and flexible scalability.
 
    ```properties
    # common
-   ROCKETMQ_IMAGE=apache/rocketmq:4.9.3
+   ROCKETMQ_IMAGE=apache/rocketmq:4.9.4
    ROCKETMQ_DASHBOARD_IMAGE=apacherocketmq/rocketmq-dashboard:1.0.0
    ROCKETMQ_JAVA_OPT_EXT=-server -Xms256m -Xmx512m -Xmn128m
    

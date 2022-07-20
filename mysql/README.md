@@ -67,8 +67,8 @@ MySQL is an open source SQL relational database management system that’s devel
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/mysql-replica/{master/{data,conf,initdb.d},slave-1/{data,conf},slave-2/{data,conf},slave-3/{data,conf}}
-   $ touch ~/docker/mysql-replica/{master/conf/my_custom.cnf,slave-1/conf/my_custom.cnf,slave-2/conf/my_custom.cnf,slave-3/conf/my_custom.cnf}
+   $ mkdir -vp ~/docker/mysql-replica/{master/{data,conf,initdb.d},{slave-1,slave-2,slave-3}/{data,conf}}
+   $ touch ~/docker/mysql-replica/{master,slave-1,slave-2,slave-3}/conf/my_custom.cnf
    $ chown -R 1001:root ~/docker/mysql-replica
    ```
 

@@ -18,6 +18,7 @@ environment.
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
+   PORTAINER_IMAGE=portainer/portainer-ce:2.14.1
    PORTAINER_HOME=~/docker/portainer
    PORTAINER_PORT_8000=8000
    PORTAINER_PORT_9443=9443

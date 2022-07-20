@@ -66,8 +66,8 @@ management.
    appropriate permission have been granted.
 
     ```shell
-    $ mkdir -vp ~/docker/nacos-cluster/{node1/{logs,init.d},node2/{logs,init.d},node3/{logs,init.d}}
-    $ touch ~/docker/nacos-cluster/{node1/init.d/custom.properties,node2/init.d/custom.properties,node3/init.d/custom.properties}
+    $ mkdir -vp ~/docker/nacos-cluster/{node1,node2,node3}/{logs,init.d}
+    $ touch ~/docker/nacos-cluster/{node1,node2,node3}/init.d/custom.properties
     ``` 
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.

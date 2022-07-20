@@ -6,8 +6,6 @@ an Alibaba Cloud Elasticsearch cluster.
 
 ---
 
-<a id = "jump1"></a>
-
 ## Install Canal Admin using Docker Compose
 
 - ### Prerequisite
@@ -67,7 +65,6 @@ an Alibaba Cloud Elasticsearch cluster.
    CANAL_ADMIN_USER=admin
    CANAL_ADMIN_PASSWD=4ACFE3202A5FF5CF467898FC58AAB1D615029441
    
-   
    # canal standalone mode
    CANAL_HOME=~/docker/canal
    CANAL_PORT_11110=11110
@@ -89,13 +86,13 @@ an Alibaba Cloud Elasticsearch cluster.
 
 - ### Prerequisite
     - **Before installing Canal cluster mode, you must [install the Zookeeper](../zookeeper).**
-    - **You must create a cluster named `canal-cluster` in the [Canal Admin](#jump1).**
+    - **You must create a cluster named `canal-cluster` in the [Canal Admin](#install-canal-admin-using-docker-compose).**
 
 1. Before setting everything else, create a directory for Canal home mount. Ensure that the directory exists and
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/canal-cluster/{node1/logs,node2/logs,node3/logs}
+   $ mkdir -vp ~/docker/canal-cluster/{node1,node2,node3}/logs
    ```
 
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.

@@ -49,7 +49,7 @@ features of many of the world's largest internet sites.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/solr-cluster/{node1/,node2/,node3}
+   $ mkdir -vp ~/docker/solr-cluster/{node1,node2,node3}
    $ chown -R 1001:root ~/docker/solr-cluster
    ```
 

@@ -42,7 +42,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/redis-replica/{master/{data,conf,certs},slave/{data,conf,certs}}
+   $ mkdir -vp ~/docker/redis-replica/{master,slave}/{data,conf,certs}
    $ chown -R 1001:root ~/docker/redis-replica
    ``` 
 
@@ -75,7 +75,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/redis-sentinel/{master/{data,conf,certs},slave-1/{data,conf,certs},slave-2/{data,conf,certs},sentinel-1/conf,sentinel-2/conf,sentinel-3/conf}
+   $ mkdir -vp ~/docker/redis-sentinel/{{master,slave-1,slave-2}/{data,conf,certs},{sentinel-1,sentinel-2,sentinel-3}/conf}
    $ chown -R 1001:root ~/docker/redis-sentinel
    ``` 
 
@@ -114,7 +114,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/redis-cluster/{node-1/{data,conf,certs},node-2/{data,conf,certs},node-3/{data,conf,certs},node-4/{data,conf,certs},node-5/{data,conf,certs},node-6/{data,conf,certs}}
+   $ mkdir -vp ~/docker/redis-cluster/{node-1,node-2,node-3,node-4,node-5,node-6}/{data,conf,certs}
    $ chown -R 1001:root ~/docker/redis-cluster
    ``` 
 

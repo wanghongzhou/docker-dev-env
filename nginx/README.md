@@ -20,7 +20,7 @@ HTTP, TCP, and UDP servers.
 4. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
-   NGINX_IMAGE=bitnami/minio:2022.5.19
+   NGINX_IMAGE=bitnami/nginx:1.23
    NGINX_HOME=~/docker/nginx
    NGINX_PORT_8080=80
    ```

@@ -50,8 +50,8 @@ configurations to meet high-scale, high-availability requirements.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/rabbitmq-cluster/{node1/conf,node2/conf,node3/conf}
-   $ touch ~/docker/rabbitmq-cluster/{node1/conf/custom.conf,node2/conf/custom.conf,node3/conf/custom.conf}
+   $ mkdir -vp ~/docker/rabbitmq-cluster/{node1,node2,node3}/conf
+   $ touch ~/docker/rabbitmq-cluster/{node1,node2,node3}/conf/custom.conf
    $ chown -R 1001:root ~/docker/rabbitmq-cluster
    ```
 

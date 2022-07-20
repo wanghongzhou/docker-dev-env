@@ -22,7 +22,7 @@ one-stop distributed solution for users.
 
     ```properties 
     # common
-    SEATA_IMAGE=seataio/seata-server:1.5.1
+    SEATA_IMAGE=seataio/seata-server:1.5.2
     
     # Seata standalone mode
     SEATA_HOME=~/docker/seata
@@ -104,7 +104,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.5.1
+   SEATA_IMAGE=seataio/seata-server:1.5.2
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
        
    # Seata standalone mode
@@ -120,8 +120,6 @@ one-stop distributed solution for users.
    ```shell
    $ docker-compose -f seata-db-only.yml up -d
    ```
-
-<a id = "jump1"></a>
 
 ### Using the Registry and db store mode
 
@@ -206,7 +204,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.5.1
+   SEATA_IMAGE=seataio/seata-server:1.5.2
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
    SEATA_NACOS_SERVICE_NETWORK=dev_nacos   # In Nacos cluster mode, set it to dev_nacos_cluster
        
@@ -228,14 +226,14 @@ one-stop distributed solution for users.
 ## Install Seata cluster mode using Docker Compose
 
 - #### Prerequisite
-    - This cluster model is based on Nacos and mysql, please know how to [Using the Registry and db store mode](#jump1)
+    - This cluster model is based on Nacos and mysql, please know how to [Using the Registry and db store mode](#using-the-registry-and-db-store-mode)
 
 1. Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/seata-cluster/{node1/logs,node2/logs,node3/logs}
-   $ touch ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}
+   $ mkdir -vp ~/docker/seata-cluster/{node1,node2,node3}/logs
+   $ touch ~/docker/seata-cluster/{node1,node2,node3}/application.yml
    ```
 2. **Write the configuration to
    the ` ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}` file，
@@ -244,7 +242,7 @@ one-stop distributed solution for users.
 
    ```properties 
    # common
-   SEATA_IMAGE=seataio/seata-server:1.5.1
+   SEATA_IMAGE=seataio/seata-server:1.5.2
    SEATA_MYSQL_SERVICE_NETWORK=dev_mysql   # In MySQL replica mode, set it to dev_mysql_replica
    SEATA_NACOS_SERVICE_NETWORK=dev_nacos   # The network for Nacos network
 

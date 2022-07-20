@@ -16,6 +16,7 @@ GitLab Runner is an application that works with GitLab CI/CD to run jobs in a pi
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
+   GITLAB_RUNNER_IMAGE=gitlab/gitlab-runner:v15.1.1
    GITLAB_RUNNER_HOME=~/docker/gitlab-runner
    ```
 

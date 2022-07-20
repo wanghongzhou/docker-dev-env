@@ -26,6 +26,7 @@ The Registry is open-source, under the permissive Apache license.
 4. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
+   DOCKER_REGISTRY_IMAGE=registry:2
    DOCKER_REGISTRY_HOME=~/docker/docker-registry
    DOCKER_REGISTRY_PORT_5000=5000
    DOCKER_REGISTRY_AUTH=htpasswd

@@ -45,7 +45,7 @@ container images with (currently) the maximum supported object size of 5TB.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/minio-cluster/{node1/{data,certs},node2/{data,certs},node3/{data,certs},node4/{data,certs}}
+   $ mkdir -vp ~/docker/minio-cluster/{node1,node2,node3,node4}/{data,certs}
    $ chown -R 1001:root ~/docker/minio-cluster
    ```
 

@@ -26,7 +26,7 @@ location, making it easier to distribute software.
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
     ```properties
-    NEXUS_IMAGE=sonatype/nexus3:3.39.0
+    NEXUS_IMAGE=sonatype/nexus3:3.40.1
     NEXUS_HOME=~/docker/nexus
     NEXUS_PORT_8081=8081        # Nexus http port
     NEXUS_INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m" # Jvm Options

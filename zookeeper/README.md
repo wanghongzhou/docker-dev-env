@@ -51,7 +51,7 @@ synchronization, and providing group services.
    appropriate permission have been granted.
 
    ```shell
-   $ mkdir -vp ~/docker/zookeeper-cluster/{node1/,node2/,node3/}
+   $ mkdir -vp ~/docker/zookeeper-cluster/{node1,node2,node3}
    $ chown -R 1001:root ~/docker/zookeeper-cluster
    ```
 
