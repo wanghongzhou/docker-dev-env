@@ -1,0 +1,39 @@
+# https://hub.docker.com/r/bitnami/logstash
+services:
+  logstash:
+    image: ${LOGSTASH_IMAGE}
+    container_name: logstash
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - LOGSTASH_EXPOSE_API
+      - LOGSTASH_API_PORT_NUMBER
+      - LOGSTASH_HEAP_SIZE
+      - LOGSTASH_ENABLE_BEATS_INPUT
+      - LOGSTASH_BEATS_PORT_NUMBER
+      - LOGSTASH_ENABLE_GELF_INPUT
+      - LOGSTASH_GELF_PORT_NUMBER
+      - LOGSTASH_ENABLE_HTTP_INPUT
+      - LOGSTASH_HTTP_PORT_NUMBER
+      - LOGSTASH_ENABLE_TCP_INPUT
+      - LOGSTASH_TCP_PORT_NUMBER
+      - LOGSTASH_ENABLE_UDP_INPUT
+      - LOGSTASH_UDP_PORT_NUMBER
+      - LOGSTASH_ENABLE_STDOUT_OUTPUT
+      - LOGSTASH_ENABLE_ELASTICSEARCH_OUTPUT
+      - LOGSTASH_ELASTICSEARCH_HOST
+      - LOGSTASH_ELASTICSEARCH_PORT_NUMBER
+    volumes:
+      - ${LOGSTASH_HOME}/:/bitnami/logstash
+    networks:
+      - logstash
+      - elasticsearch
+    ports:
+      - ${LOGSTASH_API_PORT_NUMBER}:${LOGSTASH_API_PORT_NUMBER}
+      - ${LOGSTASH_HTTP_PORT_NUMBER}:${LOGSTASH_HTTP_PORT_NUMBER}
+networks:
+  logstash:
+    driver: bridge
+  elasticsearch:
+    external:
+      name: ${LOGSTASH_ELASTICSEARCH_NETWORK}
