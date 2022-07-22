@@ -1,0 +1,24 @@
+# https://hub.docker.com/r/bitnami/kibana
+
+services:
+  kibana:
+    image: ${KIBANA_IMAGE}
+    container_name: kibana
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - KIBANA_ELASTICSEARCH_URL=${KIBANA_ELASTICSEARCH_URL}
+      - KIBANA_ELASTICSEARCH_PORT_NUMBER=${KIBANA_ELASTICSEARCH_PORT_NUMBER}
+    volumes:
+      - ${KIBANA_HOME}/:/bitnami/kibana
+    networks:
+      - kibana
+      - elasticsearch
+    ports:
+      - ${KIBANA_PORT_5601}:5601
+networks:
+  kibana:
+    driver: bridge
+  elasticsearch:
+    external:
+      name: ${KIBANA_ELASTICSEARCH_NETWORK}

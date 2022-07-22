@@ -4,7 +4,7 @@ services:
   elasticsearch-node1:
     image: ${ELASTICSEARCH_IMAGE}
     container_name: elasticsearch-node1
-    # restart: always
+    restart: always
     environment:
       - TZ=Asia/Shanghai
       - ELASTICSEARCH_HEAP_SIZE
@@ -27,7 +27,7 @@ services:
   elasticsearch-node2:
     image: ${ELASTICSEARCH_IMAGE}
     container_name: elasticsearch-node2
-    # restart: always
+    restart: always
     environment:
       - TZ=Asia/Shanghai
       - ELASTICSEARCH_HEAP_SIZE
@@ -50,7 +50,7 @@ services:
   elasticsearch-node3:
     image: ${ELASTICSEARCH_IMAGE}
     container_name: elasticsearch-node3
-    # restart: always
+    restart: always
     environment:
       - TZ=Asia/Shanghai
       - ELASTICSEARCH_HEAP_SIZE
