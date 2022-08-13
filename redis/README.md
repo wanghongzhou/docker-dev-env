@@ -4,16 +4,15 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
 ---
 
-## Install Redis standalone mode using Docker Compose
+## Install Redis Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/redis/{data,conf,certs}
    $ chown -R 1001:root ~/docker/redis
-   ``` 
-
+   ```
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -33,19 +32,17 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    $ docker-compose -f redis.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Redis](https://hub.docker.com/r/bitnami/redis)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Redis](https://hub.docker.com/r/bitnami/redis)
 
-## Install Redis replication mode using Docker Compose
+## Install Redis Replication Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/redis-replica/{master,slave}/{data,conf,certs}
    $ chown -R 1001:root ~/docker/redis-replica
-   ``` 
-
+   ```
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -66,19 +63,17 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    $ docker-compose -f redis-replica.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Redis](https://hub.docker.com/r/bitnami/redis)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Redis](https://hub.docker.com/r/bitnami/redis)
 
-## Install Redis sentinel mode using Docker Compose
+## Install Redis Sentinel Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/redis-sentinel/{{master,slave-1,slave-2}/{data,conf,certs},{sentinel-1,sentinel-2,sentinel-3}/conf}
    $ chown -R 1001:root ~/docker/redis-sentinel
-   ``` 
-
+   ```
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -105,22 +100,19 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    $ docker-compose -f redis-sentinel.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Redis Sentinel](https://hub.docker.com/r/bitnami/redis-sentinel)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Redis Sentinel](https://hub.docker.com/r/bitnami/redis-sentinel)
 
-## Install Redis cluster mode using Docker Compose
+## Install Redis Cluster Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Redis home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/redis-cluster/{node-1,node-2,node-3,node-4,node-5,node-6}/{data,conf,certs}
    $ chown -R 1001:root ~/docker/redis-cluster
-   ``` 
-
-2. Modify the `.env` file, **the password must be set in cluster mode**, you can fine tune these configurations to meet
-   your requirements.
-
+   ```
+   
+2. Modify the `.env` file, **the password must be set in cluster mode**, you can fine tune these configurations to meet your requirements.
+   
    ```properties
    # common
    REDIS_IMAGE=bitnami/redis:7.0
@@ -138,12 +130,11 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
    REDIS_CLUSTER_NODE5_PORT_6379=6395
    REDIS_CLUSTER_NODE6_PORT_6379=6396
    ```
-
+   
 3. Make sure you are in the same directory as redis-cluster.yml and start Redis:
 
    ```shell
    $ docker-compose -f redis-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Redis Cluster](https://hub.docker.com/r/bitnami/redis-cluster)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Redis Cluster](https://hub.docker.com/r/bitnami/redis-cluster)

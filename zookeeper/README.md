@@ -1,20 +1,18 @@
 # Zookeeper
 
-ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed
-synchronization, and providing group services.
+ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
 ---
 
-## Install Zookeeper standalone mode using Docker Compose
+## Install Zookeeper Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Zookeeper home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Zookeeper home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/zookeeper
    $ chown -R 1001:root ~/docker/zookeeper
    ```
-
+   
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -42,19 +40,17 @@ synchronization, and providing group services.
    $ docker-compose -f zookeeper.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Zookeeper](https://hub.docker.com/r/bitnami/zookeeper)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Zookeeper](https://hub.docker.com/r/bitnami/zookeeper)
 
-## Install Zookeeper cluster mode using Docker Compose
+## Install Zookeeper Cluster Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Zookeeper home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Zookeeper home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/zookeeper-cluster/{node1,node2,node3}
    $ chown -R 1001:root ~/docker/zookeeper-cluster
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -86,5 +82,4 @@ synchronization, and providing group services.
    $ docker-compose -f zookeeper-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Zookeeper](https://hub.docker.com/r/bitnami/zookeeper)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Zookeeper](https://hub.docker.com/r/bitnami/zookeeper)

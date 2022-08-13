@@ -1,16 +1,13 @@
 # Solr
 
-Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced
-querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation
-features of many of the world's largest internet sites.
+Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation features of many of the world's largest internet sites.
 
 ---
 
-## Install Solr standalone mode using Docker Compose
+## Install Solr Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Solr home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Solr home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/solr
    $ chown -R 1001:root ~/docker/solr
@@ -36,23 +33,20 @@ features of many of the world's largest internet sites.
    $ docker-compose -f solr.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Solr](https://hub.docker.com/r/bitnami/solr)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Solr](https://hub.docker.com/r/bitnami/solr)
 
-## Install Solr cluster mode using Docker Compose
+## Install Solr Cluster Mode Using Docker Compose
 
 - ### Prerequisite
-    - **Before installing Solr cluster, you must [install the Zookeeper](../zookeeper), you have to make sure that
-      the attributes `ZOO_ALLOW_ANONYMOUS_LOGIN=yes` and `ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok`**
+    - **Before installing Solr cluster, you must [install the Zookeeper](../zookeeper), you have to make sure that the attributes `ZOO_ALLOW_ANONYMOUS_LOGIN=yes` and `ZOO_4LW_COMMANDS_WHITELIST=srvr, mntr, conf,ruok`**
 
-1. Before setting everything else, create a directory for Solr home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Solr home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/solr-cluster/{node1,node2,node3}
    $ chown -R 1001:root ~/docker/solr-cluster
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -81,5 +75,4 @@ features of many of the world's largest internet sites.
    $ docker-compose -f solr-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Solr](https://hub.docker.com/r/bitnami/solr)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Solr](https://hub.docker.com/r/bitnami/solr)

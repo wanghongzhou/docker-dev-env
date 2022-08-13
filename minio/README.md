@@ -1,21 +1,18 @@
 # Minio
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible
-with Amazon S3 cloud storage service. It can handle unstructured data such as photos, videos, log files, backups, and
-container images with (currently) the maximum supported object size of 5TB.
+MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. It can handle unstructured data such as photos, videos, log files, backups, and container images with (currently) the maximum supported object size of 5TB.
 
 ---
 
-## Install Minio standalone mode using Docker Compose
+## Install Minio Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Minio home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Minio home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/minio/{data,certs}
    $ chown -R 1001:root ~/docker/minio
    ```
-
+   
 4. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -36,19 +33,17 @@ container images with (currently) the maximum supported object size of 5TB.
    $ docker-compose -f minio.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Minio](https://hub.docker.com/r/bitnami/minio)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Minio](https://hub.docker.com/r/bitnami/minio)
 
-## Install Minio cluster mode using Docker Compose
+## Install Minio Cluster Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Minio home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Minio home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/minio-cluster/{node1,node2,node3,node4}/{data,certs}
    $ chown -R 1001:root ~/docker/minio-cluster
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -75,5 +70,4 @@ container images with (currently) the maximum supported object size of 5TB.
    $ docker-compose -f minio-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Minio](https://hub.docker.com/r/bitnami/minio)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Minio](https://hub.docker.com/r/bitnami/minio)

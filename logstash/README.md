@@ -1,16 +1,13 @@
 # Logstash
 
-Logstash is a light-weight, open-source, server-side data processing pipeline that allows you to collect data from a
-variety of sources, transform it on the fly, and send it to your desired destination. It is most often used as a data
-pipeline for Elasticsearch, an open-source analytics and search engine.
+Logstash is a light-weight, open-source, server-side data processing pipeline that allows you to collect data from a variety of sources, transform it on the fly, and send it to your desired destination. It is most often used as a data pipeline for Elasticsearch, an open-source analytics and search engine.
 
 ---
 
-## Install Logstash standalone mode using Docker Compose
+## Install Logstash Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Logstash home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Logstash home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/logstash
    $ chown -R 1001:root ~/docker/logstash
@@ -20,7 +17,7 @@ pipeline for Elasticsearch, an open-source analytics and search engine.
 
    ```properties
    # logstash
-   LOGSTASH_IMAGE=bitnami/logstash:8.3.2
+   LOGSTASH_IMAGE=bitnami/logstash:8.3.3
    LOGSTASH_HOME=~/docker/kibana
    LOGSTASH_HEAP_SIZE=512m
    LOGSTASH_EXPOSE_API=yes
@@ -48,5 +45,4 @@ pipeline for Elasticsearch, an open-source analytics and search engine.
    $ docker-compose -f logstash.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami Logstash](https://hub.docker.com/r/bitnami/logstash)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami Logstash](https://hub.docker.com/r/bitnami/logstash)

@@ -22,7 +22,7 @@ Docker script for building the development environment.
 18. [Gitlab Runner installation](./gitlab-runner)
 19. [Portainer installation](./portainer)
 20. [Docker Registry installation](./docker-registry)
-
+20. [Ceph, Harbor, K8s, Kubesphere installation](./cloud)
 ---
 
 ## Install docker in CentOS8
@@ -45,14 +45,13 @@ Docker script for building the development environment.
                      docker-engine
    ```
 
-2. First, to facilitate the addition of software sources and support for the Device Apper storage type, install the
-   following software packages
-
+2. First, to facilitate the addition of software sources and support for the Device Apper storage type, install the following software packages
+   
    ```shell
    $ sudo yum update
    $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
    ```
-
+   
 3. Add Docker stable version of yum software source
 
    ```shell
@@ -83,9 +82,8 @@ Docker script for building the development environment.
 
 ## Configuring docker registry mirror
 
-1. Add the following configuration in the docker configuration file `/etc/docker/daemon.json`, If the file does not
-   exist, create a new one.
-
+1. Add the following configuration in the docker configuration file `/etc/docker/daemon.json`, If the file does not exist, create a new one.
+   
    ```json
    {
        "registry-mirrors": [
@@ -94,7 +92,7 @@ Docker script for building the development environment.
        ]
    }
    ```
-
+   
 2. Restart the docker
 
    ```shell

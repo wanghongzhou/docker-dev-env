@@ -1,22 +1,19 @@
 # Seata
 
-Seata is an open source distributed transaction solution dedicated to providing high performance and easy to use
-distributed transaction services. Seata will provide users with AT, TCC, SAGA, and XA transaction models to create a
-one-stop distributed solution for users.
+Seata is an open source distributed transaction solution dedicated to providing high performance and easy to use distributed transaction services. Seata will provide users with AT, TCC, SAGA, and XA transaction models to create a one-stop distributed solution for users.
 
 ---
 
-## Install Seata standalone mode using Docker Compose
+## Install Seata Standalone Mode Using Docker Compose
 
-- Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and
-  appropriate permission have been granted.
-
+- Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and appropriate permission have been granted.
+  
     ```shell
     $ mkdir -vp ~/docker/seata/logs
     $ touch ~/docker/seata/application.yml
     ```
 
-### No registry and file store mode
+### No Registry And File Store Mode
 
 1. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
@@ -37,13 +34,11 @@ one-stop distributed solution for users.
     $ docker-compose -f seata-default.yml up -d
     ```
 
-### No registry and db store mode
+### No Registry And DB Store Mode
 
 - #### Prerequisite
     - **Before installing Seata, you must [install the MySQL](../mysql).**
-    - **You must create a database and import the corresponding version of
-      the [Seata Server SQL script](https://github.com/seata/seata/tree/develop/script/server/db)
-      and [Seata Client SQL script](https://github.com/seata/seata/tree/develop/script/client).**
+    - **You must create a database and import the corresponding version of the [Seata Server SQL script](https://github.com/seata/seata/tree/develop/script/server/db) and [Seata Client SQL script](https://github.com/seata/seata/tree/develop/script/client).**
 
 1. Write the following configuration to the `~/docker/seata/application.yml` file and modify it as required:
 
@@ -59,12 +54,12 @@ one-stop distributed solution for users.
       config: classpath:logback-spring.xml
       file:
         path: ${user.home}/logs/seata
-   
+      
     console:
       user:
         username: seata
         password: seata
-   
+      
     seata:
       config:
         type: file
@@ -121,13 +116,12 @@ one-stop distributed solution for users.
    $ docker-compose -f seata-db-only.yml up -d
    ```
 
-### Using the Registry and db store mode
+### Using The Registry And DB Store Mode
 
 - #### Prerequisite
     - **Before installing Seata, you must [install the Nacos](../nacos/README.md) and make sure it is started.**
 
-1. Log in to your Nacos and add the following configuration, the Data ID is `seataServer.properties`, See here
-   for [more configurations](https://github.com/seata/seata/blob/develop/script/config-center/config.txt):
+1. Log in to your Nacos and add the following configuration, the Data ID is `seataServer.properties`, See here for [more configurations](https://github.com/seata/seata/blob/develop/script/config-center/config.txt):
    ```properties
    #Transaction storage configuration, only for the server. The file, DB, and redis configuration values are optional.
    store.mode=db
@@ -223,21 +217,18 @@ one-stop distributed solution for users.
    $ docker-compose -f seata.yml up -d
    ```
 
-## Install Seata cluster mode using Docker Compose
+## Install Seata Cluster Mode Using Docker Compose
 
 - #### Prerequisite
     - This cluster model is based on Nacos and mysql, please know how to [Using the Registry and db store mode](#using-the-registry-and-db-store-mode)
 
-1. Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Seata home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/seata-cluster/{node1,node2,node3}/logs
    $ touch ~/docker/seata-cluster/{node1,node2,node3}/application.yml
    ```
-2. **Write the configuration to
-   the ` ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}` file，
-   See [Using the Registry and db store mode](#jump1)**
+2. **Write the configuration to the ` ~/docker/seata-cluster/{node1/application.yml,node2/application.yml,node3/application.yml}` file， See [Using the Registry and db store mode](#jump1)**
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties 
@@ -265,5 +256,4 @@ one-stop distributed solution for users.
    $ docker-compose -f seata-cluster.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Seata](https://hub.docker.com/r/seataio/seata-server)
+5. If something else goes wrong, for more detailed tutorial can be found on the [Seata](https://hub.docker.com/r/seataio/seata-server)

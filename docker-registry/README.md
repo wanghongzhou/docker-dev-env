@@ -1,22 +1,19 @@
 # Docker Registry
 
-The Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images.
-The Registry is open-source, under the permissive Apache license.
+The Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images. The Registry is open-source, under the permissive Apache license.
 
 ---
 
-## Install Docker Registry using Docker Compose
+## Install Docker Registry Using Docker Compose
 
-1. Before setting everything else, create a directory where the configuration files will reside. Ensure that the
-   directory exists and appropriate permission have been granted.
-
+1. Before setting everything else, create a directory where the configuration files will reside. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/docker-registry/{auth,certs,registry}
    ```
-
-2. Copy the .crt and .key files from the CA into the certs directory. The following steps assume that the files are
-   named domain.crt and domain.key
-
+   
+2. Copy the .crt and .key files from the CA into the certs directory. The following steps assume that the files are named domain.crt and domain.key
+   
 3. Create a password file with one entry for the user testuser, with password testpassword:
 
    ```shell
@@ -48,5 +45,4 @@ The Registry is open-source, under the permissive Apache license.
    $ docker login myregistrydomain.com:5000
    ```
 
-7. If something else goes wrong, for more detailed tutorial can be found on
-   the [Docker Registry Website](https://docs.docker.com/registry/)
+7. If something else goes wrong, for more detailed tutorial can be found on the [Docker Registry Website](https://docs.docker.com/registry/)

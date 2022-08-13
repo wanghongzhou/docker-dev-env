@@ -1,22 +1,19 @@
 # RabbitMQ
 
-RabbitMQ is the most widely deployed open source message broker. it is lightweight and easy to deploy on premises and in
-the cloud. It supports multiple messaging protocols. RabbitMQ can be deployed in distributed and federated
-configurations to meet high-scale, high-availability requirements.
+RabbitMQ is the most widely deployed open source message broker. it is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols. RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
 
 ---
 
-## Install RabbitMQ standalone mode using Docker Compose
+## Install RabbitMQ Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for RabbitMQ home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for RabbitMQ home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/rabbitmq
    $ touch ~/docker/rabbitmq/conf/custom.conf
    $ chown -R 1001:root ~/docker/rabbitmq
    ```
-
+   
 3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -41,20 +38,18 @@ configurations to meet high-scale, high-availability requirements.
    $ docker-compose -f rabbitmq.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami RabbitMQ](https://hub.docker.com/r/bitnami/rabbitmq)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami RabbitMQ](https://hub.docker.com/r/bitnami/rabbitmq)
 
-## Install RabbitMQ cluster mode using Docker Compose
+## Install RabbitMQ Cluster Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for RabbitMQ home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for RabbitMQ home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/rabbitmq-cluster/{node1,node2,node3}/conf
    $ touch ~/docker/rabbitmq-cluster/{node1,node2,node3}/conf/custom.conf
    $ chown -R 1001:root ~/docker/rabbitmq-cluster
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -94,5 +89,4 @@ configurations to meet high-scale, high-availability requirements.
    $ docker-compose -f rabbitmq-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Bitnami RabbitMQ](https://hub.docker.com/r/bitnami/rabbitmq)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami RabbitMQ](https://hub.docker.com/r/bitnami/rabbitmq)

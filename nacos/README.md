@@ -1,8 +1,6 @@
 # Nacos
 
-Nacos is committed to help you discover, configure, and manage your microservices. It provides a set of simple and
-useful features enabling you to realize dynamic service discovery, service configuration, service metadata and traffic
-management.
+Nacos is committed to help you discover, configure, and manage your microservices. It provides a set of simple and useful features enabling you to realize dynamic service discovery, service configuration, service metadata and traffic management.
 
 ---
 
@@ -11,16 +9,15 @@ management.
 - **Before installing Nacos, you must [install the MySQL](../mysql).**
 - **You must create a database and import the [Nacos SQL script](https://github.com/alibaba/nacos/releases).**
 
-## Install Nacos standalone mode using Docker Compose
+## Install Nacos Standalone Mode Using Docker Compose
 
-1. Before setting everything else, create a directory for Nacos home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Nacos home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
     ```shell
     $ mkdir -vp ~/docker/nacos/{logs,init.d}
     $ touch ~/docker/nacos/init.d/custom.properties
-    ``` 
-
+    ```
+   
 2. Modify the `~/docker/nacos/init.d/custom.properties` file according to your requirements.
 
     ```properties
@@ -50,26 +47,23 @@ management.
     NACOS_PORT_9555=9555
     ```
 
-4. Make sure you are in the same directory as nacos.yml and start Nacos, Visit the Nacos URL `http://host:8848/nacos`,
-   and log in with username `nacos` and the password `nacos`:
-
+4. Make sure you are in the same directory as nacos.yml and start Nacos, Visit the Nacos URL `http://host:8848/nacos`, and log in with username `nacos` and the password `nacos`:
+   
     ```shell
     $ docker-compose -f nacos.yml up -d
     ```
+   
+5. If something else goes wrong, for more detailed tutorial can be found on the [Nacos](https://hub.docker.com/r/nacos/nacos-server)
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Nacos](https://hub.docker.com/r/nacos/nacos-server)
+## Install Nacos Cluster Mode Using Docker Compose
 
-## Install Nacos cluster mode using Docker Compose
-
-1. Before setting everything else, create a directory for Nacos home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Nacos home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
     ```shell
     $ mkdir -vp ~/docker/nacos-cluster/{node1,node2,node3}/{logs,init.d}
     $ touch ~/docker/nacos-cluster/{node1,node2,node3}/init.d/custom.properties
-    ``` 
-
+    ```
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
     ```properties
@@ -99,12 +93,10 @@ management.
     NACOS_CLUSTER_NODE3_PORT_9555=39555
     ```
 
-3. Make sure you are in the same directory as nacos-cluster.yml and start Nacos, Visit the Nacos
-   URL `http://host:8848/nacos`, and log in with username `nacos` and the password `nacos`:
-
+3. Make sure you are in the same directory as nacos-cluster.yml and start Nacos, Visit the Nacos URL `http://host:8848/nacos`, and log in with username `nacos` and the password `nacos`:
+   
     ```shell
     $ docker-compose -f nacos-cluster.yml up -d
     ```
-
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Nacos](https://hub.docker.com/r/nacos/nacos-server)
+   
+4. If something else goes wrong, for more detailed tutorial can be found on the [Nacos](https://hub.docker.com/r/nacos/nacos-server)

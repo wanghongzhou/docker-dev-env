@@ -1,26 +1,21 @@
 # Canal
 
-Canal is an open source product provided by Alibaba Group. Canal can parse incremental log data in Canal and allows you
-to subscribe to and consume incremental data. You can use Canal to synchronize incremental data from a Canal database to
-an Alibaba Cloud Elasticsearch cluster.
+Canal is an open source product provided by Alibaba Group. Canal can parse incremental log data in Canal and allows you to subscribe to and consume incremental data. You can use Canal to synchronize incremental data from a Canal database to an Alibaba Cloud Elasticsearch cluster.
 
 ---
 
-## Install Canal Admin using Docker Compose
+## Install Canal Admin Using Docker Compose
 
 - ### Prerequisite
     - **Before installing Canal Admin, you must [install the MySQL](../mysql).**
-    - **You must import the Canal
-      Admin [SQL script](https://github.com/alibaba/canal/blob/master/admin/admin-web/src/main/resources/canal_manager.sql)
-      .**
+    - **You must import the Canal Admin [SQL script](https://github.com/alibaba/canal/blob/master/admin/admin-web/src/main/resources/canal_manager.sql).**
 
-1. Before setting everything else, create a directory for Canal Admin home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Canal Admin home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/canal-admin/logs
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -37,26 +32,23 @@ an Alibaba Cloud Elasticsearch cluster.
    CANAL_ADMIN_CANAL_ADMINPASSWD=admin
    ```
 
-3. Make sure you are in the same directory as canal-admin.yml and start Canal Admin, log in with username `admin` and
-   the password `123456`:
-
+3. Make sure you are in the same directory as canal-admin.yml and start Canal Admin, log in with username `admin` and the password `123456`:
+   
    ```shell
    $ docker-compose -f canal-admin.yml up -d
    ```
+   
+4. If something else goes wrong, for more detailed tutorial can be found on the [Alibaba Canal](https://github.com/alibaba/canal)
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Alibaba Canal](https://github.com/alibaba/canal)
+## Install Canal Standalone Mode Using Docker Compose
 
-## Install Canal standalone mode using Docker Compose
-
-1. Before setting everything else, create a directory for Canal home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Canal home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/canal/logs
    ```
-
-3. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
+   
+2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
    # canal common
@@ -73,28 +65,26 @@ an Alibaba Cloud Elasticsearch cluster.
    CANAL_REGISTER_IP=example.canal.com
    ```
 
-4. Make sure you are in the same directory as canal.yml and start Canal:
+3. Make sure you are in the same directory as canal.yml and start Canal:
 
    ```shell
    $ docker-compose -f canal.yml up -d
    ```
 
-5. If something else goes wrong, for more detailed tutorial can be found on
-   the [Alibaba Canal](https://github.com/alibaba/canal)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Alibaba Canal](https://github.com/alibaba/canal)
 
-## Install Canal cluster mode using Docker Compose
+## Install Canal Cluster Mode Using Docker Compose
 
 - ### Prerequisite
     - **Before installing Canal cluster mode, you must [install the Zookeeper](../zookeeper).**
     - **You must create a cluster named `canal-cluster` in the [Canal Admin](#install-canal-admin-using-docker-compose).**
 
-1. Before setting everything else, create a directory for Canal home mount. Ensure that the directory exists and
-   appropriate permission have been granted.
-
+1. Before setting everything else, create a directory for Canal home mount. Ensure that the directory exists and appropriate permission have been granted.
+   
    ```shell
    $ mkdir -vp ~/docker/canal-cluster/{node1,node2,node3}/logs
    ```
-
+   
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
@@ -128,5 +118,4 @@ an Alibaba Cloud Elasticsearch cluster.
    $ docker-compose -f canal-cluster.yml up -d
    ```
 
-4. If something else goes wrong, for more detailed tutorial can be found on
-   the [Alibaba Canal](https://hub.docker.com/r/bitnami/canal)
+4. If something else goes wrong, for more detailed tutorial can be found on the [Alibaba Canal](https://hub.docker.com/r/bitnami/canal)
