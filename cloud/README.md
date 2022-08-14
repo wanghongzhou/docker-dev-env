@@ -217,6 +217,10 @@
   rm -rf /var/lib/ceph/*
   rm -rf /var/log/ceph/*
   rm -rf /var/run/ceph/*
+  
+  # remove osd
+  lsblk
+  dmsetup remove --force ceph--fed0a738--e67f--4f1d--8a9d--055c2832bd88-osd--block--e18635b3--b703--4278--9ce5--b09585c812cc
   ```
 
 * Add ceph yum repository for every node
@@ -260,7 +264,7 @@
   yum install -y ceph-deploy
   ceph-deploy --version
   
-  # Create deploy
+  # Create deploy and monitor
   mkdir ~/ceph-deploy && cd ~/ceph-deploy
   ceph-deploy new k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4 k8s-node-5 k8s-node-6
   
@@ -351,7 +355,7 @@
   ceph mgr module enable dashboard
   
   # Configuration mgr
-  ceph config set mgr mgr/dashboard/server_addr 0.0.0.0
+  ceph config set mgr mgr/dashboard/server_addr 192.168.60.254
   ceph config set mgr mgr/dashboard/server_port 84
   ceph config set mgr mgr/dashboard/ssl_server_port 8484
   ceph config set mgr mgr/dashboard/ssl true
@@ -498,8 +502,8 @@
 * Test RadosGW
 
   ```shell
-  echo IETIUJTIOU40SJOP6RC2 > ceph_rgw_key
-  echo ZBw9p3kkVhmoIlGvlBi2T3KVr0nOZv5ORiwz8DTt > ceph_rgw_secret
+  echo KT3MJZ3M4MBM43AVBRLC > ceph_rgw_key
+  echo vjdT3pj1YaVizOu1VAkOLeMDh7E8zW657DYq96k0 > ceph_rgw_secret
   
   ceph dashboard set-rgw-api-access-key -i ceph_rgw_key
   ceph dashboard set-rgw-api-secret-key -i ceph_rgw_secret
@@ -624,7 +628,7 @@
 
    ```shell
    rpm -ivh https://github.com/Mirantis/cri-dockerd/releases/download/v0.2.5/cri-dockerd-0.2.5-3.el7.x86_64.rpm
-   sed -i 's#fd://#& --network-plugin=cni --pod-infra-container-image=registry.aliyuncs.com/google_containers/pause:3.7#g' /usr/lib/systemd/system/cri-docker.service
+   sed -i 's#fd://#& --network-plugin=cni --pod-infra-container-image=harbor.cloud.com/k8s.gcr.io/pause:3.7#g' /usr/lib/systemd/system/cri-docker.service
    
    cat << EOF | sudo tee /etc/crictl.yaml
    runtime-endpoint: unix:///var/run/cri-dockerd.sock
@@ -751,23 +755,6 @@
     server k8s-node-1  192.168.60.11:6443  check
     server k8s-node-2  192.168.60.12:6443  check
     server k8s-node-3  192.168.60.13:6443  check
-    
-  frontend ceph-dashboard
-    bind *:18484
-    mode tcp
-    option tcplog
-    tcp-request inspect-delay 5s
-    default_backend ceph-dashboard
-  
-  backend ceph-dashboard
-    mode tcp
-    option tcplog
-    option tcp-check
-    balance roundrobin
-    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
-    server k8s-node-1  192.168.60.11:8484  check
-    server k8s-node-2  192.168.60.12:8484  check
-    server k8s-node-3  192.168.60.13:8484  check
   EOF
   
   # Configuration HAProxy for k8s-node-1
@@ -897,7 +884,7 @@
 * If the installation fails, you can remove it with the following command:
 
   ```shell
-  kubeadm reset -f
+  kubeadm reset -f --cri-socket=unix:///var/run/cri-dockerd.sock
   rm -rf ~/.kube/
   rm -rf /etc/kubernetes/
   rm -rf /etc/systemd/system/kubelet.service.d
@@ -1115,7 +1102,8 @@
     
   # install calico and modify CALICO_IPV4POOL_CIDR
   curl -O https://docs.projectcalico.org/manifests/calico.yaml
-  vi calico-etcd
+  vi calico
+  image: harbor.cloud.com/docker.io/  # modify
   - name: CALICO_IPV4POOL_CIDR
     value: "172.90.0.0/16"
   - name: IP_AUTODETECTION_METHOD
@@ -1140,6 +1128,7 @@
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   
+  # Whether to make the master schedulable 
   kubectl taint nodes k8s-node-1 node-role.kubernetes.io/control-plane-
   kubectl taint nodes k8s-node-1 node-role.kubernetes.io/master:NoSchedule-
   kubectl taint nodes k8s-node-2 node-role.kubernetes.io/control-plane-
@@ -1164,6 +1153,11 @@
 
   ```shell
   curl -o kubernetes-dashboard.yaml https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.0/aio/deploy/recommended.yaml
+  
+  vi kubernetes-dashboard.yaml 
+  # modify
+  image: harbor.cloud.com/docker.io/
+  
   kubectl apply -f kubernetes-dashboard.yaml
   ```
 
@@ -1301,11 +1295,14 @@
   kubectl -n ceph-csi apply -f csi-provisioner-rbac.yaml
   
   # modify image in csi-rbdplugin.yaml and csi-rbdplugin-provisioner.yaml
-  gcr.lank8s.cn/k8s-staging-sig-storage/csi-provisioner:canary
-  registry.aliyuncs.com/google_containers/csi-resizer:v1.4.0
-  registry.aliyuncs.com/google_containers/csi-attacher:v3.4.0
-  registry.aliyuncs.com/google_containers/csi-snapshotter:v5.0.1
-  registry.aliyuncs.com/google_containers/csi-node-driver-registrar:v2.4.0
+  harbor.cloud.com/gcr.io/k8s-staging-sig-storage/csi-provisioner:canary
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.4.0
+  harbor.cloud.com/quay.io/cephcsi/cephcsi:v3.6-canary
+  
+  # apply 
   kubectl -n ceph-csi apply -f csi-rbdplugin.yaml
   kubectl -n ceph-csi apply -f csi-rbdplugin-provisioner.yaml
   kubectl get pod -A
@@ -1432,8 +1429,8 @@
   vi ingress-nginx.yaml
   
   # modify image
-  registry.aliyuncs.com/google_containers/kube-webhook-certgen:v1.1.1
-  registry.aliyuncs.com/google_containers/nginx-ingress-controller:v1.3.0
+  harbor.cloud.com/k8s.gcr.io/ingress-nginx/controller:v1.3.0
+  harbor.cloud.com/k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
   
   # add configuration
   kind: Deployment
@@ -1635,27 +1632,30 @@
   kind: Service
   metadata:
     name: ceph
+    namespace: ceph-csi
   spec:
     ports:
       - port: 443
         protocol: TCP
-        targetPort: 18484
+        targetPort: 8484
   ---
   apiVersion: v1
   kind: Endpoints
   metadata:
     name: ceph
+    namespace: ceph-csi
   subsets:
     - addresses:
         - ip: 192.168.60.254
       ports:
-        - port: 18484
+        - port: 8484
           protocol: TCP
   ---
   apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
     name: ingress-ceph
+    namespace: ceph-csi
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
