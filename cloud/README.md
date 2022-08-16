@@ -1248,7 +1248,7 @@
       ]
   EOF
   
-  cat << EOF | sudo tee ceph-config.yaml
+  cat << EOF | sudo tee csi-ceph-config.yaml
   apiVersion: v1
   kind: ConfigMap
   data:
@@ -1276,7 +1276,7 @@
   EOF
   
   # apply 
-  kubectl apply -f ceph-config.yaml
+  kubectl apply -f csi-ceph-config.yaml
   kubectl apply -f csi-configmap.yaml
   kubectl apply -f csi-kms-configmap.yaml
   ```
@@ -1539,7 +1539,7 @@
   kubectl create token kubernetes-dashboard-admin -n kubernetes-dashboard 
   ```
 
-### Config Kubesphere fro ingress
+### Config Kubesphere for ingress
 
 * add kubesphere rule
 
@@ -1548,8 +1548,8 @@
   apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
-    namespace: kubesphere-system
     name: ingress-kubesphere
+    namespace: kubesphere-system
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
@@ -1572,6 +1572,41 @@
   kubectl apply -f ingress-kubesphere.yaml
   ```
 
+### Config Jenkins for ingress
+
+* add kubesphere rule
+
+  ```shell
+  cat << EOF | sudo tee ingress-jenkins.yaml
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: ingress-jenkins
+    namespace: kubesphere-devops-system
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  spec:
+    rules:
+    - host: jenkins.cloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                 name: devops-jenkins 
+                 port:
+                   number: 80
+  EOF
+  
+  # apply 
+  kubectl apply -f ingress-jenkins.yaml
+  ```
+
+
+
 ### Config Harbor for ingress
 
 * Add harbor rule
@@ -1582,6 +1617,7 @@
   kind: Service
   metadata:
     name: harbor
+    namespace: ingress-nginx
   spec:
     ports:
       - port: 80
@@ -1592,6 +1628,7 @@
   kind: Endpoints
   metadata:
     name: harbor
+    namespace: ingress-nginx
   subsets:
     - addresses:
         - ip: 192.168.60.16
@@ -1603,6 +1640,7 @@
   kind: Ingress
   metadata:
     name: ingress-harbor
+    namespace: ingress-nginx
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
@@ -1635,7 +1673,7 @@
   kind: Service
   metadata:
     name: ceph
-    namespace: ceph-csi
+    namespace: ingress-nginx
   spec:
     ports:
       - port: 443
@@ -1646,7 +1684,7 @@
   kind: Endpoints
   metadata:
     name: ceph
-    namespace: ceph-csi
+    namespace: ingress-nginx
   subsets:
     - addresses:
         - ip: 192.168.60.254
@@ -1658,7 +1696,7 @@
   kind: Ingress
   metadata:
     name: ingress-ceph
-    namespace: ceph-csi
+    namespace: ingress-nginx
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
@@ -1696,6 +1734,7 @@
   kind: Service
   metadata:
     name: haproxy
+    namespace: ingress-nginx
   spec:
     ports:
       - port: 80
@@ -1706,6 +1745,7 @@
   kind: Endpoints
   metadata:
     name: haproxy
+    namespace: ingress-nginx
   subsets:
     - addresses:
         - ip: 192.168.60.254
@@ -1717,6 +1757,7 @@
   kind: Ingress
   metadata:
     name: ingress-haproxy
+    namespace: ingress-nginx
     annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
