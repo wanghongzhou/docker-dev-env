@@ -1738,5 +1738,3 @@
   # apply
   kubectl apply -f ingress-haproxy.yaml 
   ```
-
-## 
