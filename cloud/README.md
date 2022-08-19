@@ -264,9 +264,11 @@
   yum install -y ceph-deploy
   ceph-deploy --version
   
-  # Create deploy and monitor
+  # Install ceph and Create deploy
   mkdir ~/ceph-deploy && cd ~/ceph-deploy
+  ceph-deploy install --no-adjust-repos k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4 k8s-node-5 k8s-node-6
   ceph-deploy new k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4 k8s-node-5 k8s-node-6
+  ceph --version
   
   # Configuration ceph
   cat << EOF | sudo tee -a ceph.conf
@@ -330,10 +332,6 @@
   
   EOF
   
-  # Install ceph
-  ceph-deploy install --no-adjust-repos k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4 k8s-node-5 k8s-node-6
-  ceph --version
-  
   # Create moniter initial
   ceph-deploy mon create-initial
   
@@ -369,6 +367,7 @@
   ceph dashboard create-self-signed-cert
   echo "Password" > ceph_password
   ceph dashboard ac-user-create Admin -i ceph_password administrator
+  ceph mgr services
   ```
 
 * Create OSD
@@ -582,9 +581,7 @@
           "max-file": "5"
       },
       "registry-mirrors": [
-          "https://ccr.ccs.tencentyun.com",
-          "https://ustc-edu-cn.mirror.aliyuncs.com",
-          "https://e9yneuy4.mirror.aliyuncs.com"
+          "https://docker.nju.edu.cn"
       ],
       "insecure-registries": ["harbor.cloud.com"]
   }
@@ -676,12 +673,13 @@
 
 * Add Registries in Harbor
 
-  | Provider   | Name       | Endpoint URL          | Access ID |
-  | ---------- | ---------- | --------------------- | --------- |
-  | Docker Hub | docker.io  | default               | empty     |
-  | Quay       | quay.io    | https://quay.io       | empty     |
-  | Quay       | gcr.io     | https://gcr.lank8s.cn | empty     |
-  | Quay       | k8s.gcr.io | https://lank8s.cn     | empty     |
+  | Provider | Name       | Endpoint URL              | Access ID |
+  | -------- | ---------- | ------------------------- | --------- |
+  | Quay     | docker.io  | https://docker.nju.edu.cn | empty     |
+  | Quay     | quay.io    | https://docker.nju.edu.cn | empty     |
+  | Quay     | gcr.io     | https://gcr.lank8s.cn     | empty     |
+  | Quay     | k8s.gcr.io | https://lank8s.cn         | empty     |
+  | Quay     | ghcr.io    | https://ghcr.nju.edu.cn   |           |
 
 * Add Project in Harbor
 
@@ -691,6 +689,7 @@
   | quay.io      | Public       | Yes         | quay.io    |
   | gcr.io       | Public       | Yes         | gcr.io     |
   | k8s.gcr.io   | Public       | Yes         | k8s.gcr.io |
+  | ghcr.io      | Public       | Yes         | ghcr.io    |
 
 * Test docker pull from proxy
 
@@ -1164,7 +1163,15 @@
   kubectl apply -f kubernetes-dashboard.yaml
   ```
 
-## Install metrics-server
+## Install Metrics-server
+
+* Add --enable-aggregator-routing=true to Kube-Apiserver
+
+  ```shell
+  # add to k8s-node-1, k8s-node-2, k8s-node-3
+  vi /etc/kubernetes/manifests/kube-apiserver.yaml
+  --enable-aggregator-routing=true
+  ```
 
 * Deploy metrics-server
 
@@ -1493,7 +1500,6 @@
     tls:
       - hosts:
         - "k8s.cloud.com"
-        secretName: kubernetes-dashboard-certs
     rules:
     - host: k8s.cloud.com
       http:
@@ -1510,7 +1516,7 @@
   # apply 
   kubectl apply -f ingress-dashboard.yaml
   ```
-
+  
 * Create a user for the Dashboard
 
   ```shell
@@ -1574,7 +1580,7 @@
 
 ### Config Jenkins for ingress
 
-* add kubesphere rule
+* add jenkins rule
 
   ```shell
   cat << EOF | sudo tee ingress-jenkins.yaml
@@ -1605,7 +1611,77 @@
   kubectl apply -f ingress-jenkins.yaml
   ```
 
+### Config ArgoCD for ingress
 
+* add argocd rule
+
+  ```shell
+  cat << EOF | sudo tee ingress-argocd.yaml
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    namespace: argocd
+    name: ingress-argocd
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.org/ssl-services: "devops-argocd-server"
+  spec:
+    tls:
+      - hosts:
+        - "argocd.cloud.com"
+    rules:
+    - host: argocd.cloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                 name: devops-argocd-server
+                 port:
+                   number: 443
+  EOF
+  
+  # apply 
+  kubectl apply -f ingress-argocd.yaml
+  ```
+
+### Config Weave Scope for ingress
+
+* Add weave scope rule
+
+  ```shell
+  cat << EOF | sudo tee ingress-weave.yaml
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    namespace: weave
+    name: ingress-weave
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  spec:
+    rules:
+    - host: weave.cloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                 name: weave-scope-app
+                 port:
+                   number: 80
+  EOF
+  
+  # apply
+  kubectl apply -f ingress-weave.yaml 
+  ```
 
 ### Config Harbor for ingress
 
