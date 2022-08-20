@@ -283,6 +283,7 @@
   mon clock drift warn backoff = 30
   mon osd min down reporters = 10
   mon osd down out interval = 600
+  mon allow pool delete = true
   
   [osd]
   osd mkfs type = xfs
