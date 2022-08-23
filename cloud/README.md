@@ -229,21 +229,21 @@
   cat << EOF | sudo tee /etc/yum.repos.d/ceph.repo
   [ceph]
   name=ceph
-  baseurl=https://mirrors.aliyun.com/ceph/rpm-nautilus/el7/x86_64/
+  baseurl=https://mirrors.aliyun.com/ceph/rpm-octopus/el7/x86_64/
   enabled=1
   gpgcheck=0
   priority=1
   
   [ceph-noarch]
   name=cephnoarch
-  baseurl=https://mirrors.aliyun.com/ceph/rpm-nautilus/el7/noarch/
+  baseurl=https://mirrors.aliyun.com/ceph/rpm-octopus/el7/noarch/
   enabled=1
   gpgcheck=0
   priority=1
   
   [ceph-source]
   name=Ceph source packages
-  baseurl=https://mirrors.aliyun.com/ceph/rpm-nautilus/el7/SRPMS
+  baseurl=https://mirrors.aliyun.com/ceph/rpm-octopus/el7/SRPMS
   enabled=1
   gpgcheck=0
   priority=1
@@ -353,13 +353,13 @@
   yum install -y ceph-mgr-dashboard 
   ceph mgr module enable dashboard
   
-  # Configuration mgr
-  ceph config set mgr mgr/dashboard/server_addr 192.168.60.254
+  # Configuration mgr on k8s-node-1，k8s-node-2，k8s-node-3
+  ceph config set mgr mgr/dashboard/server_addr 0.0.0.0
   ceph config set mgr mgr/dashboard/server_port 84
   ceph config set mgr mgr/dashboard/ssl_server_port 8484
   ceph config set mgr mgr/dashboard/ssl true
   
-  # Restart mgr
+  # Restart mgr on k8s-node-1，k8s-node-2，k8s-node-3
   ceph mgr module disable dashboard
   ceph mgr module enable dashboard
   ceph mgr services
@@ -1066,7 +1066,7 @@
       dataDir: /var/lib/etcd
   imageRepository: registry.aliyuncs.com/google_containers
   kind: ClusterConfiguration
-  kubernetesVersion: 1.24.3
+  kubernetesVersion: 1.24.4
   networking:
     dnsDomain: cluster.local
     podSubnet: 172.90.0.0/16
@@ -1155,7 +1155,7 @@
 * The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
   ```shell
-  curl -o kubernetes-dashboard.yaml https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.0/aio/deploy/recommended.yaml
+  curl -o kubernetes-dashboard.yaml https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
   
   vi kubernetes-dashboard.yaml 
   # modify
@@ -1292,10 +1292,10 @@
 * Add RBAC and rbdplugin to kubernetes
 
   ```shell
-  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.6/deploy/rbd/kubernetes/csi-nodeplugin-rbac.yaml
-  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.6/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml
-  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.6/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml
-  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.6/deploy/rbd/kubernetes/csi-rbdplugin.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-nodeplugin-rbac.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-rbdplugin.yaml
   
   # update default namespace
   grep -rl "namespace: default" ./
@@ -1306,12 +1306,12 @@
   kubectl -n ceph-csi apply -f csi-provisioner-rbac.yaml
   
   # modify image in csi-rbdplugin.yaml and csi-rbdplugin-provisioner.yaml
-  harbor.cloud.com/gcr.io/k8s-staging-sig-storage/csi-provisioner:canary
-  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1
-  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
-  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
-  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.4.0
-  harbor.cloud.com/quay.io/cephcsi/cephcsi:v3.6-canary
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-provisioner:v3.2.1
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-snapshotter:v6.0.1
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-attacher:v3.5.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-resizer:v1.5.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.1
+  harbor.cloud.com/quay.io/cephcsi/cephcsi:v3.7-canary
   
   # apply 
   kubectl -n ceph-csi apply -f csi-rbdplugin.yaml
@@ -1341,7 +1341,7 @@
      csi.storage.k8s.io/controller-expand-secret-namespace: ceph-csi
      csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret
      csi.storage.k8s.io/node-stage-secret-namespace: ceph-csi
-     csi.storage.k8s.io/fstype: ext4
+     csi.storage.k8s.io/fstype: xfs
   reclaimPolicy: Delete
   allowVolumeExpansion: true
   mountOptions:
