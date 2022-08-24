@@ -18,14 +18,16 @@ MySQL is an open source SQL relational database management system that’s devel
 
    ```properties
    [mysqld]
+   authentication_policy=mysql_native_password
    character-set-server=utf8mb4
    collation-server=utf8mb4_general_ci
    default-storage-engine=INNODB
    sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
    default-time-zone='+8:00'
    max_connections=2048
-   skip-host-cache
+   host_cache_size=0
    skip-name-resolve
+   skip_slave_start
    log-bin=mysql-bin
    binlog_format=mixed
    
