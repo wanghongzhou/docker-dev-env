@@ -21,7 +21,7 @@ GitLab is a management platform for Git repositories that provides integrated fe
 2. Modify the `.env` file, you can fine tune these configurations to meet your requirements.
 
    ```properties
-   GITLAB_IMAGE=gitlab/gitlab-ce:15.2.2-ce.0
+   GITLAB_IMAGE=gitlab/gitlab-ce:15.3.1-ce.0
    GITLAB_HOME=~/docker/gitlab         # Gitlab mount path, the GitLab container uses host mounted volumes to store persistent data.
    GITLAB_HOSTNAME=gitlab.example.com  # Domain name or public IP address.
    GITLAB_PORT_22=22                   # SSH port, port 22 cannot be used because it conflicts with the host.

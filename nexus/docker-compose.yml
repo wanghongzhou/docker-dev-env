@@ -6,8 +6,8 @@ services:
     container_name: nexus
     restart: always
     environment:
-      - TZ=Asia/Shanghai
-      - INSTALL4J_ADD_VM_PARAMS=${NEXUS_INSTALL4J_ADD_VM_PARAMS}
+      TZ: Asia/Shanghai
+      INSTALL4J_ADD_VM_PARAMS: ${NEXUS_INSTALL4J_ADD_VM_PARAMS}
     volumes:
       - ${NEXUS_HOME}/:/nexus-data
     ports:

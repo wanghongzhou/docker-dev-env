@@ -28,7 +28,7 @@ Nacos is committed to help you discover, configure, and manage your microservice
 
     ```properties
     # common
-    NACOS_IMAGE=nacos/nacos-server:v2.1.0
+    NACOS_IMAGE=nacos/nacos-server:v2.1.1
     NACOS_JVM_XMS=512m
     NACOS_JVM_XMX=512m
     NACOS_AUTH_ENABLE=false
@@ -68,7 +68,7 @@ Nacos is committed to help you discover, configure, and manage your microservice
 
     ```properties
     # common
-    NACOS_IMAGE=nacos/nacos-server:v2.1.0
+    NACOS_IMAGE=nacos/nacos-server:v2.1.1
     NACOS_JVM_XMS=512m
     NACOS_JVM_XMX=512m
     NACOS_AUTH_ENABLE=false
