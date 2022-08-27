@@ -254,7 +254,8 @@
 
   ```shell
   # Install depends on all host
-  yum install -y python-setuptools python-pecan
+  yum install python3
+  yum install -y python-setuptools
   ```
 
 * Install ceph-deploy and deploy
@@ -350,7 +351,13 @@
 
   ```shell
   # Install dashboard on k8s-node-1，k8s-node-2，k8s-node-3
-  yum install -y ceph-mgr-dashboard 
+  pip3 install python3-cherrypy
+  pip3 install python3-routes
+  pip3 install Werkzeug
+  pip3 install PyJWT
+  pip3 install pecan
+  pip3 install more-itertools
+  yum install -y ceph-mgr-dashboard --skip-broken
   ceph mgr module enable dashboard
   
   # Configuration mgr on k8s-node-1，k8s-node-2，k8s-node-3
@@ -452,6 +459,7 @@
   ceph osd pool set cehpfs-data size 2       # Set the number of replices as required
   ceph fs new cephfs cehpfs-metadata cehpfs-data
   ceph fs status cephfs
+  ceph fs ls
   ```
 
 * Create account
@@ -1200,6 +1208,21 @@
               caps osd = "profile rbd pool=kubernetes"
       exported keyring for client.kubernetes
   
+  ceph auth get client.cephfs
+      [client.cephfs]
+              key = AQCV0fNiIXRVFBAAiKcC9zkmpcMoib5OyTVZeg==
+              caps mds = "allow rw"
+              caps mon = "allow r"
+              caps osd = "allow rw pool=cephfs-data, allow rw pool=cephfs-metadata"
+  
+  ceph auth get client.admin
+      [client.admin]
+              key = AQBAmgNjcKxwGxAANjoDA2L12Ap403+qjB4tCA==
+              caps mds = "allow *"
+              caps mgr = "allow *"
+              caps mon = "allow *"
+              caps osd = "allow *"
+              
   cat << EOF | sudo tee csi-rbd-secret.yaml
   apiVersion: v1
   kind: Secret
@@ -1211,8 +1234,22 @@
     userKey: AQDU7PFiYVhBDxAA3vx3VdOTcwzyS1j4qBmxFQ==
   EOF
   
+  cat << EOF | sudo tee csi-cephfs-secret.yaml
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: csi-cephfs-secret
+    namespace: ceph-csi
+  stringData:
+    userID: cephfs
+    userKey: AQCV0fNiIXRVFBAAiKcC9zkmpcMoib5OyTVZeg==
+    adminID: admin
+    adminKey: AQBAmgNjcKxwGxAANjoDA2L12Ap403+qjB4tCA==
+  EOF
+  
   kubectl create ns ceph-csi
   kubectl apply -f csi-rbd-secret.yaml
+  kubectl apply -f csi-cephfs-secret.yaml
   ```
 
 * Add ConfigMap to kubernates
@@ -1284,8 +1321,8 @@
   EOF
   
   # apply 
-  kubectl apply -f csi-ceph-config.yaml
   kubectl apply -f csi-configmap.yaml
+  kubectl apply -f csi-ceph-config.yaml
   kubectl apply -f csi-kms-configmap.yaml
   ```
 
@@ -1316,6 +1353,32 @@
   # apply 
   kubectl -n ceph-csi apply -f csi-rbdplugin.yaml
   kubectl -n ceph-csi apply -f csi-rbdplugin-provisioner.yaml
+  kubectl get pod -A
+  
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-nodeplugin-rbac.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-provisioner-rbac.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-cephfsplugin-provisioner.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-cephfsplugin.yaml
+  
+  # update default namespace
+  grep -rl "namespace: default" ./
+  sed -i "s/namespace: default/namespace: ceph-csi/g" $(grep -rl "namespace: default" ./)
+  
+  # apply
+  kubectl -n ceph-csi apply -f csi-nodeplugin-rbac.yaml
+  kubectl -n ceph-csi apply -f csi-provisioner-rbac.yaml
+  
+  # modify image in csi-rbdplugin.yaml and csi-rbdplugin-provisioner.yaml
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-provisioner:v3.2.1
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-snapshotter:v6.0.1
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-attacher:v3.5.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-resizer:v1.5.0
+  harbor.cloud.com/k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.1
+  harbor.cloud.com/quay.io/cephcsi/cephcsi:v3.7-canary
+  
+  # apply 
+  kubectl -n ceph-csi apply -f csi-cephfsplugin.yaml
+  kubectl -n ceph-csi apply -f csi-cephfsplugin-provisioner.yaml
   kubectl get pod -A
   ```
 
@@ -1348,7 +1411,31 @@
    - discard
   EOF
   
+  cat << EOF | sudo tee csi-cephfs-sc.yaml
+  apiVersion: storage.k8s.io/v1
+  kind: StorageClass
+  metadata:
+     name: csi-cephfs-sc
+     namespace: ceph-csi
+  provisioner: cephfs.csi.ceph.com
+  parameters:
+     clusterID: a6893219-4fa6-437e-9de1-79c77c835fdb
+     fsName: cephfs
+     pool: cehpfs-data
+     csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret
+     csi.storage.k8s.io/provisioner-secret-namespace: ceph-csi
+     csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret
+     csi.storage.k8s.io/controller-expand-secret-namespace: ceph-csi
+     csi.storage.k8s.io/node-stage-secret-name: csi-cephfs-secret
+     csi.storage.k8s.io/node-stage-secret-namespace: ceph-csi
+  reclaimPolicy: Delete
+  allowVolumeExpansion: true
+  mountOptions:
+   - discard
+  EOF
+  
   kubectl -n ceph-csi apply -f csi-rbd-sc.yaml
+  kubectl -n ceph-csi apply -f csi-cephfs-sc.yaml
   kubectl get sc
   ```
 
@@ -1377,6 +1464,27 @@
   rbd info kubernetes/csi-vol-8f99227f-17c2-11ed-ba7b-e62cced8c67d
   ceph df
   kubectl delete -f csi-rbd-test.yaml
+  
+  cat << EOF | sudo tee csi-cephfs-test.yaml
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: cephfs-pvc
+  spec:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: csi-cephfs-sc
+  EOF
+  
+  kubectl apply -f csi-cephfs-test.yaml
+  kubectl get pvc
+  kubectl get pv
+  rbd ls cehpfs-data
+  ceph df
+  kubectl delete -f csi-cephfs-test.yaml
   ```
 
 ## Install KubeSphere
