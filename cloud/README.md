@@ -1333,6 +1333,7 @@
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csi-rbdplugin.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/rbd/kubernetes/csidriver.yaml
   
   # update default namespace
   grep -rl "namespace: default" ./
@@ -1359,6 +1360,7 @@
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-provisioner-rbac.yaml
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-cephfsplugin-provisioner.yaml
   curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csi-cephfsplugin.yaml
+  curl -O https://raw.githubusercontent.com/ceph/ceph-csi/release-v3.7/deploy/cephfs/kubernetes/csidriver.yaml
   
   # update default namespace
   grep -rl "namespace: default" ./
