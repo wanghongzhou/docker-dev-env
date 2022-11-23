@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: kubesphere-devops-system
+  name: ingress-jenkins
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: jenkins.cloud.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+               name: devops-jenkins 
+               port:
+                 number: 80

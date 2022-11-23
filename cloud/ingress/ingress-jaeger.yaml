@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: istio-system
+  name: ingress-jaeger
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: jaeger.cloud.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+               name: jaeger-query
+               port:
+                 number: 16686

@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: istio-system
+  name: ingress-istio
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/rewrite-target: /productpage
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.org/ssl-services: "istiod-1-11-2"
+spec:
+  tls:
+    - hosts:
+      - "istio.cloud.com"
+  rules:
+  - host: istio.cloud.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+               name: istiod-1-11-2
+               port:
+                 number: 15014
