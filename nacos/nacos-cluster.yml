@@ -13,6 +13,10 @@ services:
       - JVM_XMS=${NACOS_JVM_XMS}
       - JVM_XMX=${NACOS_JVM_XMX}
       - NACOS_AUTH_ENABLE=${NACOS_AUTH_ENABLE}
+      - NACOS_AUTH_TOKEN=${NACOS_AUTH_TOKEN}
+      - NACOS_AUTH_CACHE_ENABLE=${NACOS_AUTH_CACHE_ENABLE}
+      - NACOS_AUTH_IDENTITY_KEY=${NACOS_AUTH_IDENTITY_KEY}
+      - NACOS_AUTH_IDENTITY_VALUE=${NACOS_AUTH_IDENTITY_VALUE}
       - PREFER_HOST_MODE=${NACOS_PREFER_HOST_MODE}
       - SPRING_DATASOURCE_PLATFORM=mysql
       - MYSQL_SERVICE_HOST=${NACOS_MYSQL_SERVICE_HOST}
@@ -23,14 +27,14 @@ services:
       - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node1/logs:/home/nacos/logs
-      - ${NACOS_CLUSTER_HOME}/node1/init.d/custom.properties:/home/nacos/init.d/custom.properties
     networks:
       - mysql
       - nacos_cluster
     ports:
+      - ${NACOS_CLUSTER_NODE1_PORT_7848}:7848
       - ${NACOS_CLUSTER_NODE1_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE1_PORT_9848}:9848
-      - ${NACOS_CLUSTER_NODE1_PORT_9555}:9555
+      - ${NACOS_CLUSTER_NODE1_PORT_9849}:9849
   nacos-cluster-node2:
     image: ${NACOS_IMAGE}
     container_name: nacos-cluster-node2
@@ -43,6 +47,10 @@ services:
       - JVM_XMS=${NACOS_JVM_XMS}
       - JVM_XMX=${NACOS_JVM_XMX}
       - NACOS_AUTH_ENABLE=${NACOS_AUTH_ENABLE}
+      - NACOS_AUTH_TOKEN=${NACOS_AUTH_TOKEN}
+      - NACOS_AUTH_CACHE_ENABLE=${NACOS_AUTH_CACHE_ENABLE}
+      - NACOS_AUTH_IDENTITY_KEY=${NACOS_AUTH_IDENTITY_KEY}
+      - NACOS_AUTH_IDENTITY_VALUE=${NACOS_AUTH_IDENTITY_VALUE}
       - PREFER_HOST_MODE=${NACOS_PREFER_HOST_MODE}
       - SPRING_DATASOURCE_PLATFORM=mysql
       - MYSQL_SERVICE_HOST=${NACOS_MYSQL_SERVICE_HOST}
@@ -53,14 +61,14 @@ services:
       - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node2/logs:/home/nacos/logs
-      - ${NACOS_CLUSTER_HOME}/node2/init.d/custom.properties:/home/nacos/init.d/custom.properties
     networks:
       - mysql
       - nacos_cluster
     ports:
+      - ${NACOS_CLUSTER_NODE2_PORT_7848}:7848
       - ${NACOS_CLUSTER_NODE2_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE2_PORT_9848}:9848
-      - ${NACOS_CLUSTER_NODE2_PORT_9555}:9555
+      - ${NACOS_CLUSTER_NODE2_PORT_9849}:9849
   nacos-cluster-node3:
     image: ${NACOS_IMAGE}
     container_name: nacos-cluster-node3
@@ -73,6 +81,10 @@ services:
       - JVM_XMS=${NACOS_JVM_XMS}
       - JVM_XMX=${NACOS_JVM_XMX}
       - NACOS_AUTH_ENABLE=${NACOS_AUTH_ENABLE}
+      - NACOS_AUTH_TOKEN=${NACOS_AUTH_TOKEN}
+      - NACOS_AUTH_CACHE_ENABLE=${NACOS_AUTH_CACHE_ENABLE}
+      - NACOS_AUTH_IDENTITY_KEY=${NACOS_AUTH_IDENTITY_KEY}
+      - NACOS_AUTH_IDENTITY_VALUE=${NACOS_AUTH_IDENTITY_VALUE}
       - PREFER_HOST_MODE=${NACOS_PREFER_HOST_MODE}
       - SPRING_DATASOURCE_PLATFORM=mysql
       - MYSQL_SERVICE_HOST=${NACOS_MYSQL_SERVICE_HOST}
@@ -83,14 +95,14 @@ services:
       - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=utf8&connectTimeout=3000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     volumes:
       - ${NACOS_CLUSTER_HOME}/node3/logs:/home/nacos/logs
-      - ${NACOS_CLUSTER_HOME}/node3/init.d/custom.properties:/home/nacos/init.d/custom.properties
     networks:
       - mysql
       - nacos_cluster
     ports:
+      - ${NACOS_CLUSTER_NODE3_PORT_7848}:7848
       - ${NACOS_CLUSTER_NODE3_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE3_PORT_9848}:9848
-      - ${NACOS_CLUSTER_NODE3_PORT_9555}:9555
+      - ${NACOS_CLUSTER_NODE3_PORT_9849}:9849
 networks:
   nacos_cluster:
     driver: bridge

@@ -101,6 +101,7 @@ services:
       - TZ=Asia/Shanghai
       - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-2m-2s-async-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
     volumes:
+      - ${ROCKETMQ_HOME}/dashboard/tmp:/tmp
       - ${ROCKETMQ_2M_2S_ASYNC_HOME}/dashboard/logs:/root/logs
     depends_on:
       - rocketmq-2m-2s-async-namesrv

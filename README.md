@@ -117,7 +117,7 @@ Docker script for building the development environment.
 1. Execute the following command, you can customize the version you need by changing the version in the URL.
 
    ```shell
-   $ curl -L https://get.daocloud.io/docker/compose/releases/download/v2.7.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+   $ curl -L https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
    $ chmod +x /usr/local/bin/docker-compose
    ```
 

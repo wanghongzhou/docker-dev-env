@@ -18,7 +18,7 @@ services:
       - seata
     ports:
       - ${SEATA_PORT_7091}:7091
-      - ${SEATA_PORT_8091}:${SEATA_PORT_8091}
+      - ${SEATA_PORT_8091}:8091
 networks:
   seata:
     driver: bridge
