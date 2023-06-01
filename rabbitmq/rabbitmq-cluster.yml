@@ -4,7 +4,7 @@ services:
   rabbitmq-cluster-1:
     image: ${RABBITMQ_IMAGE}
     container_name: rabbitmq-cluster-1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - RABBITMQ_USERNAME
@@ -26,7 +26,7 @@ services:
   rabbitmq-cluster-2:
     image: ${RABBITMQ_IMAGE}
     container_name: rabbitmq-cluster-2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - RABBITMQ_USERNAME
@@ -49,7 +49,7 @@ services:
   rabbitmq-cluster-3:
     image: ${RABBITMQ_IMAGE}
     container_name: rabbitmq-cluster-3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - RABBITMQ_USERNAME

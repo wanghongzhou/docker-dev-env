@@ -4,7 +4,7 @@ services:
   zookeeper:
     image: ${ZOO_IMAGE}
     container_name: zookeeper
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE

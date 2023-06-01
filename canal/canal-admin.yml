@@ -4,7 +4,7 @@ services:
   canal-admin:
     image: ${CANAL_ADMIN_IMAGE}
     container_name: canal-admin
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - canal.adminUser=${CANAL_ADMIN_CANAL_ADMINUSER}

@@ -4,7 +4,7 @@ services:
   redis-sentinel-master:
     image: ${REDIS_IMAGE}
     container_name: redis-sentinel-master
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -20,10 +20,13 @@ services:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_MASTER_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
   redis-sentinel-slave-1:
     image: ${REDIS_IMAGE}
     container_name: redis-sentinel-slave-1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -39,15 +42,19 @@ services:
       - ${REDIS_SENTINEL_HOME}/slave-1/certs:/opt/bitnami/redis/certs
       - ${REDIS_SENTINEL_HOME}/slave-1/conf:/opt/bitnami/redis/mounted-etc
     depends_on:
-      - redis-sentinel-master
+      redis-sentinel-master:
+        condition: service_healthy
     networks:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_SLAVE1_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
   redis-sentinel-slave-2:
     image: ${REDIS_IMAGE}
     container_name: redis-sentinel-slave-2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -63,15 +70,19 @@ services:
       - ${REDIS_SENTINEL_HOME}/slave-2/certs:/opt/bitnami/redis/certs
       - ${REDIS_SENTINEL_HOME}/slave-2/conf:/opt/bitnami/redis/mounted-etc
     depends_on:
-      - redis-sentinel-master
+      redis-sentinel-master:
+          condition: service_healthy
     networks:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_SLAVE2_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
   redis-sentinel-sentinel-1:
     image: ${REDIS_SENTINEL_IMAGE}
     container_name: redis-sentinel-sentinel-1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
@@ -83,17 +94,23 @@ services:
     volumes:
       - ${REDIS_SENTINEL_HOME}/sentinel-1/conf:/bitnami/conf
     depends_on:
-      - redis-sentinel-master
-      - redis-sentinel-slave-1
-      - redis-sentinel-slave-2
+      redis-sentinel-master:
+        condition: service_healthy
+      redis-sentinel-slave-1:
+        condition: service_healthy
+      redis-sentinel-slave-2:
+        condition: service_healthy
     networks:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_SENTINEL1_PORT_26379}:26379
+    healthcheck:
+      test: redis-cli --no-auth-warning -p 26379 -a $$REDIS_SENTINEL_PASSWORD info | grep status=ok
+      interval: 2s
   redis-sentinel-sentinel-2:
     image: ${REDIS_SENTINEL_IMAGE}
     container_name: redis-sentinel-sentinel-2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
@@ -105,17 +122,23 @@ services:
     volumes:
       - ${REDIS_SENTINEL_HOME}/sentinel-2/conf:/bitnami/conf
     depends_on:
-      - redis-sentinel-master
-      - redis-sentinel-slave-1
-      - redis-sentinel-slave-2
+      redis-sentinel-master:
+        condition: service_healthy
+      redis-sentinel-slave-1:
+        condition: service_healthy
+      redis-sentinel-slave-2:
+        condition: service_healthy
     networks:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_SENTINEL2_PORT_26379}:26379
+    healthcheck:
+      test: redis-cli --no-auth-warning -p 26379 -a $$REDIS_SENTINEL_PASSWORD info | grep status=ok
+      interval: 2s
   redis-sentinel-sentinel-3:
     image: ${REDIS_SENTINEL_IMAGE}
     container_name: redis-sentinel-sentinel-3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_MASTER_PASSWORD=${REDIS_PASSWORD}
@@ -127,13 +150,19 @@ services:
     volumes:
       - ${REDIS_SENTINEL_HOME}/sentinel-3/conf:/bitnami/conf
     depends_on:
-      - redis-sentinel-master
-      - redis-sentinel-slave-1
-      - redis-sentinel-slave-2
+      redis-sentinel-master:
+        condition: service_healthy
+      redis-sentinel-slave-1:
+        condition: service_healthy
+      redis-sentinel-slave-2:
+        condition: service_healthy
     networks:
       - redis_sentinel
     ports:
       - ${REDIS_SENTINEL_SENTINEL3_PORT_26379}:26379
+    healthcheck:
+      test: redis-cli --no-auth-warning -p 26379 -a $$REDIS_SENTINEL_PASSWORD info | grep status=ok
+      interval: 2s
 networks:
   redis_sentinel:
     driver: bridge

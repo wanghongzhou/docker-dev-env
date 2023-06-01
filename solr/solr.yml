@@ -4,7 +4,7 @@ services:
   solr:
     image: ${SOLR_IMAGE}
     container_name: solr
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SOLR_OPTS

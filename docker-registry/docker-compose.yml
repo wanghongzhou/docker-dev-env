@@ -4,7 +4,7 @@ services:
   docker-registry:
     image: ${DOCKER_REGISTRY_IMAGE}
     container_name: docker-registry
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REGISTRY_AUTH=${DOCKER_REGISTRY_AUTH}

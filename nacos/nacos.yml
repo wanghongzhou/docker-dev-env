@@ -4,7 +4,7 @@ services:
   nacos:
     image: ${NACOS_IMAGE}
     container_name: nacos
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MODE=standalone
@@ -33,6 +33,9 @@ services:
       - ${NACOS_PORT_8848}:8848
       - ${NACOS_PORT_9848}:9848
       - ${NACOS_PORT_9849}:9849
+    healthcheck:
+      test: curl -Ls http://localhost:8848/nacos/actuator/health | grep UP
+      interval: 5s
 networks:
   nacos:
     driver: bridge

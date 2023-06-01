@@ -6,7 +6,7 @@ services:
   rocketmq-2m-2s-sync-namesrv:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-2m-2s-sync-namesrv
-    restart: always
+    restart: on-failure
     command: sh mqnamesrv
     environment:
       - TZ=Asia/Shanghai
@@ -20,7 +20,7 @@ services:
   rocketmq-2m-2s-sync-broker1:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-2m-2s-sync-broker1
-    restart: always
+    restart: on-failure
     command: sh mqbroker -n rocketmq-2m-2s-sync-namesrv:9876 -c ../conf/2m-2s-sync/broker-a.properties
     environment:
       - TZ=Asia/Shanghai
@@ -39,7 +39,7 @@ services:
   rocketmq-2m-2s-sync-broker2:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-2m-2s-sync-broker2
-    restart: always
+    restart: on-failure
     command: sh mqbroker -n rocketmq-2m-2s-sync-namesrv:9876 -c ../conf/2m-2s-sync/broker-b.properties
     environment:
       - TZ=Asia/Shanghai
@@ -58,7 +58,7 @@ services:
   rocketmq-2m-2s-sync-broker3:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-2m-2s-sync-broker3
-    restart: always
+    restart: on-failure
     command: sh mqbroker -n rocketmq-2m-2s-sync-namesrv:9876 -c ../conf/2m-2s-sync/broker-a-s.properties
     environment:
       - TZ=Asia/Shanghai
@@ -77,7 +77,7 @@ services:
   rocketmq-2m-2s-sync-broker4:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-2m-2s-sync-broker4
-    restart: always
+    restart: on-failure
     command: sh mqbroker -n rocketmq-2m-2s-sync-namesrv:9876 -c ../conf/2m-2s-sync/broker-b-s.properties
     environment:
       - TZ=Asia/Shanghai
@@ -96,7 +96,7 @@ services:
   rocketmq-2m-2s-sync-dashboard:
     image: ${ROCKETMQ_DASHBOARD_IMAGE}
     container_name: rocketmq-2m-2s-sync-dashboard
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-2m-2s-sync-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false

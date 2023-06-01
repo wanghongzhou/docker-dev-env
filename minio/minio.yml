@@ -4,7 +4,7 @@ services:
   minio:
     image: ${MINIO_IMAGE}
     container_name: minio
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
@@ -17,6 +17,9 @@ services:
     ports:
       - ${MINIO_PORT_9000}:9000
       - ${MINIO_PORT_9001}:9001
+    healthcheck:
+      test: curl -f http://localhost:9000/minio/health/live
+      interval: 5s
 networks:
   minio:
     driver: bridge

@@ -4,7 +4,7 @@ services:
   kibana:
     image: ${KIBANA_IMAGE}
     container_name: kibana
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - KIBANA_ELASTICSEARCH_URL=${KIBANA_ELASTICSEARCH_URL}

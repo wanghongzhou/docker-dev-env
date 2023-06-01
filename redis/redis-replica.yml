@@ -4,7 +4,7 @@ services:
   redis-replica-master:
     image: ${REDIS_IMAGE}
     container_name: redis-replica-master
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -18,10 +18,13 @@ services:
       - redis_replica
     ports:
       - ${REDIS_REPLICA_MASTER_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
   redis-replica-slave:
     image: ${REDIS_IMAGE}
     container_name: redis-replica-slave
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -34,11 +37,15 @@ services:
       - ${REDIS_REPLICA_HOME}/slave/certs:/opt/bitnami/redis/certs
       - ${REDIS_REPLICA_HOME}/slave/conf:/opt/bitnami/redis/mounted-etc
     depends_on:
-      - redis-replica-master
+      redis-replica-master:
+        condition: service_healthy
     networks:
       - redis_replica
     ports:
       - ${REDIS_REPLICA_SLAVE_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
 networks:
   redis_replica:
     driver: bridge

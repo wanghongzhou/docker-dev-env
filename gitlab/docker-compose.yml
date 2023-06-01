@@ -4,7 +4,7 @@ services:
   gitlab:
     image: ${GITLAB_IMAGE}
     container_name: gitlab
-    restart: always
+    restart: on-failure
     hostname: ${GITLAB_HOSTNAME}
     environment:
       - TZ=Asia/Shanghai

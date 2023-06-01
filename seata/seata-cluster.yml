@@ -4,7 +4,7 @@ services:
   seata-cluster-node1:
     image: ${SEATA_IMAGE}
     container_name: seata-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SEATA_IP=${SEATA_CLUSTER_NODE1_HOST}
@@ -19,10 +19,13 @@ services:
     ports:
       - ${SEATA_CLUSTER_NODE1_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE1_PORT_8091}:${SEATA_CLUSTER_NODE1_PORT_8091}
+    healthcheck:
+      test: curl -f http://localhost:7091/
+      interval: 5s
   seata-cluster-node2:
     image: ${SEATA_IMAGE}
     container_name: seata-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SEATA_IP=${SEATA_CLUSTER_NODE2_HOST}
@@ -37,10 +40,13 @@ services:
     ports:
       - ${SEATA_CLUSTER_NODE2_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE2_PORT_8091}:${SEATA_CLUSTER_NODE2_PORT_8091}
+    healthcheck:
+      test: curl -f http://localhost:7091/
+      interval: 5s
   seata-cluster-node3:
     image: ${SEATA_IMAGE}
     container_name: seata-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SEATA_IP=${SEATA_CLUSTER_NODE3_HOST}
@@ -55,6 +61,9 @@ services:
     ports:
       - ${SEATA_CLUSTER_NODE3_PORT_7091}:7091
       - ${SEATA_CLUSTER_NODE3_PORT_8091}:${SEATA_CLUSTER_NODE3_PORT_8091}
+    healthcheck:
+      test: curl -f http://localhost:7091/
+      interval: 5s
 networks:
   seata_cluster:
     driver: bridge

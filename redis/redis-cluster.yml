@@ -4,7 +4,7 @@ services:
   redis-cluster-node-1:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -21,10 +21,13 @@ services:
     ports:
       - ${REDIS_CLUSTER_NODE1_PORT_6379}:${REDIS_CLUSTER_NODE1_PORT_6379}
       - 1${REDIS_CLUSTER_NODE1_PORT_6379}:1${REDIS_CLUSTER_NODE1_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
   redis-cluster-node-2:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -41,10 +44,13 @@ services:
     ports:
       - ${REDIS_CLUSTER_NODE2_PORT_6379}:${REDIS_CLUSTER_NODE2_PORT_6379}
       - 1${REDIS_CLUSTER_NODE2_PORT_6379}:1${REDIS_CLUSTER_NODE2_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
   redis-cluster-node-3:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -61,10 +67,13 @@ services:
     ports:
       - ${REDIS_CLUSTER_NODE3_PORT_6379}:${REDIS_CLUSTER_NODE3_PORT_6379}
       - 1${REDIS_CLUSTER_NODE3_PORT_6379}:1${REDIS_CLUSTER_NODE3_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
   redis-cluster-node-4:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-4
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -81,10 +90,13 @@ services:
     ports:
       - ${REDIS_CLUSTER_NODE4_PORT_6379}:${REDIS_CLUSTER_NODE4_PORT_6379}
       - 1${REDIS_CLUSTER_NODE4_PORT_6379}:1${REDIS_CLUSTER_NODE4_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
   redis-cluster-node-5:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-5
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -101,10 +113,13 @@ services:
     ports:
       - ${REDIS_CLUSTER_NODE5_PORT_6379}:${REDIS_CLUSTER_NODE5_PORT_6379}
       - 1${REDIS_CLUSTER_NODE5_PORT_6379}:1${REDIS_CLUSTER_NODE5_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
   redis-cluster-node-6:
     image: ${REDIS_CLUSTER_IMAGE}
     container_name: redis-cluster-node-6
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_CLUSTER_DYNAMIC_IPS=no
@@ -120,16 +135,24 @@ services:
       - ${REDIS_CLUSTER_HOME}/node-6/certs:/opt/bitnami/redis/certs
       - ${REDIS_CLUSTER_HOME}/node-6/conf:/opt/bitnami/redis/mounted-etc
     depends_on:
-      - redis-cluster-node-1
-      - redis-cluster-node-2
-      - redis-cluster-node-3
-      - redis-cluster-node-4
-      - redis-cluster-node-5
+      redis-cluster-node-1:
+        condition: service_healthy
+      redis-cluster-node-2:
+        condition: service_healthy
+      redis-cluster-node-3:
+        condition: service_healthy
+      redis-cluster-node-4:
+        condition: service_healthy
+      redis-cluster-node-5:
+        condition: service_healthy
     networks:
       - redis_cluster
     ports:
       - ${REDIS_CLUSTER_NODE6_PORT_6379}:${REDIS_CLUSTER_NODE6_PORT_6379}
       - 1${REDIS_CLUSTER_NODE6_PORT_6379}:1${REDIS_CLUSTER_NODE6_PORT_6379}
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD -p $$REDIS_PORT_NUMBER ping | grep PONG
+      interval: 2s
 networks:
   redis_cluster:
     driver: bridge

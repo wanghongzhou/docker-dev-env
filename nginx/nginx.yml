@@ -4,7 +4,7 @@ services:
   nginx:
     image: ${NGINX_IMAGE}
     container_name: nginx
-    restart: always
+    restart: on-failure
     volumes:
       - ${NGINX_HOME}/data:/app
       - ${NGINX_HOME}/certs:/certs

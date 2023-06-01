@@ -4,7 +4,7 @@ services:
   mysql-replica-master:
     image: ${MYSQL_IMAGE}
     container_name: mysql-replica-master
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
@@ -22,10 +22,12 @@ services:
       - mysql_replica
     ports:
       - ${MYSQL_REPLICA_MASTER_PORT_3306}:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
   mysql-replica-slave-1:
     image: ${MYSQL_IMAGE}
     container_name: mysql-replica-slave-1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
@@ -44,10 +46,12 @@ services:
       - mysql_replica
     ports:
       - ${MYSQL_REPLICA_SLAVE1_PORT_3306}:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
   mysql-replica-slave-2:
     image: ${MYSQL_IMAGE}
     container_name: mysql-replica-slave-2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
@@ -66,10 +70,12 @@ services:
       - mysql_replica
     ports:
       - ${MYSQL_REPLICA_SLAVE2_PORT_3306}:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
   mysql-replica-slave-3:
     image: ${MYSQL_IMAGE}
     container_name: mysql-replica-slave-3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MYSQL_CHARACTER_SET
@@ -88,6 +94,8 @@ services:
       - mysql_replica
     ports:
       - ${MYSQL_REPLICA_SLAVE3_PORT_3306}:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
 networks:
   mysql_replica:
     driver: bridge

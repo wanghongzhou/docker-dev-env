@@ -4,7 +4,7 @@ services:
   elasticsearch:
     image: ${ELASTICSEARCH_IMAGE}
     container_name: elasticsearch
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - ELASTICSEARCH_HEAP_SIZE

@@ -4,7 +4,7 @@ services:
   nacos-cluster-node1:
     image: ${NACOS_IMAGE}
     container_name: nacos-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MODE=cluster
@@ -35,10 +35,13 @@ services:
       - ${NACOS_CLUSTER_NODE1_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE1_PORT_9848}:9848
       - ${NACOS_CLUSTER_NODE1_PORT_9849}:9849
+    healthcheck:
+      test: curl -Ls http://localhost:8848/nacos/actuator/health | grep UP
+      interval: 5s
   nacos-cluster-node2:
     image: ${NACOS_IMAGE}
     container_name: nacos-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MODE=cluster
@@ -69,10 +72,13 @@ services:
       - ${NACOS_CLUSTER_NODE2_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE2_PORT_9848}:9848
       - ${NACOS_CLUSTER_NODE2_PORT_9849}:9849
+    healthcheck:
+      test: curl -Ls http://localhost:8848/nacos/actuator/health | grep UP
+      interval: 5s
   nacos-cluster-node3:
     image: ${NACOS_IMAGE}
     container_name: nacos-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MODE=cluster
@@ -103,6 +109,9 @@ services:
       - ${NACOS_CLUSTER_NODE3_PORT_8848}:8848
       - ${NACOS_CLUSTER_NODE3_PORT_9848}:9848
       - ${NACOS_CLUSTER_NODE3_PORT_9849}:9849
+    healthcheck:
+      test: curl -Ls http://localhost:8848/nacos/actuator/health | grep UP
+      interval: 5s
 networks:
   nacos_cluster:
     driver: bridge

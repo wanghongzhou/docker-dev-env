@@ -4,7 +4,7 @@ services:
   jenkins:
     image: ${JENKINS_IMAGE}
     container_name: jenkins
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
     volumes:

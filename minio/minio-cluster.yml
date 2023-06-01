@@ -4,7 +4,7 @@ services:
   minio-cluster-node1:
     image: ${MINIO_IMAGE}
     container_name: minio-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MINIO_SKIP_CLIENT=yes
@@ -20,10 +20,13 @@ services:
     ports:
       - ${MINIO_CLUSTER_NODE1_PORT_9000}:9000
       - ${MINIO_CLUSTER_NODE1_PORT_9001}:9001
+    healthcheck:
+      test: curl -f http://localhost:9000/minio/health/live
+      interval: 5s
   minio-cluster-node2:
     image: ${MINIO_IMAGE}
     container_name: minio-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MINIO_SKIP_CLIENT=yes
@@ -39,10 +42,13 @@ services:
     ports:
       - ${MINIO_CLUSTER_NODE2_PORT_9000}:9000
       - ${MINIO_CLUSTER_NODE2_PORT_9001}:9001
+    healthcheck:
+      test: curl -f http://localhost:9000/minio/health/live
+      interval: 5s
   minio-cluster-node3:
     image: ${MINIO_IMAGE}
     container_name: minio-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MINIO_SKIP_CLIENT=yes
@@ -58,10 +64,13 @@ services:
     ports:
       - ${MINIO_CLUSTER_NODE3_PORT_9000}:9000
       - ${MINIO_CLUSTER_NODE3_PORT_9001}:9001
+    healthcheck:
+      test: curl -f http://localhost:9000/minio/health/live
+      interval: 5s
   minio-cluster-node4:
     image: ${MINIO_IMAGE}
     container_name: minio-cluster-node4
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - MINIO_SKIP_CLIENT=yes
@@ -77,6 +86,9 @@ services:
     ports:
       - ${MINIO_CLUSTER_NODE4_PORT_9000}:9000
       - ${MINIO_CLUSTER_NODE4_PORT_9001}:9001
+    healthcheck:
+      test: curl -f http://localhost:9000/minio/health/live
+      interval: 5s
 networks:
   minio_cluster:
     driver: bridge

@@ -4,7 +4,7 @@ services:
   canal-cluster-node1:
     image: ${CANAL_IMAGE}
     container_name: canal-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - canal.register.ip=${CANAL_CLUSTER_NODE1_REGISTER_IP}
@@ -29,7 +29,7 @@ services:
   canal-cluster-node2:
     image: ${CANAL_IMAGE}
     container_name: canal-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - canal.register.ip=${CANAL_CLUSTER_NODE2_REGISTER_IP}
@@ -54,7 +54,7 @@ services:
   canal-cluster-node3:
     image: ${CANAL_IMAGE}
     container_name: canal-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - canal.register.ip=${CANAL_CLUSTER_NODE3_REGISTER_IP}

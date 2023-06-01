@@ -4,7 +4,7 @@ services:
   zookeeper-cluster-node1:
     image: ${ZOO_IMAGE}
     container_name: zookeeper-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE
@@ -32,7 +32,7 @@ services:
   zookeeper-cluster-node2:
     image: ${ZOO_IMAGE}
     container_name: zookeeper-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE
@@ -60,7 +60,7 @@ services:
   zookeeper-cluster-node3:
     image: ${ZOO_IMAGE}
     container_name: zookeeper-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - ZOO_HEAP_SIZE

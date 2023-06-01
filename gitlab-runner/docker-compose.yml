@@ -4,7 +4,7 @@ services:
   gitlab-runner:
     image: ${GITLAB_RUNNER_IMAGE}
     container_name: gitlab-runner
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
     volumes:

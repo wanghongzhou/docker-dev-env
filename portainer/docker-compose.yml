@@ -4,7 +4,7 @@ services:
   portainer:
     image: ${PORTAINER_IMAGE}
     container_name: portainer
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
     volumes:

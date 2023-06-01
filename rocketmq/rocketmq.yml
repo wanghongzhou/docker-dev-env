@@ -6,7 +6,7 @@ services:
   rocketmq-namesrv:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-namesrv
-    restart: always
+    restart: on-failure
     command: sh mqnamesrv
     environment:
       - TZ=Asia/Shanghai
@@ -20,7 +20,7 @@ services:
   rocketmq-broker:
     image: ${ROCKETMQ_IMAGE}
     container_name: rocketmq-broker
-    restart: always
+    restart: on-failure
     command: sh mqbroker -n rocketmq-namesrv:9876 -c ../conf/broker.conf
     environment:
       - TZ=Asia/Shanghai
@@ -39,7 +39,7 @@ services:
   rocketmq-dashboard:
     image: ${ROCKETMQ_DASHBOARD_IMAGE}
     container_name: rocketmq-dashboard
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false

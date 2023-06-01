@@ -4,7 +4,7 @@ services:
   redis:
     image: ${REDIS_IMAGE}
     container_name: redis
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - REDIS_PASSWORD=${REDIS_PASSWORD}
@@ -17,6 +17,9 @@ services:
       - redis
     ports:
       - ${REDIS_PORT_6379}:6379
+    healthcheck:
+      test: redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 2s
 networks:
   redis:
     driver: bridge

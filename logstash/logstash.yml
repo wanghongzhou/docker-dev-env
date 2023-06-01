@@ -3,7 +3,7 @@ services:
   logstash:
     image: ${LOGSTASH_IMAGE}
     container_name: logstash
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - LOGSTASH_EXPOSE_API

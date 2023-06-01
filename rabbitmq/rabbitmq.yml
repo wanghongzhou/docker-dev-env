@@ -4,7 +4,7 @@ services:
   rabbitmq:
     image: ${RABBITMQ_IMAGE}
     container_name: rabbitmq
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - RABBITMQ_NODE_TYPE

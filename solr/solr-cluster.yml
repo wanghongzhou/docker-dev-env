@@ -4,7 +4,7 @@ services:
   solr-cluster-node1:
     image: ${SOLR_IMAGE}
     container_name: solr-cluster-node1
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SOLR_OPTS
@@ -26,7 +26,7 @@ services:
   solr-cluster-node2:
     image: ${SOLR_IMAGE}
     container_name: solr-cluster-node2
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SOLR_OPTS
@@ -48,7 +48,7 @@ services:
   solr-cluster-node3:
     image: ${SOLR_IMAGE}
     container_name: solr-cluster-node3
-    restart: always
+    restart: on-failure
     environment:
       - TZ=Asia/Shanghai
       - SOLR_OPTS
