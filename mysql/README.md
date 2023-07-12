@@ -56,7 +56,7 @@ MySQL is an open source SQL relational database management system that’s devel
 4. Make sure you are in the same directory as mysql.yml and start MySQL:
 
    ```shell
-   $ docker-compose -f mysql.yml up -d
+   $ docker-compose -f mongodb.yml up -d
    ```
 
 5. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami MySQL](https://hub.docker.com/r/bitnami/mysql)
@@ -92,7 +92,7 @@ MySQL is an open source SQL relational database management system that’s devel
 3. Make sure you are in the same directory as mysql-replica.yml and start MySQL:
 
    ```shell
-   $ docker-compose -f mysql-replica.yml up -d
+   $ docker-compose -f mongodb-replica.yml up -d
    ```
 
 4. If something else goes wrong, for more detailed tutorial can be found on the [Bitnami MySQL](https://hub.docker.com/r/bitnami/mysql)

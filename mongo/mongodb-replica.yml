@@ -1,0 +1,97 @@
+# https://hub.docker.com/r/bitnami/mysql
+
+services:
+  mongodb-primary:
+    image: ${MONGODB_IMAGE}
+    container_name: mongodb-primary
+    privileged: true
+    restart: on-failure
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=${MONGODB_REPLICA_SET_KEY}
+      - MONGODB_ADVERTISED_HOSTNAME=${MONGODB_REPLICA_PRIMARY_ADVERTISED_HOSTNAME}
+      - ALLOW_EMPTY_PASSWORD=${MONGODB_ALLOW_EMPTY_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_EXTRA_FLAGS=${MONGODB_EXTRA_FLAGS}
+      - MONGODB_ENABLE_JOURNAL=${MONGODB_ENABLE_JOURNAL}
+      - MONGODB_ENABLE_NUMACTL=${MONGODB_ENABLE_NUMACTL}
+      - MONGODB_ENABLE_DIRECTORY_PER_DB=${MONGODB_ENABLE_DIRECTORY_PER_DB}
+    volumes:
+      - ${MONGODB_REPLICA_PRIMARY_HOME}/primary:/bitnami/mongodb
+    networks:
+      - mongodb_replica
+    ports:
+      - ${MONGODB_REPLICA_PRIMARY_PORT_27017}:27017
+    healthcheck:
+      test: mongosh --eval 'db.runCommand("ping").ok' --quiet
+  mongodb-secondary:
+    image: ${MONGODB_IMAGE}
+    container_name: mongodb-secondary
+    privileged: true
+    restart: on-failure
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_KEY=${MONGODB_REPLICA_SET_KEY}
+      - MONGODB_ADVERTISED_HOSTNAME=${MONGODB_REPLICA_SECONDARY_ADVERTISED_HOSTNAME}
+      - MONGODB_INITIAL_PRIMARY_HOST=${MONGODB_REPLICA_PRIMARY_ADVERTISED_HOSTNAME}
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${MONGODB_ALLOW_EMPTY_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_EXTRA_FLAGS=${MONGODB_EXTRA_FLAGS}
+      - MONGODB_ENABLE_JOURNAL=${MONGODB_ENABLE_JOURNAL}
+      - MONGODB_ENABLE_NUMACTL=${MONGODB_ENABLE_NUMACTL}
+      - MONGODB_ENABLE_DIRECTORY_PER_DB=${MONGODB_ENABLE_DIRECTORY_PER_DB}
+    volumes:
+      - ${MONGODB_REPLICA_SECONDARY_HOME}/secondary:/bitnami/mongodb
+    networks:
+      - mongodb_replica
+    depends_on:
+      - mongodb-primary
+    ports:
+      - ${MONGODB_REPLICA_SECONDARY_PORT_27017}:27017
+    healthcheck:
+      test: mongosh --eval 'db.runCommand("ping").ok' --quiet
+  mongodb-arbiter:
+    image: ${MONGODB_IMAGE}
+    container_name: mongodb-arbiter
+    privileged: true
+    restart: on-failure
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_REPLICA_SET_KEY=${MONGODB_REPLICA_SET_KEY}
+      - MONGODB_ADVERTISED_HOSTNAME=${MONGODB_REPLICA_ARBITER_ADVERTISED_HOSTNAME}
+      - MONGODB_INITIAL_PRIMARY_HOST=${MONGODB_REPLICA_PRIMARY_ADVERTISED_HOSTNAME}
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=${MONGODB_ALLOW_EMPTY_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_EXTRA_FLAGS=${MONGODB_EXTRA_FLAGS}
+      - MONGODB_ENABLE_JOURNAL=${MONGODB_ENABLE_JOURNAL}
+      - MONGODB_ENABLE_NUMACTL=${MONGODB_ENABLE_NUMACTL}
+      - MONGODB_ENABLE_DIRECTORY_PER_DB=${MONGODB_ENABLE_DIRECTORY_PER_DB}
+    volumes:
+      - ${MONGODB_REPLICA_ARBITER_HOME}/arbiter:/bitnami/mongodb
+    networks:
+      - mongodb_replica
+    depends_on:
+      - mongodb-primary
+    ports:
+      - ${MONGODB_REPLICA_ARBITER_PORT_27017}:27017
+    healthcheck:
+      test: mongosh --eval 'db.runCommand("ping").ok' --quiet
+networks:
+  mongodb_replica:
+    driver: bridge

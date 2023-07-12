@@ -1,0 +1,30 @@
+# https://hub.docker.com/r/bitnami/mongodb
+
+services:
+  mongodb:
+    image: ${MONGODB_IMAGE}
+    container_name: mongodb
+    privileged: true
+    restart: on-failure
+    environment:
+      - TZ=Asia/Shanghai
+      - ALLOW_EMPTY_PASSWORD=${MONGODB_ALLOW_EMPTY_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_EXTRA_FLAGS=${MONGODB_EXTRA_FLAGS}
+      - MONGODB_ENABLE_JOURNAL=${MONGODB_ENABLE_JOURNAL}
+      - MONGODB_ENABLE_NUMACTL=${MONGODB_ENABLE_NUMACTL}
+      - MONGODB_ENABLE_DIRECTORY_PER_DB=${MONGODB_ENABLE_DIRECTORY_PER_DB}
+    volumes:
+      - ${MONGODB_HOME}:/bitnami/mongodb
+    networks:
+      - mongodb
+    ports:
+      - ${MONGODB_PORT_27017}:27017
+    healthcheck:
+      test: mongosh --eval 'db.runCommand("ping").ok' --quiet
+networks:
+  mongodb:
+    driver: bridge
