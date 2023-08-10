@@ -12,4 +12,5 @@ services:
       - ${PORTAINER_HOME}/data:/data
     ports:
       - ${PORTAINER_PORT_8000}:8000
+      - ${PORTAINER_PORT_9000}:9000
       - ${PORTAINER_PORT_9443}:9443
