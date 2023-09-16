@@ -752,7 +752,6 @@
     bind *:16443
     mode tcp
     option tcplog
-    tcp-request inspect-delay 5s
     default_backend k8s-master
   
   backend k8s-master
@@ -771,7 +770,7 @@
   global_defs {
     notification_email {
     }
-    router_id LVS_DEVEL
+    router_id LVS_1
     vrrp_skip_check_adv_addr
     vrrp_garp_interval 0
     vrrp_gna_interval 0
@@ -810,7 +809,7 @@
   global_defs {
     notification_email {
     }
-    router_id LVS_DEVEL
+    router_id LVS_2
     vrrp_skip_check_adv_addr
     vrrp_garp_interval 0
     vrrp_gna_interval 0
@@ -849,7 +848,7 @@
   global_defs {
     notification_email {
     }
-    router_id LVS_DEVEL
+    router_id LVS_3
     vrrp_skip_check_adv_addr
     vrrp_garp_interval 0
     vrrp_gna_interval 0
