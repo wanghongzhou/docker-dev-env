@@ -1019,6 +1019,7 @@ parameters:
    clusterID: 875542b2-52dc-11ee-81c0-208810bc0b1a
    fsName: k8s
    pool: cephfs.k8s.data
+   mounter: kernel
    csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret
    csi.storage.k8s.io/provisioner-secret-namespace: ceph-csi
    csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret
