@@ -1423,6 +1423,7 @@
      clusterID: a6893219-4fa6-437e-9de1-79c77c835fdb
      fsName: cephfs
      pool: cehpfs-data
+     mounter: kernel
      csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret
      csi.storage.k8s.io/provisioner-secret-namespace: ceph-csi
      csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret
