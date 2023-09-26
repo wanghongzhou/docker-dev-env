@@ -1028,8 +1028,6 @@ parameters:
    csi.storage.k8s.io/node-stage-secret-namespace: ceph-csi
 reclaimPolicy: Delete
 allowVolumeExpansion: true
-mountOptions:
- - discard
 EOF
 
 kubectl -n ceph-csi apply -f csi-rbd-ssd-sc.yaml
